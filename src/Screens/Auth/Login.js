@@ -27,41 +27,43 @@ const AdminLogin = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         
-        // const formDataMethod = new FormData();
-        // formDataMethod.append('email', formData.email);
-        // formDataMethod.append('password', formData.password);
-        // console.log(formData)
-        // document.querySelector('.loaderBox').classList.remove("d-none");
+        const formDataMethod = new FormData();
+        formDataMethod.append('email', formData.email);
+        formDataMethod.append('password', formData.password);
+        console.log(formData)
+        document.querySelector('.loaderBox').classList.remove("d-none");
 
-        // const apiUrl = 'https://custom2.mystagingserver.site/food-stadium/public/api/user-login';
+        const apiUrl = 'https://custom3.mystagingserver.site/Irving-Segal/public/api/login-user';
 
 
-        // try {
-        //     const response = await fetch(apiUrl, {
-        //         method: 'POST',
-        //         body: formDataMethod
-        //     });
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                body: formDataMethod
+            });
 
-        //     if (response.ok) {
-               
-        //         const responseData = await response.json();
-        //         localStorage.setItem('login', responseData.data.token);
-        //         console.log('Login Response:', responseData);
-        //         document.querySelector('.loaderBox').classList.add("d-none");
-        //         navigate('/dashboard')
+            if (response.ok  === true) {
+ 
+              
+                const responseData = await response.json();
+                console.log("responseData" , responseData)
+                localStorage.setItem('login', responseData.token);
+                console.log('Login Response:', responseData);
+                document.querySelector('.loaderBox').classList.add("d-none");
+                navigate('/dashboard')
                 
-        //     } else {
-        //         document.querySelector('.loaderBox').classList.add("d-none");
-        //         alert('Invalid Credentials')
+            } else {
+                document.querySelector('.loaderBox').classList.add("d-none");
+                alert('Invalid Credentials')
 
-        //         console.error('Login failed');
-        //     }
-        // } catch (error) {
-        //     document.querySelector('.loaderBox').classList.add("d-none");
-        //     console.error('Error:', error);
-        // }
+                console.error('Login failed');
+            }
+        } catch (error) {
+            document.querySelector('.loaderBox').classList.add("d-none");
+            console.error('Error:', error);
+        }
 
-        navigate('/dashboard')
+    
     };
 
 

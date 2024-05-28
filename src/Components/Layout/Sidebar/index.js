@@ -32,7 +32,7 @@ export const Sidebar = (props) => {
         </li>
 
         <li className="sidebar-li">
-          <Link className={`sideLink ${location.pathname.includes('#') ? 'active' : ''}`} to="#">
+          <Link className={`sideLink ${location.pathname.includes('#') ? 'active' : '/user-management'}`} to="/user-management">
             <span className="sideIcon">
               <FontAwesomeIcon icon={faUser} />
             </span>
@@ -41,7 +41,7 @@ export const Sidebar = (props) => {
         </li>
 
         <li className="sidebar-li">
-          <Link className={`sideLink ${location.pathname.includes('#') ? 'active' : ''}`} to="#">
+          <Link className={`sideLink ${location.pathname.includes('/book-management') ? 'active' : ''}`} to="/book-management">
             <span className="sideIcon">
               <FontAwesomeIcon icon={faBook} />
             </span>

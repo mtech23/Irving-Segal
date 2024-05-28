@@ -12,11 +12,11 @@ import CustomModal from "../../Components/CustomModal";
 import CustomPagination from "../../Components/CustomPagination"
 import CustomInput from "../../Components/CustomInput";
 import CustomButton from "../../Components/CustomButton";
-
+import {Getbookslist } from '../../api'
 
 import "./style.css";
 
-export const ProductManagement = () => {
+export const BookManagement = () => {
   const base_url = 'https://custom2.mystagingserver.site/food-stadium/public/'
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -26,19 +26,45 @@ export const ProductManagement = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [inputValue, setInputValue] = useState('');
-
-
-  const navigate = useNavigate();
-
+ 
+const [ books ,  setBooklists] = useState([])
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  console.log();
-
+  const navigate = useNavigate()
   const hanldeRoute = () => {
-    navigate('/add-product')
+    navigate('/add-book')
   }
+
+
+
+
+
+
+  const booklist = async () => {
+    try {
+      const response = await Getbookslist();
+      console.log("response", response)
+
+
+      setBooklists(response?.data)
+
+    } catch (error) {
+      console.error("Error in logging in:", error);
+
+      // toastAlert(error, ALERT_TYPES.ERROR);
+    }
+  };
+ 
+
+  const handleclick = () => {
+    navigate('/profile-page')
+  }
+  useEffect(() => {
+    booklist()
+  },[])
+console.log("books" , books)
 
 
   const inActive = () => {
@@ -54,8 +80,8 @@ export const ProductManagement = () => {
     setInputValue(e.target.value);
   }
 
-  const filterData = data.filter(item =>
-    item.title.toLowerCase().includes(inputValue.toLowerCase())
+  const filterData = books?.filter(item =>
+    item?.title.toLowerCase().includes(inputValue.toLowerCase())
   );
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -63,38 +89,9 @@ export const ProductManagement = () => {
   const currentItems = filterData.slice(indexOfFirstItem, indexOfLastItem);
 
 
-  const ProductData = () => {
-    const LogoutData = localStorage.getItem('login');
-    document.querySelector('.loaderBox').classList.remove("d-none");
-    fetch('https://custom2.mystagingserver.site/food-stadium/public/api/vendor/product_listing',
-      {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${LogoutData}`
-        },
-      }
-    )
-
-      .then(response =>
-        response.json()
-      )
-      .then((data) => {
-        console.log(data.data)
-        document.querySelector('.loaderBox').classList.add("d-none");
-        setData(data.data);
-      })
-      .catch((error) => {
-        document.querySelector('.loaderBox').classList.add("d-none");
-        console.log(error)
-      })
-
-  }
 
   useEffect(() => {
-    document.title = 'IRV Segal | Product Management';
-    ProductData()
+    document.title = 'IRV Segal | Book Management';
 
   }, []);
 
@@ -104,27 +101,39 @@ export const ProductManagement = () => {
       title: "S.No",
     },
     {
-      key: "image",
-      title: "Thumbnail",
+      key: "author",
+      title: "author",
     },
     {
-      key: "username",
-      title: "Name",
+      key: "Title",
+      title: "Title",
     },
     {
-      key: "price",
-      title: "Price",
+      key: "Pages",
+      title: "Pages",
     },
     {
-      key: "category",
-      title: "Category",
+      key: "Language",
+      title: "Language",
     },
     {
-      key: "created_at",
-      title: "Created On",
-    }
+      key: "Types ",
+      title: "Types ",
+    },
+    {
+      key: "Audiobook Duration  ",
+      title: "Audiobook Duration  ",
+    },
+    {
+      key: "action  ",
+      title: "action  ",
+    },
+    
+
   ];
 
+
+  console.log("currentItems" , currentItems)
 
   return (
     <>
@@ -135,11 +144,11 @@ export const ProductManagement = () => {
               <div className="dashCard">
                 <div className="row mb-3 justify-content-between">
                   <div className="col-md-6 mb-2">
-                    <h2 className="mainTitle">Product Management</h2>
+                    <h2 className="mainTitle">Book Management</h2>
                   </div>
                   <div className="col-md-6 mb-2">
                     <div className="addUser">
-                      <CustomButton text="Add New Product" variant='primaryButton' onClick={hanldeRoute} />
+                      <CustomButton text="Add New Book" variant='primaryButton' onClick={hanldeRoute} />
                       <CustomInput type="text" placeholder="Search Here..." value={inputValue} inputClass="mainInput" onChange={handleChange} />
                     </div>
                   </div>
@@ -154,15 +163,17 @@ export const ProductManagement = () => {
                         {currentItems.map((item, index) => (
                           <tr key={index}>
                             <td>{index + 1}</td>
-                            <td><img src={base_url + item?.product_images[0]?.image} className="avatarIcon" /></td>
+                            <td>{ item?.author} </td>
                             <td className="text-capitalize">
                               {item?.title}
                             </td>
-                            <td>{item?.price ? `$ ${item?.price}` : `$0`}</td>
-                            <td>{item?.category?.name}</td>
-                            <td>{item?.created_at}</td>
+                            <td>{item?.pages ? `$ ${item?.pages}` : `$0`}</td>
+                            <td>{item?.lang}</td>
+                            <td>{item?.type}</td>
+ 
+                            <td>{item?.audiobook_duration}</td>
                             {/* <td className={item.status == 1 ? 'greenColor' : "redColor"}>{item.status == 1 ? 'Active' : "Inactive"}</td> */}
-                            {/* <td>
+                            <td>
                               <Dropdown className="tableDropdown">
                                 <Dropdown.Toggle variant="transparent" className="notButton classicToggle">
                                   <FontAwesomeIcon icon={faEllipsisV} />
@@ -171,10 +182,11 @@ export const ProductManagement = () => {
 
                                   <Link to={`/book-management/book-details/${item?.id}`} className="tableAction"><FontAwesomeIcon icon={faEye} className="tableActionIcon" />View</Link>
                                   <Link to={`/book-management/edit-book/${item?.id}`} className="tableAction"><FontAwesomeIcon icon={faEdit} className="tableActionIcon" />Edit</Link>
+                                  <Link to={`/book-management/edit-book/${item?.id}`} className="tableAction"><FontAwesomeIcon icon={faEdit} className="tableActionIcon" />Delete</Link>
 
                                 </Dropdown.Menu>
                               </Dropdown>
-                            </td> */}
+                            </td>
                           </tr>
                         ))}
                       </tbody>

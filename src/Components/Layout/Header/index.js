@@ -5,6 +5,10 @@ import { logo, userImage, mtech } from './../../../Assets/images/'
 import { Navbar, Container, Nav, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CustomModal from "../../CustomModal";
+import { userLogoutRequest } from "../../../api";
+ 
+// import { useDispatch } from "react-redux";
+
 import { useNavigate } from "react-router-dom";
 import {
   faBell,
@@ -26,7 +30,7 @@ export const Header = (props) => {
   const [showModal2, setShowModal2] = useState(false);
 
   const navigate = useNavigate();
-
+ 
   const Continue = () => {
     setShowModal(false)
     setShowModal2(true)
@@ -37,31 +41,51 @@ export const Header = (props) => {
   }
 
   const handleRedirect = () => {
-    // const LogoutData = localStorage.getItem('login');
-    // fetch(`https://custom2.mystagingserver.site/food-stadium/public/api/logout`,
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json',
-    //       'Authorization': `Bearer ${LogoutData}`
-    //     },
-    //   },
-    // )
-    //   .then((response) => {
-    //     return response.json()
-    //   })
-    //   .then((data) => {
-    //     console.log(data)
-    //     localStorage.removeItem('login');
-    //     navigate('/');
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   })
+    const LogoutData = localStorage.getItem('login');
+    fetch(`https://custom3.mystagingserver.site/Irving-Segal/public/api/logout`,
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${LogoutData}`
+        },
+      },
+    )
+      .then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+        console.log(data)
+        localStorage.removeItem('login');
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      })
 
     navigate('/');
   }
+
+
+
+  const handleLogout = async () => {
+    try {
+      const response = await userLogoutRequest();
+
+      if (response && response.status == true) {
+        // toastAlert('Logged Out Successfully', ALERT_TYPES.SUCCESS);
+        localStorage.removeItem("userToken");
+        localStorage.removeItem("userrole");
+        // dispatch(logoutRequest());
+        navigate("/");
+      } else {
+        // toastAlert(response.statusText, ALERT_TYPES.ERROR);
+      }
+    } catch (error) {
+      // toastAlert(error, ALERT_TYPES.ERROR);
+    }
+  };
 
 
   useEffect(() => {
@@ -162,7 +186,7 @@ export const Header = (props) => {
       </Navbar>
 
       <CustomModal show={showModal} close={() => { setShowModal(false) }} action={Continue} heading='Are you sure you want to logout?' />
-      <CustomModal show={showModal2} close={handleRedirect} success heading='Successfully Logged Out' />
+      <CustomModal show={showModal2} close={handleLogout} success heading='Successfully Logged Out' />
     </header>
   );
 };

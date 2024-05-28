@@ -5,6 +5,7 @@ import ForgetPassword from "../Screens/Auth/ForgetPassword";
 import ForgetPassword2 from "../Screens/Auth/ForgetPassword2";
 import ForgetPassword3 from "../Screens/Auth/ForgetPassword3";
 import { Dashboard } from "../Screens/Dashboard";
+  
 
 
 // import { BookManagement } from "../Screens/BookManagement";
@@ -12,10 +13,10 @@ import { Dashboard } from "../Screens/Dashboard";
 // import { BookDetails } from "../Screens/BookManagement/BookDetail";
 // import { EditBook } from "../Screens/BookManagement/EditBook";
 
-import { ProductManagement } from "../Screens/ProductManagement";
-import { AddProduct } from "../Screens/ProductManagement/AddProduct";
-import { EditProduct } from "../Screens/ProductManagement/EditProduct";
-import { ProductDetails } from "../Screens/ProductManagement/ProductDetail";
+import { BookManagement } from "../Screens/bookManagement/index";
+import { AddProduct } from "../Screens/bookManagement/AddProduct";
+import { EditProduct } from "../Screens/bookManagement/EditProduct";
+import { ProductDetails } from "../Screens/bookManagement/ProductDetail";
 
 
 // import { MenuManagement } from "../Screens/MenuManagement";
@@ -52,7 +53,7 @@ export default function AdminRouter() {
 
         {/* <Route path="/dashboard" element={<ProtectedRoutes Components={Dashboard} />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/product-management" element={<ProtectedRoutes Components={ProductManagement} />} />
+        <Route path="/book-management" element={<BookManagement/>}   />
         <Route path="/add-product" element={<ProtectedRoutes Components={AddProduct} />} />
         <Route path="/product-management/product-details/:id" element={<ProtectedRoutes Components={ProductDetails} />} />
         <Route path="/product-management/edit-product/:id" element={<ProtectedRoutes Components={EditProduct} />} />
