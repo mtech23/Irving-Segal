@@ -12,11 +12,11 @@ import CustomModal from "../../Components/CustomModal";
 import CustomPagination from "../../Components/CustomPagination"
 import CustomInput from "../../Components/CustomInput";
 import CustomButton from "../../Components/CustomButton";
-import {Getbookslist  , GetbooksDelete} from '../../api'
+import {Getchapterslist  , GetchaptersDelete} from '../../api'
 
 import "./style.css";
 
-export const BookManagement = () => {
+export const ChapterManagement = () => {
  
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -27,7 +27,7 @@ export const BookManagement = () => {
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [inputValue, setInputValue] = useState('');
  
-const [ books ,  setBooklists] = useState([])
+const [ chapters ,  setchapterlists] = useState([])
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -42,14 +42,14 @@ const [ books ,  setBooklists] = useState([])
 
 
 
-  const booklist = async () => {
+  const chapterlist = async () => {
     document.querySelector('.loaderBox').classList.remove("d-none");
     try {
-      const response = await Getbookslist();
+      const response = await Getchapterslist();
       console.log("response", response)
 
       document.querySelector('.loaderBox').classList.add("d-none");
-      setBooklists(response?.data)
+      setchapterlists(response?.data)
 
     } catch (error) {
       console.error("Error in logging in:", error);
@@ -61,16 +61,16 @@ const [ books ,  setBooklists] = useState([])
 
 
   
-  const bookdelete = async (id) => {
+  const chapterdelete = async (id) => {
     document.querySelector('.loaderBox').classList.remove("d-none");
     try {
-      const response = await GetbooksDelete(id);
+      const response = await GetchaptersDelete(id);
       console.log("response", response)
 
 
 if(response?.status == true){
   document.querySelector('.loaderBox').classList.add("d-none");
-  booklist() 
+  chapterlist() 
 }
     } catch (error) {
       console.error("Error in logging in:", error);
@@ -85,9 +85,9 @@ if(response?.status == true){
     navigate('/profile-page')
   }
   useEffect(() => {
-    booklist()
+    chapterlist()
   },[])
-console.log("books" , books)
+console.log("chapters" , chapters)
 
 
   const inActive = () => {
@@ -103,7 +103,7 @@ console.log("books" , books)
     setInputValue(e.target.value);
   }
 
-  const filterData = books?.filter(item =>
+  const filterData = chapters?.filter(item =>
     item?.title.toLowerCase().includes(inputValue.toLowerCase())
   );
 
@@ -127,14 +127,8 @@ console.log("books" , books)
       key: "author",
       title: "author",
     },
-    {
-      key: "Title",
-      title: "Title",
-    },
-    {
-      key: "Pages",
-      title: "Pages",
-    },
+ 
+    
     {
       key: "Language",
       title: "Language",
@@ -143,10 +137,7 @@ console.log("books" , books)
       key: "Types ",
       title: "Types ",
     },
-    {
-      key: "Audiobook Duration  ",
-      title: "Audiobook Duration  ",
-    },
+ 
     {
       key: "action  ",
       title: "action  ",
@@ -167,7 +158,7 @@ console.log("books" , books)
               <div className="dashCard">
                 <div className="row mb-3 justify-content-between">
                   <div className="col-md-6 mb-2">
-                    <h2 className="mainTitle">Book Management</h2>
+                    <h2 className="mainTitle">Chapter Management</h2>
                   </div>
                   <div className="col-md-6 mb-2">
                     <div className="addUser">
@@ -206,7 +197,7 @@ console.log("books" , books)
                                   <Link to={`/book-management/book-details/${item?.id}`} className="tableAction"><FontAwesomeIcon icon={faEye} className="tableActionIcon" />View</Link>
                                   <Link to={`/book-management/edit-book/${item?.id}`} className="tableAction"><FontAwesomeIcon icon={faEdit} className="tableActionIcon" />Edit</Link>
  
-                                  <button type="button" className="bg-transparent border-0 ps-lg-3 pt-1" onClick={() => { bookdelete(item?.id) }}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> Delete</button>
+                                  <button type="button" className="bg-transparent border-0 ps-lg-3 pt-1" onClick={() => { chapterdelete(item?.id) }}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> Delete</button>
                                 </Dropdown.Menu>
                               </Dropdown>
                             </td>

@@ -14,9 +14,19 @@ import { Dashboard } from "../Screens/Dashboard";
 // import { EditBook } from "../Screens/BookManagement/EditBook";
 
 import { BookManagement } from "../Screens/bookManagement/index";
-import { AddProduct } from "../Screens/bookManagement/AddProduct";
-import { EditProduct } from "../Screens/bookManagement/EditProduct";
-import { ProductDetails } from "../Screens/bookManagement/ProductDetail";
+import { AddBook } from "../Screens/bookManagement/AddBook";
+import { EditBook } from "../Screens/bookManagement/EditBook";
+import { BookDetails } from "../Screens/bookManagement/BookDetail";
+
+
+
+
+// import { ChapterManagement } from "../Screens/chapterManagement/index";
+// import { AddChapter } from "../Screens/chapterManagement/Addchapter";
+// import { EditChapter } from "../Screens/chapterManagement/Editchapter";
+// import { ChapterDetails } from "../Screens/chapterManagement/chapterDetail";
+
+
 
 
 // import { MenuManagement } from "../Screens/MenuManagement";
@@ -53,10 +63,22 @@ export default function AdminRouter() {
 
         {/* <Route path="/dashboard" element={<ProtectedRoutes Components={Dashboard} />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/book-management" element={<BookManagement/>}   />
-        <Route path="/add-product" element={<ProtectedRoutes Components={AddProduct} />} />
-        <Route path="/product-management/product-details/:id" element={<ProtectedRoutes Components={ProductDetails} />} />
-        <Route path="/product-management/edit-product/:id" element={<ProtectedRoutes Components={EditProduct} />} />
+        {/* <Route path="/book-management" element={<BookManagement/>}   /> */}
+        <Route path="/book-management" element={<ProtectedRoutes Components={BookManagement} />} />
+        <Route path="/book-management/add-book" element={<ProtectedRoutes Components={AddBook} />} />
+        <Route path="/book-management/book-details/:id" element={<ProtectedRoutes Components={BookDetails} />} />
+        <Route path="/book-management/edit-book/:id" element={<ProtectedRoutes Components={EditBook} />} />
+
+
+
+{/* 
+        <Route path="/chapter-management" element={<ProtectedRoutes Components={ChapterManagement} />} />
+        <Route path="/chapter-management/add-chapter" element={<ProtectedRoutes Components={AddChapter} />} />
+        <Route path="/chapter-management/chapter-details/:id" element={<ProtectedRoutes Components={ChapterDetails} />} />
+        <Route path="/chapter-management/edit-chapter/:id" element={<ProtectedRoutes Components={EditChapter} />} /> */}
+
+
+
 
     
         <Route path="/customise-menu" element={<ProtectedRoutes Components={CustomiseMenu} />} />

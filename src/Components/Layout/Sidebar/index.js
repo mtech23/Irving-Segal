@@ -48,6 +48,21 @@ export const Sidebar = (props) => {
             <span className="sideLinkText">Book Management</span>
           </Link>
         </li>
+
+
+
+
+        <li className="sidebar-li">
+          <Link className={`sideLink ${location.pathname.includes('/chapter-management') ? 'active' : ''}`} to="/chapter-management">
+            <span className="sideIcon">
+              <FontAwesomeIcon icon={faBook} />
+            </span>
+            <span className="sideLinkText">Chapter Management</span>
+          </Link>
+        </li>
+
+
+
         <li className="sidebar-li">
           <Link className={`sideLink ${location.pathname.includes('#') ? 'active' : ''}`} to="#">
             <span className="sideIcon">
