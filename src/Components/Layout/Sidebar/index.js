@@ -33,7 +33,7 @@ export const Sidebar = (props) => {
           </Link>
         </li>
 
-        <li className="sidebar-li">
+        {/* <li className="sidebar-li">
           <Link
             className={`sideLink ${
               location.pathname.includes("#") ? "active" : "/user-management"
@@ -45,7 +45,7 @@ export const Sidebar = (props) => {
             </span>
             <span className="sideLinkText">User Management</span>
           </Link>
-        </li>
+        </li> */}
 
         <li className="sidebar-li">
           <Link
