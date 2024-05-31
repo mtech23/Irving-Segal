@@ -5,8 +5,6 @@ import ForgetPassword from "../Screens/Auth/ForgetPassword";
 import ForgetPassword2 from "../Screens/Auth/ForgetPassword2";
 import ForgetPassword3 from "../Screens/Auth/ForgetPassword3";
 import { Dashboard } from "../Screens/Dashboard";
-  
-
 
 // import { BookManagement } from "../Screens/BookManagement";
 // import { AddBook } from "../Screens/BookManagement/AddBook";
@@ -18,16 +16,19 @@ import { AddBook } from "../Screens/bookManagement/AddBook";
 import { EditBook } from "../Screens/bookManagement/EditBook";
 import { BookDetails } from "../Screens/bookManagement/BookDetail";
 
+import { OrdersManagement } from "../Screens/ordersManagement";
+import { EditOrders } from "../Screens/ordersManagement/EditOrder";
+import { OrdersDetails } from "../Screens/ordersManagement/OrderDetail";
 
-
+import { PoliciesManagement } from "../Screens/policies";
+import { AddPolicies } from "../Screens/policies/AddPolicies";
+import { EditPolicies } from "../Screens/policies/EditPolicies";
+import { PoliciesDetails } from "../Screens/policies/PoliciesDetail";
 
 // import { ChapterManagement } from "../Screens/chapterManagement/index";
 // import { AddChapter } from "../Screens/chapterManagement/Addchapter";
 // import { EditChapter } from "../Screens/chapterManagement/Editchapter";
 // import { ChapterDetails } from "../Screens/chapterManagement/chapterDetail";
-
-
-
 
 // import { MenuManagement } from "../Screens/MenuManagement";
 // import { AddMenu } from "../Screens/MenuManagement/AddMenu";
@@ -42,14 +43,11 @@ import { ZipCode } from "../Screens/ZipCode";
 
 // end
 
-
-
 import Profile from "../Screens/Profile";
 import EditProfile from "../Screens/Profile/EditProfile";
 import ChangePassword from "../Screens/Profile/ChangePassword";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 import Error from "../Screens/Error";
-
 
 export default function AdminRouter() {
   return (
@@ -64,38 +62,103 @@ export default function AdminRouter() {
         {/* <Route path="/dashboard" element={<ProtectedRoutes Components={Dashboard} />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
         {/* <Route path="/book-management" element={<BookManagement/>}   /> */}
-        <Route path="/book-management" element={<ProtectedRoutes Components={BookManagement} />} />
-        <Route path="/book-management/add-book" element={<ProtectedRoutes Components={AddBook} />} />
-        <Route path="/book-management/book-details/:id" element={<ProtectedRoutes Components={BookDetails} />} />
-        <Route path="/book-management/edit-book/:id" element={<ProtectedRoutes Components={EditBook} />} />
+        <Route
+          path="/book-management"
+          element={<ProtectedRoutes Components={BookManagement} />}
+        />
+        <Route
+          path="/book-management/add-book"
+          element={<ProtectedRoutes Components={AddBook} />}
+        />
+        <Route
+          path="/book-management/book-details/:id"
+          element={<ProtectedRoutes Components={BookDetails} />}
+        />
+        <Route
+          path="/book-management/edit-book/:id"
+          element={<ProtectedRoutes Components={EditBook} />}
+        />
 
+        {/* Orders Managment */}
+        <Route
+          path="/orders-management"
+          element={<ProtectedRoutes Components={OrdersManagement} />}
+        />
+        {/* <Route
+          path="/orders-management/add-order"
+          element={<ProtectedRoutes Components={AddBook} />}
+        /> */}
+        <Route
+          path="/orders-management/order-details/:id"
+          element={<OrdersDetails />}
+        />
+        <Route
+          path="/orders-management/edit-order/:id"
+          element={<EditOrders />}
+        />
+        {/* Orders Managment */}
 
+        {/* Policies Managment */}
+        <Route
+          path="/policies-management"
+          element={<ProtectedRoutes Components={PoliciesManagement} />}
+        />
+        <Route
+          path="/policies-management/add-policies"
+          element={<ProtectedRoutes Components={AddPolicies} />}
+        />
+        <Route
+          path="/policies-management/policies-details/:id"
+          element={<PoliciesDetails />}
+        />
+        <Route
+          path="/policies-management/edit-policies/:id"
+          element={<EditPolicies />}
+        />
+        {/* Policies Managment */}
 
-{/* 
+        {/* 
         <Route path="/chapter-management" element={<ProtectedRoutes Components={ChapterManagement} />} />
         <Route path="/chapter-management/add-chapter" element={<ProtectedRoutes Components={AddChapter} />} />
         <Route path="/chapter-management/chapter-details/:id" element={<ProtectedRoutes Components={ChapterDetails} />} />
         <Route path="/chapter-management/edit-chapter/:id" element={<ProtectedRoutes Components={EditChapter} />} /> */}
 
-
-
-
-    
-        <Route path="/customise-menu" element={<ProtectedRoutes Components={CustomiseMenu} />} />
-        <Route path="/add-menu" element={<ProtectedRoutes Components={AddMenu} />} />
+        <Route
+          path="/customise-menu"
+          element={<ProtectedRoutes Components={CustomiseMenu} />}
+        />
+        <Route
+          path="/add-menu"
+          element={<ProtectedRoutes Components={AddMenu} />}
+        />
         {/* <Route path="/menu-management/menu-details/:id" element={<ProtectedRoutes Components={menuDetails} />} /> */}
-        <Route path="/customise-menu/edit-menu/:id" element={<ProtectedRoutes Components={EditMenu} />} />
+        <Route
+          path="/customise-menu/edit-menu/:id"
+          element={<ProtectedRoutes Components={EditMenu} />}
+        />
 
-        <Route path="/zipcode-list" element={<ProtectedRoutes Components={ZipCode} />} />
+        <Route
+          path="/zipcode-list"
+          element={<ProtectedRoutes Components={ZipCode} />}
+        />
 
-        
+        <Route
+          path="/customer-support"
+          element={<ProtectedRoutes Components={CustomerSupport} />}
+        />
+        <Route
+          path="/currency-management"
+          element={<ProtectedRoutes Components={CurrencyManagement} />}
+        />
 
-        <Route path="/customer-support" element={<ProtectedRoutes Components={CustomerSupport} />} />
-        <Route path="/currency-management" element={<ProtectedRoutes Components={CurrencyManagement} />} />
-
-        
-        <Route path="/profile" element={<ProtectedRoutes Components={Profile} />} />
-        <Route path="/profile/edit-profile" element={<ProtectedRoutes Components={EditProfile} />} />
+        <Route
+          path="/profile"
+          element={<ProtectedRoutes Components={Profile} />}
+        />
+        <Route
+          path="/profile/edit-profile"
+          element={<ProtectedRoutes Components={EditProfile} />}
+        />
         <Route path="/profile/change-password" element={<ChangePassword />} />
 
         <Route path="*" element={<Error />} />
