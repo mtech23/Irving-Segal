@@ -6,7 +6,7 @@ import { Navbar, Container, Nav, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CustomModal from "../../CustomModal";
 import { userLogoutRequest } from "../../../api";
- 
+
 // import { useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
@@ -30,7 +30,7 @@ export const Header = (props) => {
   const [showModal2, setShowModal2] = useState(false);
 
   const navigate = useNavigate();
- 
+
   const Continue = () => {
     setShowModal(false)
     setShowModal2(true)
@@ -163,13 +163,40 @@ export const Header = (props) => {
                     />{" "}
                     Profile
                   </Link> */}
-                  <Link to="#" className="userMenuItem" onClick={handleClickPopup}>
+                  {/* <Link to="#" className="userMenuItem" onClick={handleClickPopup}>
                     <FontAwesomeIcon
                       className="me-1 yellow-text"
                       icon={faSignOut}
 
                     />{" "}
                     Logout
+                  </Link> */}
+
+
+
+
+                  <Link
+                    to="#"
+                    className="userMenuItem"
+                    onClick={handleClickPopup}
+                  >
+                    <FontAwesomeIcon
+                      className="me-1 yellow-text"
+                      icon={faSignOut}
+                    />{" "}
+                    Logout
+                  </Link>
+
+                  <Link
+                    to="/profile"
+                    className="userMenuItem"
+                    onClick={handleClickPopup}
+                  >
+                    <FontAwesomeIcon
+                      className="me-1 yellow-text"
+                      icon={faSignOut}
+                    />{" "}
+                    profile
                   </Link>
                 </Dropdown.Menu>
               </Dropdown>

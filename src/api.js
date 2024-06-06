@@ -290,7 +290,41 @@ export const Addchapter = async (data) => {
 
  
 //Get Books Delete  list
-export const GetchaptersDelete = async (id) => {
+export const Getchaptersbyid = async (id) => {
+  try {
+    const res = await fetch(`${url}chapters/${id}`, {
+      method: "Get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login")}`,
+      },
+    });
+    console.log(res, "res");
+    // Ensure response is ok before proceeding
+
+    const productData = await res.json(); // Parse response JSON
+    console.log(productData, "res");
+    if (!res.ok) {
+      // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
+    } else {
+      // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
+    }
+
+    return productData; // Return parsed data
+  } catch (error) {
+    toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+    throw error; // Rethrow error to be handled by caller
+  }
+};
+
+
+
+
+
+
+ 
+//Get Books Delete  list
+export const DeleteChapter = async (id) => {
   try {
     const res = await fetch(`${url}chapters/${id}`, {
       method: "Delete",
@@ -319,12 +353,10 @@ export const GetchaptersDelete = async (id) => {
 
 
 
-
-
  
 
 //Get chapters  detail
-export const Getchaptersdetail = async (id) => {
+export const Getchaptersdetailbyid = async (id) => {
   console.log("ides" , id)
   try {
     const res = await fetch(`${url}bookchapters/${id}`, {
@@ -459,11 +491,126 @@ export const GetBookdetail = async (id) => {
 
  
 
+
+// export const addPages = async ( ) => {
+  
+//   try {
+//     const res = await fetch(`${url}pages`, {
+//       method: "Post",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${localStorage.getItem("login")}`,
+//       },
+//     });
+//     console.log(res, "res");
+//     // Ensure response is ok before proceeding
+
+//     const productData = await res.json(); // Parse response JSON
+//     console.log(productData, "res");
+//     if (!res.ok) {
+//       // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
+//     } else {
+//       // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
+//     }
+
+//     return productData; // Return parsed data
+//   } catch (error) {
+//     toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+//     throw error; // Rethrow error to be handled by caller
+//   }
+// };
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const addPages = async (data) => {
+ 
+  try {
+    const res = await fetch(`${url}pages`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login")}`,
+      },
+      body: data,
+    });
+    console.log(res, "res");
+    // Ensure response is ok before proceeding
+
+    const productData = await res.json(); // Parse response JSON
+    console.log(productData, "res");
+    if (!res.ok) {
+      // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
+    } else {
+      console.log("productData?.msg" , productData?.msg)
+      // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
+    }
+
+    return productData; // Return parsed data
+  } catch (error) {
+    toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+    throw error; // Rethrow error to be handled by caller
+  }
+};
+
+
+
+
+
+
+
+
+export const Addquestions = async (data) => {
+ 
+  try {
+    const res = await fetch(`${url}questions`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login")}`,
+      },
+      body: data,
+    });
+    console.log(res, "res");
+    // Ensure response is ok before proceeding
+
+    const productData = await res.json(); // Parse response JSON
+    console.log(productData, "res");
+    if (!res.ok) {
+      // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
+    } else {
+      console.log("productData?.msg" , productData?.msg)
+      // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
+    }
+
+    return productData; // Return parsed data
+  } catch (error) {
+    toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+    throw error; // Rethrow error to be handled by caller
+  }
+};
+
+
+
+
+ 
+
 
 export const Getpagedetail = async (id) => {
   try {
-    const res = await fetch(`${url}chapterpages/${id}`, {
+    const res = await fetch(`${url}pages/${id}`, {
       method: "Get",
       headers: {
         "Content-Type": "application/json",

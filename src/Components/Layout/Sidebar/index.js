@@ -21,9 +21,8 @@ export const Sidebar = (props) => {
       <ul className="list-unstyled">
         <li className="sidebar-li">
           <Link
-            className={`sideLink ${
-              location.pathname.includes("/dashboard") ? "active" : ""
-            }`}
+            className={`sideLink ${location.pathname.includes("/dashboard") ? "active" : ""
+              }`}
             to="/dashboard"
           >
             <span className="sideIcon">
@@ -49,9 +48,8 @@ export const Sidebar = (props) => {
 
         <li className="sidebar-li">
           <Link
-            className={`sideLink ${
-              location.pathname.includes("/book-management") ? "active" : ""
-            }`}
+            className={`sideLink ${location.pathname.includes("/book-management") ? "active" : ""
+              }`}
             to="/book-management"
           >
             <span className="sideIcon">
@@ -63,9 +61,8 @@ export const Sidebar = (props) => {
 
         <li className="sidebar-li">
           <Link
-            className={`sideLink ${
-              location.pathname.includes("/orders-management") ? "active" : ""
-            }`}
+            className={`sideLink ${location.pathname.includes("/orders-management") ? "active" : ""
+              }`}
             to="/orders-management"
           >
             <span className="sideIcon">
@@ -77,9 +74,8 @@ export const Sidebar = (props) => {
 
         <li className="sidebar-li">
           <Link
-            className={`sideLink ${
-              location.pathname.includes("/policies-management") ? "active" : ""
-            }`}
+            className={`sideLink ${location.pathname.includes("/policies-management") ? "active" : ""
+              }`}
             to="/policies-management"
           >
             <span className="sideIcon">
@@ -88,6 +84,37 @@ export const Sidebar = (props) => {
             <span className="sideLinkText">Policies Management</span>
           </Link>
         </li>
+
+
+
+        <li className="sidebar-li">
+          <Link
+            className={`sideLink ${location.pathname.includes("/quiz-management") ? "active" : ""
+              }`}
+            to="/quiz-management"
+          >
+            <span className="sideIcon">
+              <FontAwesomeIcon icon={faBook} />
+            </span>
+            <span className="sideLinkText">   Quiz Management</span>
+          </Link>
+        </li>
+
+
+
+        <li className="sidebar-li">
+          <Link
+            className={`sideLink ${location.pathname.includes("/notes-management") ? "active" : ""
+              }`}
+            to="/notes-management"
+          >
+            <span className="sideIcon">
+              <FontAwesomeIcon icon={faBook} />
+            </span>
+            <span className="sideLinkText">   Notes Management</span>
+          </Link>
+        </li>
+
 
         {/* <li className="sidebar-li">
           <Link

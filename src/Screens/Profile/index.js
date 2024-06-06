@@ -13,12 +13,63 @@ const Profile = () => {
 
     const navigate = useNavigate()
 
+
+
+
+
+
+
     const [userData, setUserData] = useState({});
 
+
+
+    const baseurl = process.env.REACT_APP_BASE_URL
+
+    const userprofile = () => {
+ 
+        console.log("baseurl", baseurl)
+        const LogoutData = localStorage.getItem('login');
+
+        document.querySelector('.loaderBox').classList.remove("d-none");
+        fetch(`${process.env.REACT_APP_BASE_URL}api/aboutAuthor`,
+            {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${LogoutData}`
+                },
+            }
+        )
+
+            .then(response =>
+                response.json()
+            )
+            .then((data) => {
+                console.log(data.data)
+                document.querySelector('.loaderBox').classList.add("d-none");
+                setUserData(data.data);
+            })
+            .catch((error) => {
+                document.querySelector('.loaderBox').classList.add("d-none");
+                console.log(error)
+            })
+
+    }
+
+
+
+
+
+
+
+
+
+    
     useEffect(() => {
         document.title = 'IRV Segal | My Profile';
-
-        setUserData(currentUser);
+        userprofile()
+        // setUserData(currentUser);
     }, []);
 
     return (
@@ -38,7 +89,7 @@ const Profile = () => {
                                 <div className="row mb-3">
                                     <div className="col-lg-4 order-2 order-lg-1 mb-3">
                                         <div className="profileImage">
-                                            <img src={userData.image} alt="User" />
+                                            <img src={baseurl +  userData.image} alt="User" />
                                         </div>
                                     </div>
                                 </div>
@@ -50,33 +101,15 @@ const Profile = () => {
                                                 <p className="secondaryText">{userData.name}</p>
                                             </div>
                                             <div className="col-lg-6 mb-3">
-                                                <h4 className="secondaryLabel">Country</h4>
-                                                <p className="secondaryText">{userData.country}</p>
+                                                <h4 className="secondaryLabel">Discripction</h4>
+                                                <p className="secondaryText">{userData.description}</p>
                                             </div>
                                             <div className="col-lg-6 mb-3">
                                                 <h4 className="secondaryLabel">Email</h4>
-                                                <p className="secondaryText">{userData.country}</p>
+                                                <p className="secondaryText">{userData.email}</p>
                                             </div>
-                                            <div className="col-lg-6">
-                                                <div class="row">
-                                                    <div className="col-md-6 mb-3">
-                                                        <h4 className="secondaryLabel">State</h4>
-                                                        <p className="secondaryText">{userData.state}</p>
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <h4 className="secondaryLabel">City</h4>
-                                                        <p className="secondaryText">{userData.city}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-6 mb-3">
-                                                <h4 className="secondaryLabel">Phone Number</h4>
-                                                <p className="secondaryText">{userData.phone}</p>
-                                            </div>
-                                            <div className="col-lg-6 mb-3">
-                                                <h4 className="secondaryLabel">Postal/Zip Code</h4>
-                                                <p className="secondaryText">{userData.postCode}</p>
-                                            </div>
+                                         
+                                          
                                         </div>
                                     </div>
                                     <div className="col-12">

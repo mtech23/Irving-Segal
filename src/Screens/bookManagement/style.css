@@ -11,12 +11,14 @@
 .chaptableAction {
     color: #000;
     text-decoration: none;
+    margin-right: 10px;
 }
 .avatarIcon {
     width: 60px;
     height: 60px;
 }
 
+ 
 .productImage img {
     width: 100%;
     object-fit: cover;

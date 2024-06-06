@@ -16,6 +16,18 @@ import { AddBook } from "../Screens/bookManagement/AddBook";
 import { EditBook } from "../Screens/bookManagement/EditBook";
 import { BookDetails } from "../Screens/bookManagement/BookDetail";
 
+
+
+import { NoteEdit } from "../Screens/NotesManagement/NoteEdit";
+import { NoteDateil } from "../Screens/NotesManagement/Notedetail";
+import { AddNote } from "../Screens/NotesManagement/AddNotes";
+import { NoteList } from "../Screens/NotesManagement/index";
+
+
+import { QuizEdit } from "../Screens/QuizManagement/QuizEdit";
+import { QuizDateil } from "../Screens/QuizManagement/Quizdateil";
+import { AddQuiz } from "../Screens/QuizManagement/AddQuiz";
+import { QuizList } from "../Screens/QuizManagement/index";
 import { OrdersManagement } from "../Screens/ordersManagement";
 import { EditOrders } from "../Screens/ordersManagement/EditOrder";
 import { OrdersDetails } from "../Screens/ordersManagement/OrderDetail";
@@ -84,6 +96,65 @@ export default function AdminRouter() {
           path="/orders-management"
           element={<ProtectedRoutes Components={OrdersManagement} />}
         />
+        <Route
+          path="/quiz-management"
+          element={<ProtectedRoutes Components={QuizList} />}
+        />
+
+
+        <Route
+          path="/quiz-management/add-quiz"
+          element={<ProtectedRoutes Components={AddQuiz} />}
+        />
+
+        <Route
+          path="/quiz-management/quiz-detail/:id"
+          element={<ProtectedRoutes Components={QuizDateil} />}
+        />
+
+        <Route
+          path="/quiz-management/edit-quiz/:id"
+          element={<ProtectedRoutes Components={QuizEdit} />}
+        />
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <Route
+          path="/notes-management"
+          element={<ProtectedRoutes Components={NoteList} />}
+        />
+
+
+        <Route
+          path="/notes-management/add-notes"
+          element={<ProtectedRoutes Components={AddNote} />}
+        />
+
+        <Route
+          path="/notes-management/notes-detail/:id"
+          element={<ProtectedRoutes Components={NoteDateil} />}
+        />
+
+        <Route
+          path="/notes-management/edit-notes/:id"
+          element={<ProtectedRoutes Components={NoteEdit} />}
+        />
+
+
+
+
+
+
         {/* <Route
           path="/orders-management/add-order"
           element={<ProtectedRoutes Components={AddBook} />}

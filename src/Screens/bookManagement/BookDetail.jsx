@@ -4,7 +4,7 @@ import { DashboardLayout } from "../../Components/Layout/DashboardLayout";
 import BackButton from "../../Components/BackButton";
 import CustomModal from "../../Components/CustomModal";
 import CustomButton from "../../Components/CustomButton";
-import { GetBookdetail, Getchaptersdetail, GetchaptersDelete, Getpagedetail, pageDelete } from '../../api'
+import { GetBookdetail, Getchaptersdetailbyid, DeleteChapter, GetchaptersDelete, Getpagedetail, pageDelete, Addchapter, Getchaptersbyid, addPages   } from '../../api'
 import Accordion from 'react-bootstrap/Accordion';
 import { Link, useNavigate } from "react-router-dom";
 import { SelectBox } from "../../Components/CustomSelect";
@@ -19,7 +19,7 @@ import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 
 
-
+// Getchaptersdetailbyidbyid
 
 
 
@@ -33,20 +33,24 @@ export const BookDetails = () => {
   const Bookstatus = [
     {
       key: "0",
-      name: "Free",
+      name: "free",
     },
     {
       key: "1",
-      name: "Paid",
+      name: "paid",
     },]
   const { id } = useParams();
   const [chapterdata, setChapterData] = useState([]);
 
   const base_url = process.env.REACT_APP_BASE_URL
   const [Bookdetail, setBookdetail] = useState({});
+  const [chapterdetailbyid, setChapterdetailbyid] = useState({});
+
   const [isChapter, setIsChapter] = useState(false);
 
-  const [showModal, setShowModal] = useState(false);
+  const [showModalchapter, setShowModalChapter] = useState(false);
+  const [showeditchapter, setEditChapter] = useState(false);
+
   const [editModal, setEditModal] = useState(false);
   const [pageModal, setpageModal] = useState(false);
 
@@ -57,19 +61,24 @@ export const BookDetails = () => {
   const [showModal4, setShowModal4] = useState(false);
   const [message, setMessage] = useState(false)
 
+  const [chapterpageid, setchapterpageid] = useState()
+  const [chapterpageidpage, setchapterpageidpage] = useState()
+  console.log("chapterpageidpage", chapterpageidpage)
 
+  const [addpage, setAddpage] = useState(false)
 
-  const [pagesadd, setPagesadd] = useState()
-
+  console.log("chapterdetailbyid", chapterdetailbyid)
+  const [pagesadd, setPagesadd] = useState({})
+  console.log("pagesadd", pagesadd)
 
   const [pagesdetail, setPagesdetail] = useState()
   const [formData, setFormData] = useState({});
 
   const [data, setData] = useState({});
 
-console.log("pagesdetail" , pagesdetail)
+  console.log("pagesdetail", pagesdetail)
   const inActive = () => {
-    setShowModal(false)
+    // setShowModal(false)
     setShowModal2(true)
   }
   const Active = () => {
@@ -93,17 +102,145 @@ console.log("pagesdetail" , pagesdetail)
     }
   };
 
+
+
+
+
+
+  const Getchapterssbyid = async (id) => {
+    console.log("idchap", id)
+    try {
+      const response = await Getchaptersbyid(id)
+      // setEditModal(true)
+      console.log("response", response)
+
+
+      setFormData(response?.data)
+
+    } catch (error) {
+      console.error("Error in logging in:", error);
+
+      // toastAlert(error, ALERT_TYPES.ERROR);
+    }
+  };
+
+
+
+  // const  deleteChapter = async (id) => {
+  //   console.log(" chapid" ,id )
+  //   document.querySelector('.loaderBox').classList.add("d-none");
+  //   try {
+  //     const response = await DeleteChapter(id)
+  //     console.log("response", response)
+
+  //     document.querySelector('.loaderBox').classList.remove("d-none");
+  //     setBookdetail(response?.data)
+
+  //   } catch (error) {
+  //     console.error("Error in logging in:", error);
+
+  //     // toastAlert(error, ALERT_TYPES.ERROR);
+  //   }
+  // };
+
+
+
+
+
+
+
+
+  const deleteChapter = async (id) => {
+
+    document.querySelector('.loaderBox').classList.add("d-none");
+
+    try {
+      const response = await DeleteChapter(id);
+      document.querySelector('.loaderBox').classList.add("d-none");
+      console.log("response", response)
+
+
+      if (response?.status == true) {
+        document.querySelector('.loaderBox').classList.remove("d-none");
+        chapterData()
+      }
+    } catch (error) {
+      document.querySelector('.loaderBox').classList.remove("d-none");
+      console.error("Error in logging in:", error);
+
+      // toastAlert(error, ALERT_TYPES.ERROR);
+    }
+
+
+
+  }
+
+
+
   useEffect(() => {
     bookdetail()
   }, [id])
+  const [shapterstatus, setChapterstatus] = useState()
   const handleChange = (event) => {
     const { name, value } = event.target;
+
+    if (name == "status") {
+
+      setChapterstatus(value)
+    }
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
     console.log(formData)
   };
+
+
+
+
+  const handlechapterfile = (event) => {
+    const file = event.target.files[0];
+    // console.log(file.name)
+    if (file) {
+      const fileName = file;
+      setPagesadd((prevData) => ({
+        ...prevData,
+        image: fileName,
+      }));
+    }
+    console.log(formData);
+  };
+
+
+
+
+
+
+
+  console.log("pagesadd", pagesadd)
+
+
+
+
+
+  const handlepageChange = (event) => {
+    const { name, value } = event.target;
+
+    setPagesadd((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    console.log(formData)
+  };
+
+
+
+
+
+
+
+  console.log("shapterstatus", shapterstatus)
+
 
   const chapterData = async () => {
 
@@ -112,7 +249,7 @@ console.log("pagesdetail" , pagesdetail)
     document.querySelector('.loaderBox').classList.remove("d-none");
 
     try {
-      const response = await Getchaptersdetail(id); // Make sure bookid is passed correctly
+      const response = await Getchaptersdetailbyid(id); // Make sure bookid is passed correctly
       document.querySelector('.loaderBox').classList.add("d-none");
       console.log("shapter", response);
 
@@ -148,13 +285,16 @@ console.log("pagesdetail" , pagesdetail)
 
 
 
+
+  const [Viewpage, setViewpage] = useState(false)
+
   const viewpages = async (id) => {
     try {
       const response = await Getpagedetail(id)
       console.log("response", response)
 
 
-      setPagesdetail(response?.data)
+      setPagesadd(response?.data)
 
     } catch (error) {
       console.error("Error in logging in:", error);
@@ -164,59 +304,177 @@ console.log("pagesdetail" , pagesdetail)
   }
 
 
-  const handleSubmit = (e) => {
+  const handleSubmitchapter = async (e) => {
     e.preventDefault();
     document.querySelector('.loaderBox').classList.remove("d-none");
 
-    // Create a new FormData object
-    // const formDataMethod = new FormData();
-    // for (const key in formData) {
-    //     formDataMethod.append(key, formData[key]);
-    // }
 
-    // console.log(formData)
 
-    // // Make the fetch request
-    // fetch(`https://custom.mystagingserver.site/Tim-WDLLC/public/api/author/bookchapter_add/${id}`, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Authorization': `Bearer ${LogoutData}`
-    //     },
-    //     body: formDataMethod // Use the FormData object as the request body
-    // })
-    //     .then((response) => {
-    //         return response.json();
-    //     })
-    //     .then((data) => {
-    //         document.querySelector('.loaderBox').classList.add("d-none");
-    //         console.log(data);
-    //         setShowModal(true)
-    //         setTimeout(() => {
-    //             setShowModal(false)
-    //         }, 1000)
-    //         chapterData()
-    //         setIsChapter(false)
-    //         setFormData({
-    //             title: '',
-    //             description: ''
-    //         })
-    //     })
-    //     .catch((error) => {
-    //         document.querySelector('.loaderBox').classList.add("d-none");
-    //         console.log(error)
-    //     })
+    const formDataMethod = new FormData();
+    for (const key in formData) {
+      formDataMethod.append(key, formData[key]);
+    }
+    formDataMethod.append('book_id', id);
+
+    document.querySelector('.loaderBox').classList.remove("d-none");
+    // Make the fetch request
+
+    try {
+      const response = await Addchapter(formDataMethod);
+      document.querySelector('.loaderBox').classList.remove("d-none");
+
+      if (response?.status == true) {
+
+        setShowModalChapter(true)
+        chapterData()
+        setEditModal(false)
+        setIsChapter(!isChapter)
+
+
+      } else {
+
+      }
+    } catch (error) {
+      console.error("Error in adding model post:", error);
+    }
   }
+
+
+  const handlepageadd = async (e) => {
+    e.preventDefault();
+    document.querySelector('.loaderBox').classList.remove("d-none");
+
+
+
+    const formDataMethod = new FormData();
+    for (const key in pagesadd) {
+      formDataMethod.append(key, pagesadd[key]);
+    }
+
+    formDataMethod.append('chapter_id', chapterpageid);
+
+
+
+    document.querySelector('.loaderBox').classList.remove("d-none");
+
+
+    try {
+      const response = await addPages(formDataMethod);
+      document.querySelector('.loaderBox').classList.remove("d-none");
+
+      if (response?.status == true) {
+        setAddpage(false)
+        chapterData()
+
+
+
+      } else {
+
+      }
+    } catch (error) {
+      console.error("Error in adding model post:", error);
+    }
+  }
+
+
+  const [Editpage, setEditpage] = useState(false)
+
+  const handlepageedit = async (e) => {
+    e.preventDefault();
+    document.querySelector('.loaderBox').classList.remove("d-none");
+
+
+
+    const formDataMethod = new FormData();
+    for (const key in pagesadd) {
+      formDataMethod.append(key, pagesadd[key]);
+    }
+
+
+    formDataMethod.append('chapter_id', chapterpageid);
+
+
+
+    document.querySelector('.loaderBox').classList.remove("d-none");
+
+
+    try {
+      const response = await addPages(formDataMethod);
+      document.querySelector('.loaderBox').classList.remove("d-none");
+
+      if (response?.status == true) {
+        setEditpage(false)
+        chapterData()
+
+
+
+      } else {
+
+      }
+    } catch (error) {
+      console.error("Error in adding model post:", error);
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  const handlechapterEdit = async (e) => {
+    e.preventDefault();
+    document.querySelector('.loaderBox').classList.remove("d-none");
+
+
+
+    const formDataMethod = new FormData();
+    for (const key in formData) {
+      formDataMethod.append(key, formData[key]);
+    }
+    formDataMethod.append('book_id', id);
+
+    document.querySelector('.loaderBox').classList.remove("d-none");
+    // Make the fetch request
+
+    try {
+      const response = await Addchapter(formDataMethod);
+      document.querySelector('.loaderBox').classList.remove("d-none");
+
+      if (response?.status == true) {
+
+
+        setEditModal(false)
+
+        chapterData()
+        setEditChapter(true)
+
+
+
+
+      } else {
+
+      }
+    } catch (error) {
+      console.error("Error in adding model post:", error);
+    }
+  }
+
+
+
 
   useEffect(() => {
     chapterData()
   }, [id]);
 
 
-  const editDetailData = () => {
 
-  }
-  const handleEdit = (e) => {
+  const handleEdit = async (e) => {
     // console.log("chapetrid ", chapetrid)
     // e.preventDefault();
 
@@ -237,13 +495,49 @@ console.log("pagesdetail" , pagesdetail)
     //     })
     //     .then((data) => {
     //         console.log(data)
-    //         editDetailData(chapetrid)
+    //         Getchaptersbyid(chapetrid)
     //         setEditModal(false)
     //     })
     //     .catch((error) => {
     //         document.querySelector('.loaderBox').classList.add("d-none");
     //         console.log(error);
     //     })
+
+
+
+
+
+    //   event.preventDefault();
+
+    //   document.querySelector('.loaderBox').classList.remove("d-none");
+    //   const formDataMethod = new FormData();
+    //   for (const key in formData) {
+    //       formDataMethod.append(key, formData[key]);
+    //   }
+
+
+    //   document.querySelector('.loaderBox').classList.remove("d-none");
+    //   // Make the fetch request
+
+    //   try {
+    //       const response = await Addbook(formDataMethod);
+
+    //       if (response?.status == true) {
+    //         console.log(data)
+    //                 Getchaptersbyid(chapetrid)
+    //                 // setEditModal(false)
+
+    //       } else {
+
+    //       }
+    //   } catch (error) {
+    //           document.querySelector('.loaderBox').classList.add("d-none");
+    // }
+
+
+
+
+
   }
 
 
@@ -360,43 +654,49 @@ console.log("pagesdetail" , pagesdetail)
                           <div className="chapeditz d-flex">
                             <h4 className="text-capitalize ">{item?.title}</h4  >
 
-                            <p>
+                            <p className=" gap-2">
                               <span>
-                              <Link onClick={() => {
-                                setEditModal(true)
-                                editDetailData(item.id)
-                              }} className="chaptableAction"><FontAwesomeIcon icon={faEdit} className="chaptableActionIcon" />Edit</Link>
-                         
-                              </span>
-<Link onClick={() => {
+                                <Link onClick={() => {
                                   setEditModal(true)
-                                  editDetailData(item.id)
-                                }} className="chaptableAction">    <FontAwesomeIcon icon={faEdit} className="chaptableActionIcon" /> Add Page</Link>
-            
+                                  Getchapterssbyid(item.chapter_id)
+                                }} className="chaptableAction"><FontAwesomeIcon icon={faEdit} className="chaptableActionIcon" />Edit</Link>
+
+                              </span>
+                              <span className="deletechap  me-2">
+                                <button type="button" className="bg-transparent border-0 ps-lg-3 pt-1" onClick={() => { deleteChapter(item?.chapter_id) }}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> Delete</button>
+
+                              </span>
+                              <div className="addChapter  mt-2 ">
+                                <CustomButton text="Add Page" variant="primaryButton" onClick={() => {
+                                  setchapterpageid(item?.chapter_id);
+                                  setAddpage(true);
+                                }}></CustomButton>
+                              </div>
                             </p>
-                            
-                         
+
+
 
                           </div>
                           <h3 className="text-capitalize">{item?.price}</h3>
-               
+
                           {item.pages?.map((page, index) => (
                             //  <p> {`Page ${index + 1}`}</p>                            
                             <div className="   d-flex justify-content-between ">       {`Page ${index + 1}`}
                               <p className=" gap-3    d-flex">
 
                                 <Link onClick={() => {
-                                  setEditModal(true)
-                                  editDetailData(item.id)
+                                  setEditpage(true)
+
+                                  setchapterpageid(item?.chapter_id);
+                                  viewpages(page?.id)
+                                  // editDetailData(item.id)
                                 }} className="chaptableAction">    <FontAwesomeIcon icon={faEdit} className="chaptableActionIcon" /> Edit</Link>
                                 <Link onClick={() => {
-                                  setpageModal(true)
+                                  setViewpage(true)
+                                  setchapterpageid(item?.chapter_id);
                                   viewpages(page?.id)
                                 }} className="chaptableAction"><FontAwesomeIcon icon={faEye} className="tableActionIcon" />View</Link>
                                 <button type="button" className="bg-transparent border-0 ps-lg-3 pt-1" onClick={() => { pagedelete(page?.id) }}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> Delete</button>
-
-
-
                               </p>
                             </div>
                           ))}
@@ -412,7 +712,7 @@ console.log("pagesdetail" , pagesdetail)
                       <div className="titleBox mb-4">
                         <h3 className="mainTitle">Add New Chapter</h3>
                       </div>
-                      <div className="ChapterForm">
+                      <div className="ChapterForm col-md-6 mb-4">
                         <CustomInput
                           label='Chapter Title'
                           required
@@ -422,7 +722,7 @@ console.log("pagesdetail" , pagesdetail)
                           labelClass='mainLabel'
                           inputClass='mainInput'
                           name="title"
-                          value={formData.title}
+                          value={formData?.title}
                           onChange={handleChange}
                         />
 
@@ -431,27 +731,7 @@ console.log("pagesdetail" , pagesdetail)
                       </div>
 
 
-
-
-                      <div className="ChapterForm">
-                        <CustomInput
-                          label='Chapter price'
-                          required
-                          id='title'
-                          type='text'
-                          placeholder='Enter Chapter price'
-                          labelClass='mainLabel'
-                          inputClass='mainInput'
-                          name="price"
-                          value={formData?.price}
-                          onChange={handleChange}
-                        />
-
-
-
-                      </div>
-
-                      <div className="ChapterForm">
+                      <div className="ChapterForm col-md-6 mb-4">
 
                         <CustomInput
                           label='Chapter Audio'
@@ -468,11 +748,11 @@ console.log("pagesdetail" , pagesdetail)
                       <div className="col-md-6 mb-4">
                         <SelectBox
                           selectClass="mainInput"
-                          name="type"
+                          name="status"
                           label="Chapter status"
                           placeholder="Chapter status"
                           required
-                          value={formData.status}
+                          value={formData?.status}
                           option={Bookstatus}
                           onChange={handleChange}
                         />
@@ -480,9 +760,26 @@ console.log("pagesdetail" , pagesdetail)
                       </div>
 
 
+                      <div className="ChapterForm col-md-6 mb-4">
+                        {shapterstatus === 'paid' && (
+                          <CustomInput
+                            label='Chapter price'
+                            required
+                            id='title'
+                            type='text'
+                            placeholder='Enter Chapter price'
+                            labelClass='mainLabel'
+                            inputClass='mainInput'
+                            name="price"
+                            value={formData?.price}
+                            onChange={handleChange}
+                          />
+                        )}
+                      </div>
+
 
                       <div className="addNewChapter">
-                        <CustomButton text="Add" variant="primaryButton" onClick={handleSubmit}></CustomButton>
+                        <CustomButton text="Add  " variant="primaryButton" onClick={handleSubmitchapter}></CustomButton>
                       </div>
                     </div>
                   </div>
@@ -497,9 +794,9 @@ console.log("pagesdetail" , pagesdetail)
         </div>
 
         <CustomModal
-          show={showModal}
+          // show={showModal}
           close={() => {
-            setShowModal(false);
+            // setShowModal(false);
           }}
           action={inActive}
           heading="Are you sure you want to mark this user as inactive?"
@@ -530,8 +827,7 @@ console.log("pagesdetail" , pagesdetail)
           heading="Marked as Active"
         />
 
-        <CustomModal show={editModal} close={() => { setEditModal(false) }} heading="Edit Book Chapters" >
-
+        <CustomModal show={editModal} close={() => { setEditModal(false) }} heading="Edit Chapter" >
           <CustomInput
             label='Chapter Title'
             required
@@ -541,35 +837,9 @@ console.log("pagesdetail" , pagesdetail)
             labelClass='mainLabel'
             inputClass='mainInput'
             name="title"
-            value={formData.title}
+            value={formData?.title}
             onChange={handleChange}
           />
-
-
-
-
-
-
-
-          <CustomInput
-            label='Chapter price'
-            required
-            id='title'
-            type='text'
-            placeholder='Enter Chapter price'
-            labelClass='mainLabel'
-            inputClass='mainInput'
-            name="price"
-            value={formData?.price}
-            onChange={handleChange}
-          />
-
-
-
-
-
-
-
           <CustomInput
             label='Chapter Audio'
             required
@@ -582,23 +852,34 @@ console.log("pagesdetail" , pagesdetail)
             onChange={handleChange}
           />
 
-
           <SelectBox
             selectClass="mainInput"
-            name="type"
+            name="status"
             label="Chapter status"
             placeholder="Chapter status"
             required
-            value={formData.status}
+            value={formData?.status}
             option={Bookstatus}
             onChange={handleChange}
           />
 
+          {formData?.status === 'paid' && (
+            <CustomInput
+              label='Chapter price'
+              required
+              id='title'
+              type='text'
+              placeholder='Enter Chapter price'
+              labelClass='mainLabel'
+              inputClass='mainInput'
+              name="price"
+              value={formData?.price}
+              onChange={handleChange}
+            />
+          )}
 
+          <CustomButton variant='primaryButton' text='Edit' type='button' onClick={handlechapterEdit} />
 
-
-
-          <CustomButton variant='primaryButton' text='Edit' type='button' onClick={handleEdit} />
         </CustomModal>
 
 
@@ -608,23 +889,165 @@ console.log("pagesdetail" , pagesdetail)
 
 
 
-        <CustomModal show={pageModal} close={() => { setpageModal(false) }} heading="Page Content" >
 
 
 
-          <div className="col-md-6 mb-4">
-            <p className="secondaryText">  Content    </p>
-            <p>{pagesdetail?.content}</p>
+
+
+
+
+
+        <CustomModal show={addpage} close={() => { setAddpage(false) }} heading="Add Page" >
+          <CustomInput
+            label='  Page Number'
+            required
+            id='title'
+            type='text'
+            placeholder='Enter Page Number'
+            labelClass='mainLabel'
+            inputClass='mainInput'
+            name="page_number"
+            value={addpage?.page_number}
+            onChange={handlepageChange}
+          />
+          <CustomInput
+            label='Chapter Audio'
+            required
+            id='audio_file'
+            type='file'
+            placeholder='Upload Chapter Audio'
+            labelClass='mainLabel'
+            inputClass='mainInput'
+            name='audio_file'
+            onChange={handlepageChange}
+          />
+
+
+
+          <div className="inputWrapper">
+            <div className="form-controls">
+              <label htmlFor="">Content</label>
+              <textarea
+                name="content"
+                className="form-control shadow border-0"
+                id="description"
+                cols="30"
+                rows="10"
+                value={pagesadd?.content}
+                onChange={handlepageChange}
+              ></textarea>
+            </div>
           </div>
 
 
+          <CustomButton variant='primaryButton' text='Add' type='button' onClick={handlepageadd} />
+
+        </CustomModal>
+
+
+        <CustomModal show={Editpage} close={() => { setEditpage(false) }} heading="Edit Page" >
+          <CustomInput
+            label='  Page Number'
+            required
+            id='title'
+            type='text'
+            placeholder='Enter Page Number'
+            labelClass='mainLabel'
+            inputClass='mainInput'
+            name="page_number"
+            value={pagesadd?.page_number}
+            onChange={handlepageChange}
+          />
+          <CustomInput
+            label='Chapter Audio'
+            required
+            id='audio_file'
+            type='file'
+            placeholder='Upload Chapter Audio'
+            labelClass='mainLabel'
+            inputClass='mainInput'
+            name='audio_file'
+            onChange={handlechapterfile}
+          />
 
 
 
+          <div className="inputWrapper">
+            <div className="form-controls">
+              <label htmlFor="">Content</label>
+              <textarea
+                name="content"
+                className="form-control shadow border-0"
+                id="description"
+                cols="30"
+                rows="10"
+                value={pagesadd?.content}
+                onChange={handlepageChange}
+              ></textarea>
+            </div>
+          </div>
+
+
+          <CustomButton variant='primaryButton' text='Edit' type='button' onClick={handlepageedit} />
+
+        </CustomModal>
 
 
 
-          {/* <CustomButton variant='primaryButton' text='Page Content ' type='button' onClick={handleEdit} /> */}
+        <CustomModal show={Viewpage} close={() => { setViewpage(false) }} heading="Page Detail" >
+          {/* <CustomInput
+            label='  Page Number'
+            required
+            id='title'
+            type='text'
+            placeholder='Enter Page Number'
+            labelClass='mainLabel'
+            inputClass='mainInput'
+            name="page_number"
+            value={pagesadd?.page_number}
+            onChange={handlepageChange}
+          /> */}
+
+        
+          {/* <CustomInput
+            label='Chapter Audio'
+            required
+            id='audio_file'
+            type='file'
+            placeholder='Upload Chapter Audio'
+            labelClass='mainLabel'
+            inputClass='mainInput'
+            name='audio_file'
+            onChange={handlechapterfile}
+          /> */}
+          <div className="col-md-6 mb-4">
+            <p className="secondaryText">Page No</p>
+            <p>{pagesadd?.page_number}</p>
+          </div>
+          <div className="col-md-12 mb-4">
+            <p className="secondaryText">Content </p>
+            <p>{pagesadd?.content}</p>
+          </div>
+
+
+          {/* <div className="inputWrapper">
+            <div className="form-controls">
+              <label htmlFor="">Content</label>
+              <textarea
+                name="content"
+                className="form-control shadow border-0"
+                id="description"
+                cols="30"
+                rows="10"
+                value={pagesadd?.content}
+                onChange={handlepageChange}
+              ></textarea>
+            </div>
+          </div> */}
+
+
+          {/* <CustomButton variant='primaryButton' text='Edit' type='button' /> */}
+
         </CustomModal>
 
 
@@ -635,7 +1058,9 @@ console.log("pagesdetail" , pagesdetail)
 
 
 
-        <CustomModal show={showModal} close={() => { setShowModal(false) }} success heading='Chapter Added Successfully.' />
+
+        <CustomModal show={showModalchapter} close={() => { setShowModalChapter(false) }} success heading='Chapter Added Successfully.' />
+        <CustomModal show={showeditchapter} close={() => { setEditChapter(false) }} success heading='Chapter Edit Successfully.' />
       </DashboardLayout>
     </>
   );

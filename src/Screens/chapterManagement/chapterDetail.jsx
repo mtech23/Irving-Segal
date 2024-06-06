@@ -4,7 +4,7 @@ import { DashboardLayout } from "../../Components/Layout/DashboardLayout";
 import BackButton from "../../Components/BackButton";
 import CustomModal from "../../Components/CustomModal";
 import CustomButton from "../../Components/CustomButton";
-import { GetBookdetail , Getchaptersdetail } from '../../api'
+import { GetBookdetail , Getchaptersdetail , Addchapter } from '../../api'
 
 export const ChapterDetails = () => {
 
