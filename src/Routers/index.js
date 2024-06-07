@@ -16,13 +16,10 @@ import { AddBook } from "../Screens/bookManagement/AddBook";
 import { EditBook } from "../Screens/bookManagement/EditBook";
 import { BookDetails } from "../Screens/bookManagement/BookDetail";
 
-
-
 import { NoteEdit } from "../Screens/NotesManagement/NoteEdit";
 import { NoteDateil } from "../Screens/NotesManagement/Notedetail";
 import { AddNote } from "../Screens/NotesManagement/AddNotes";
 import { NoteList } from "../Screens/NotesManagement/index";
-
 
 import { QuizEdit } from "../Screens/QuizManagement/QuizEdit";
 import { QuizDateil } from "../Screens/QuizManagement/Quizdateil";
@@ -36,6 +33,12 @@ import { PoliciesManagement } from "../Screens/policies";
 import { AddPolicies } from "../Screens/policies/AddPolicies";
 import { EditPolicies } from "../Screens/policies/EditPolicies";
 import { PoliciesDetails } from "../Screens/policies/PoliciesDetail";
+
+// import { TermsAndCondition } from "../Screens/termsAndCondition";
+import { TermsAndCondition } from "../Screens/TermsAndCondition";
+import { AddTermsAndCondition } from "../Screens/TermsAndCondition/AddTermsAndCondition";
+import { EditTermsAndCondition } from "../Screens/TermsAndCondition/EditTermsAndCondition";
+import { TermsAndConditionDetails } from "../Screens/TermsAndCondition/TermsAndConditionDetail";
 
 // import { ChapterManagement } from "../Screens/chapterManagement/index";
 // import { AddChapter } from "../Screens/chapterManagement/Addchapter";
@@ -101,7 +104,6 @@ export default function AdminRouter() {
           element={<ProtectedRoutes Components={QuizList} />}
         />
 
-
         <Route
           path="/quiz-management/add-quiz"
           element={<ProtectedRoutes Components={AddQuiz} />}
@@ -117,23 +119,10 @@ export default function AdminRouter() {
           element={<ProtectedRoutes Components={QuizEdit} />}
         />
 
-
-
-
-
-
-
-
-
-
-
-
-
         <Route
           path="/notes-management"
           element={<ProtectedRoutes Components={NoteList} />}
         />
-
 
         <Route
           path="/notes-management/add-notes"
@@ -149,11 +138,6 @@ export default function AdminRouter() {
           path="/notes-management/edit-notes/:id"
           element={<ProtectedRoutes Components={NoteEdit} />}
         />
-
-
-
-
-
 
         {/* <Route
           path="/orders-management/add-order"
@@ -187,6 +171,25 @@ export default function AdminRouter() {
           element={<EditPolicies />}
         />
         {/* Policies Managment */}
+
+        {/* Terms And Condition Managment */}
+        <Route
+          path="/terms-condition-management"
+          element={<ProtectedRoutes Components={TermsAndCondition} />}
+        />
+        <Route
+          path="/terms-condition-management/add-terms-condition"
+          element={<ProtectedRoutes Components={AddTermsAndCondition} />}
+        />
+        <Route
+          path="/terms-condition-management/terms-condition-details/:id"
+          element={<TermsAndConditionDetails />}
+        />
+        <Route
+          path="/terms-condition-management/edit-terms-condition/:id"
+          element={<EditTermsAndCondition />}
+        />
+        {/* Terms And Condition Managment */}
 
         {/* 
         <Route path="/chapter-management" element={<ProtectedRoutes Components={ChapterManagement} />} />

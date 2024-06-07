@@ -20,7 +20,7 @@ import CustomModal from "../../Components/CustomModal";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomInput from "../../Components/CustomInput";
 import CustomButton from "../../Components/CustomButton";
-import { Getbookslist, GetbooksDelete } from "../../api";
+import { Getbookslist, GetbooksDelete, GetOrderlist } from "../../api";
 
 import { ordersManagement } from "../../Config/Data";
 
@@ -37,6 +37,7 @@ export const OrdersManagement = () => {
   const [inputValue, setInputValue] = useState("");
 
   const [books, setBooklists] = useState([]);
+  const [orders, setOrderslists] = useState([]);
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -54,6 +55,21 @@ export const OrdersManagement = () => {
 
       document.querySelector(".loaderBox").classList.add("d-none");
       setBooklists(response?.data);
+    } catch (error) {
+      console.error("Error in logging in:", error);
+
+      // toastAlert(error, ALERT_TYPES.ERROR);
+    }
+  };
+
+  const orderlist = async () => {
+    document.querySelector(".loaderBox").classList.remove("d-none");
+    try {
+      const response = await GetOrderlist();
+      console.log("response", response);
+
+      document.querySelector(".loaderBox").classList.add("d-none");
+      setOrderslists(response?.data);
     } catch (error) {
       console.error("Error in logging in:", error);
 
@@ -84,7 +100,13 @@ export const OrdersManagement = () => {
   useEffect(() => {
     booklist();
   }, []);
+
+  useEffect(() => {
+    orderlist();
+  }, []);
+
   console.log("books", books);
+  console.log("orders", orders);
 
   const inActive = () => {
     setShowModal(false);
@@ -117,6 +139,18 @@ export const OrdersManagement = () => {
   //   },
   // ];
 
+  // const fetchOrderData = async () => {
+  //   try {
+  //     const response = await fetch(`${url}orders`);
+  //     const jsonData = await response.json();
+  //     setData(jsonData);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+
+  // console.log("Fetch Order data", fetchOrderData);
+
   useEffect(() => {
     document.title = "IRV Segal | Book Management";
   }, []);
@@ -127,20 +161,28 @@ export const OrdersManagement = () => {
       title: "S.No",
     },
     {
-      key: "title",
-      title: "title",
+      key: "first_name",
+      title: "first name",
     },
     {
-      key: "date",
-      title: "date",
+      key: "last_name",
+      title: "last name",
     },
     {
-      key: "content",
-      title: "content",
+      key: "address1",
+      title: "address",
     },
     {
-      key: "isPinned",
-      title: "isPinned",
+      key: "phone",
+      title: "phone",
+    },
+    {
+      key: "email",
+      title: "email",
+    },
+    {
+      key: "country",
+      title: "country",
     },
     {
       key: "action  ",
@@ -183,15 +225,22 @@ export const OrdersManagement = () => {
                     <CustomTable headers={maleHeaders}>
                       <tbody>
                         {/* {currentItems?.map((item, index) => ( */}
-                        {ordersManagement?.map((item, index) => (
+                        {orders?.map((item, index) => (
                           <tr key={index}>
                             <td>{index + 1}</td>
                             {/* <td>{item?.title} </td> */}
-                            <td className="text-capitalize">{item?.title}</td>
+                            {/* <td className="text-capitalize">{item?.title}</td> */}
                             {/* <td>{item?.pages ? `$ ${item?.pages}` : `$0`}</td> */}
-                            <td>{item?.date}</td>
+                            <td>{item?.first_name}</td>
+                            <td>{item?.last_name}</td>
+                            <td>{item?.address1}</td>
+                            <td>{item?.phone}</td>
+                            <td>{item?.email}</td>
+                            <td>{item?.country}</td>
+                            {/* <td>{item?.country}</td>
+                            <td>{item?.created_at}</td>
                             <td>{item?.content}</td>
-                            <td>{item?.isPinned}</td>
+                            <td>{item?.isPinned}</td> */}
 
                             {/* <td>{item?.audiobook_duration}</td> */}
                             {/* <td className={item.status == 1 ? 'greenColor' : "redColor"}>{item.status == 1 ? 'Active' : "Inactive"}</td> */}

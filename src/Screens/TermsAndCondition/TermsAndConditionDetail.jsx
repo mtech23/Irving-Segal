@@ -6,7 +6,6 @@ import CustomModal from "../../Components/CustomModal";
 import CustomButton from "../../Components/CustomButton";
 import {
   GetBookdetail,
-  GetOrderdetail,
   Getchaptersdetail,
   GetchaptersDelete,
   Getpagedetail,
@@ -22,7 +21,7 @@ import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { ordersManagement } from "../../Config/Data";
 
-export const OrdersDetails = () => {
+export const TermsAndConditionDetails = () => {
   const Bookstatus = [
     {
       key: "0",
@@ -38,7 +37,6 @@ export const OrdersDetails = () => {
 
   const base_url = process.env.REACT_APP_BASE_URL;
   const [Bookdetail, setBookdetail] = useState({});
-  const [Orderdetail, setOrderdetail] = useState({});
   const [isChapter, setIsChapter] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
@@ -68,7 +66,6 @@ export const OrdersDetails = () => {
     setShowModal3(false);
     setShowModal4(true);
   };
-
   // console.log("id", id);
 
   // const bookdetail = async () => {
@@ -84,22 +81,9 @@ export const OrdersDetails = () => {
   //   }
   // };
 
-  const orderdetail = async () => {
-    try {
-      const response = await GetOrderdetail(id);
-      console.log("response", response);
-
-      setOrderdetail(response?.detail);
-    } catch (error) {
-      console.error("Error in logging in:", error);
-
-      // toastAlert(error, ALERT_TYPES.ERROR);
-    }
-  };
-
-  useEffect(() => {
-    orderdetail();
-  }, [id]);
+  // useEffect(() => {
+  //   bookdetail();
+  // }, [id]);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -231,7 +215,7 @@ export const OrdersDetails = () => {
     //         console.log(error);
     //     })
   };
-  console.log("order", Orderdetail?.country?.name);
+
   return (
     <>
       <DashboardLayout>
@@ -240,7 +224,7 @@ export const OrdersDetails = () => {
             <div className="col-12 mb-2">
               <h2 className="mainTitle">
                 <BackButton />
-                Order Details
+                Policies Details
               </h2>
             </div>
           </div>
@@ -489,56 +473,24 @@ export const OrdersDetails = () => {
                   </div>
                 )}
               </div> */}
-              {/* {Orderdetail?.map((item, index) => ( */}
+
               <div className="row">
-                <div className="col-md-6 mb-4">
-                  <p className="secondaryText">First Name</p>
-                  <p>{Orderdetail?.first_name}</p>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <p className="secondaryText">Last Name</p>
-                  <p>{Orderdetail?.last_name}</p>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <p className="secondaryText">Address</p>
-                  <p>{Orderdetail?.address1}</p>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <p className="secondaryText">Phone</p>
-                  <p>{Orderdetail?.phone}</p>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <p className="secondaryText">Email</p>
-                  <p>{Orderdetail?.email}</p>
+                <div className="col-md-12 mb-4">
+                  <p className="secondaryText">Privacy Policies</p>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry.{" "}
+                  </p>
                 </div>
 
-                <div className="col-md-6 mb-4">
-                  <p className="secondaryText">Country</p>
-                  <p>{Orderdetail?.country?.name}</p>
+                <div className="col-md-12 mb-4">
+                  <p className="secondaryText">Terms & Conditions</p>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry.{" "}
+                  </p>
                 </div>
-                <div className="col-md-6 mb-4">
-                  <p className="secondaryText">State</p>
-                  <p>{Orderdetail?.state?.name}</p>
-                </div>
-                {Orderdetail?.data?.map((item, index) => (
-                  // <div className="row" key={index}>
-                  <>
-                    <div className="col-md-6 mb-4">
-                      <p className="secondaryText">Price</p>
-                      <p>{item?.price}</p>
-                    </div>
-                    <div className="col-md-6 mb-4">
-                      <p className="secondaryText">Book Title</p>
-                      <p>{item?.book?.title}</p>
-                    </div>
-                    <div className="col-md-6 mb-4">
-                      <p className="secondaryText">Chapter Title</p>
-                      <p>{item?.chapter?.title}</p>
-                    </div>
-                  </>
-                ))}
               </div>
-              {/* ))} */}
             </div>
           </div>
         </div>

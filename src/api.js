@@ -1,8 +1,8 @@
 import { ALERT_TYPES } from "./constants";
 import { toastAlert } from "./utils";
- 
+
 // const url = "https://custom3.mystagingserver.site/Mike-Smith";
-const url = `${process.env.REACT_APP_BASE_URL}api/`
+const url = `${process.env.REACT_APP_BASE_URL}api/`;
 //SIGN UP
 export const userSignUpRequest = async (type, data) => {
   try {
@@ -87,14 +87,10 @@ export const userLogoutRequest = async () => {
   }
 };
 
-
-
-
 const LogoutData = localStorage.getItem("login");
 
 //AddBook
 export const Addbook = async (data) => {
- 
   try {
     const res = await fetch(`${url}books`, {
       method: "POST",
@@ -112,7 +108,7 @@ export const Addbook = async (data) => {
     if (!res.ok) {
       // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
     } else {
-      console.log("productData?.msg" , productData?.msg)
+      console.log("productData?.msg", productData?.msg);
       // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
     }
 
@@ -122,11 +118,9 @@ export const Addbook = async (data) => {
     throw error; // Rethrow error to be handled by caller
   }
 };
- 
 
 //EditEditBook
- export const Editbook = async (data) => {
- 
+export const Editbook = async (data) => {
   try {
     const res = await fetch(`${url}books`, {
       method: "POST",
@@ -144,7 +138,7 @@ export const Addbook = async (data) => {
     if (!res.ok) {
       // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
     } else {
-      console.log("productData?.msg" , productData?.msg)
+      console.log("productData?.msg", productData?.msg);
       // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
     }
 
@@ -154,27 +148,8 @@ export const Addbook = async (data) => {
     throw error; // Rethrow error to be handled by caller
   }
 };
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export const Addchapter = async (data) => {
- 
   try {
     const res = await fetch(`${url}chapters`, {
       method: "POST",
@@ -192,7 +167,7 @@ export const Addchapter = async (data) => {
     if (!res.ok) {
       // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
     } else {
-      console.log("productData?.msg" , productData?.msg)
+      console.log("productData?.msg", productData?.msg);
       // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
     }
 
@@ -202,11 +177,9 @@ export const Addchapter = async (data) => {
     throw error; // Rethrow error to be handled by caller
   }
 };
- 
 
 //EditChpater
- export const Editchapter = async (data) => {
- 
+export const Editchapter = async (data) => {
   try {
     const res = await fetch(`${url}chapters`, {
       method: "POST",
@@ -224,7 +197,7 @@ export const Addchapter = async (data) => {
     if (!res.ok) {
       // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
     } else {
-      console.log("productData?.msg" , productData?.msg)
+      console.log("productData?.msg", productData?.msg);
       // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
     }
 
@@ -234,29 +207,8 @@ export const Addchapter = async (data) => {
     throw error; // Rethrow error to be handled by caller
   }
 };
- 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Get Chapter   list      
+//Get Chapter   list
 // export const Getchapterslist = async ( ) => {
 //   try {
 //     const res = await fetch(`${url}chapters`, {
@@ -284,11 +236,6 @@ export const Addchapter = async (data) => {
 //   }
 // };
 
-
-
-
-
- 
 //Get Books Delete  list
 export const Getchaptersbyid = async (id) => {
   try {
@@ -317,12 +264,6 @@ export const Getchaptersbyid = async (id) => {
   }
 };
 
-
-
-
-
-
- 
 //Get Books Delete  list
 export const DeleteChapter = async (id) => {
   try {
@@ -351,13 +292,9 @@ export const DeleteChapter = async (id) => {
   }
 };
 
-
-
- 
-
 //Get chapters  detail
 export const Getchaptersdetailbyid = async (id) => {
-  console.log("ides" , id)
+  console.log("ides", id);
   try {
     const res = await fetch(`${url}bookchapters/${id}`, {
       method: "Get",
@@ -384,18 +321,8 @@ export const Getchaptersdetailbyid = async (id) => {
   }
 };
 
-
-
-
-
-
-
-
-
- 
-
 //Get Books   list
-export const Getbookslist = async ( ) => {
+export const Getbookslist = async () => {
   try {
     const res = await fetch(`${url}books`, {
       method: "Get",
@@ -421,11 +348,6 @@ export const Getbookslist = async ( ) => {
     throw error; // Rethrow error to be handled by caller
   }
 };
-
-
-
-
-
 
 //Get Books Delete  list
 export const GetbooksDelete = async (id) => {
@@ -455,11 +377,9 @@ export const GetbooksDelete = async (id) => {
   }
 };
 
-
-
 //Get Books  detail
 export const GetBookdetail = async (id) => {
-  console.log("ides" , id)
+  console.log("ides", id);
   try {
     const res = await fetch(`${url}books/${id}`, {
       method: "Get",
@@ -486,14 +406,95 @@ export const GetBookdetail = async (id) => {
   }
 };
 
+// Order Managment
+//Get Orders   list
+export const GetOrderlist = async () => {
+  try {
+    const res = await fetch(`${url}orders`, {
+      method: "Get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login")}`,
+      },
+    });
+    console.log(res, "res");
+    // Ensure response is ok before proceeding
 
+    const orderData = await res.json(); // Parse response JSON
+    console.log(orderData, "res");
+    if (!res.ok) {
+      // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
+    } else {
+      // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
+    }
 
+    return orderData; // Return parsed data
+  } catch (error) {
+    toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+    throw error; // Rethrow error to be handled by caller
+  }
+};
 
- 
+//Get Order  detail
+export const GetOrderdetail = async (id) => {
+  console.log("ides", id);
+  try {
+    const res = await fetch(`${url}view-order/${id}`, {
+      method: "Get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login")}`,
+      },
+    });
+    console.log(res, "res");
+    // Ensure response is ok before proceeding
 
+    const orderData = await res.json(); // Parse response JSON
+    console.log(orderData, "res");
+    if (!res.ok) {
+      toastAlert(orderData?.msg, ALERT_TYPES.ERROR);
+    } else {
+      toastAlert(orderData?.msg, ALERT_TYPES.SUCCESS);
+    }
+
+    return orderData; // Return parsed data
+  } catch (error) {
+    toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+    throw error; // Rethrow error to be handled by caller
+  }
+};
+
+// Policies Managment
+//Get Orders   list
+export const GetPolicieslist = async () => {
+  try {
+    const res = await fetch(`${url}contents`, {
+      method: "Get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login")}`,
+      },
+    });
+    console.log(res, "res");
+    // Ensure response is ok before proceeding
+
+    const policiesData = await res.json(); // Parse response JSON
+    console.log(policiesData, "res");
+    if (!res.ok) {
+      // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
+    } else {
+      // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
+    }
+
+    return policiesData; // Return parsed data
+  } catch (error) {
+    toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+    throw error; // Rethrow error to be handled by caller
+  }
+};
 
 // export const addPages = async ( ) => {
-  
+
 //   try {
 //     const res = await fetch(`${url}pages`, {
 //       method: "Post",
@@ -519,24 +520,8 @@ export const GetBookdetail = async (id) => {
 //     throw error; // Rethrow error to be handled by caller
 //   }
 // };
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export const addPages = async (data) => {
- 
   try {
     const res = await fetch(`${url}pages`, {
       method: "POST",
@@ -554,7 +539,7 @@ export const addPages = async (data) => {
     if (!res.ok) {
       // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
     } else {
-      console.log("productData?.msg" , productData?.msg)
+      console.log("productData?.msg", productData?.msg);
       // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
     }
 
@@ -565,15 +550,7 @@ export const addPages = async (data) => {
   }
 };
 
-
-
-
-
-
-
-
 export const Addquestions = async (data) => {
- 
   try {
     const res = await fetch(`${url}questions`, {
       method: "POST",
@@ -591,7 +568,7 @@ export const Addquestions = async (data) => {
     if (!res.ok) {
       // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
     } else {
-      console.log("productData?.msg" , productData?.msg)
+      console.log("productData?.msg", productData?.msg);
       // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
     }
 
@@ -601,12 +578,6 @@ export const Addquestions = async (data) => {
     throw error; // Rethrow error to be handled by caller
   }
 };
-
-
-
-
- 
-
 
 export const Getpagedetail = async (id) => {
   try {
@@ -634,7 +605,6 @@ export const Getpagedetail = async (id) => {
     throw error; // Rethrow error to be handled by caller
   }
 };
-
 
 export const pageDelete = async (id) => {
   try {

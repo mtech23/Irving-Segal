@@ -13,19 +13,7 @@ import CustomInput from "../../Components/CustomInput";
 
 import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-
-
-
-
-
-
 // Getchaptersdetailbyidbyid
-
-
-
-
-
-
 
 export const BookDetails = () => {
 
@@ -100,7 +88,7 @@ export const BookDetails = () => {
 
       // toastAlert(error, ALERT_TYPES.ERROR);
     }
-  };
+  }; 
 
 
 

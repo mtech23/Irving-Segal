@@ -20,13 +20,13 @@ import CustomModal from "../../Components/CustomModal";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomInput from "../../Components/CustomInput";
 import CustomButton from "../../Components/CustomButton";
-import { Getbookslist, GetbooksDelete, GetPolicieslist } from "../../api";
+import { Getbookslist, GetbooksDelete } from "../../api";
 
 import { ordersManagement } from "../../Config/Data";
 
 import "./style.css";
 
-export const PoliciesManagement = () => {
+export const TermsAndCondition = () => {
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
@@ -37,14 +37,13 @@ export const PoliciesManagement = () => {
   const [inputValue, setInputValue] = useState("");
 
   const [books, setBooklists] = useState([]);
-  const [policies, setPolicieslists] = useState([]);
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
   const navigate = useNavigate();
   const hanldeRoute = () => {
-    navigate("/policies-management/add-policies");
+    navigate("/terms-condition-management/add-terms-condition");
   };
 
   const booklist = async () => {
@@ -55,21 +54,6 @@ export const PoliciesManagement = () => {
 
       document.querySelector(".loaderBox").classList.add("d-none");
       setBooklists(response?.data);
-    } catch (error) {
-      console.error("Error in logging in:", error);
-
-      // toastAlert(error, ALERT_TYPES.ERROR);
-    }
-  };
-
-  const policiesList = async () => {
-    document.querySelector(".loaderBox").classList.remove("d-none");
-    try {
-      const response = await GetPolicieslist();
-      console.log("response", response);
-
-      document.querySelector(".loaderBox").classList.add("d-none");
-      setPolicieslists(response?.data);
     } catch (error) {
       console.error("Error in logging in:", error);
 
@@ -100,11 +84,7 @@ export const PoliciesManagement = () => {
   useEffect(() => {
     booklist();
   }, []);
-  useEffect(() => {
-    policiesList();
-  }, []);
   console.log("books", books);
-  console.log("Policies", policies);
 
   const inActive = () => {
     setShowModal(false);
@@ -131,7 +111,7 @@ export const PoliciesManagement = () => {
     document.title = "IRV Segal | Book Management";
   }, []);
 
-  const policiesData = [
+  const policies = [
     {
       id: 1,
       title: "Policies",
@@ -156,17 +136,17 @@ export const PoliciesManagement = () => {
       title: "S.No",
     },
     {
-      key: "policies_title",
-      title: "Policies Title",
+      key: "policies",
+      title: "policies",
     },
     {
-      key: "policies_desc",
-      title: "Policies Description",
+      key: "privacy_policy",
+      title: "Privacy Policy",
     },
-    // {
-    //   key: "terms_conditions",
-    //   title: "Terms & Conditions",
-    // },
+    {
+      key: "terms_conditions",
+      title: "Terms & Conditions",
+    },
     {
       key: "action  ",
       title: "action  ",
@@ -212,10 +192,10 @@ export const PoliciesManagement = () => {
                           <tr key={index}>
                             <td>{index + 1}</td>
                             {/* <td>{item?.title} </td> */}
-                            {/* <td className="text-capitalize">{item?.title}</td> */}
+                            <td className="text-capitalize">{item?.title}</td>
                             {/* <td>{item?.pages ? `$ ${item?.pages}` : `$0`}</td> */}
-                            <td>{item?.title}</td>
-                            <td>{item?.description}</td>
+                            <td>{item?.privacy_policy}</td>
+                            <td>{item?.terms_conditions}</td>
 
                             {/* <td>{item?.audiobook_duration}</td> */}
                             {/* <td className={item.status == 1 ? 'greenColor' : "redColor"}>{item.status == 1 ? 'Active' : "Inactive"}</td> */}
@@ -233,7 +213,7 @@ export const PoliciesManagement = () => {
                                 >
                                   <Link
                                     // to={`/orders-management/order-details/${item?.id}`}
-                                    to={`/policies-management/policies-details/${item?.id}`}
+                                    to={`/terms-condition-management/terms-condition-details/${item?.id}`}
                                     className="tableAction"
                                   >
                                     <FontAwesomeIcon
@@ -243,7 +223,7 @@ export const PoliciesManagement = () => {
                                     View
                                   </Link>
                                   <Link
-                                    to={`/policies-management/edit-policies/${item?.id}`}
+                                    to={`/terms-condition-management/edit-terms-condition/${item?.id}`}
                                     className="tableAction"
                                   >
                                     <FontAwesomeIcon
