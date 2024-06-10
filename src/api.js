@@ -434,7 +434,7 @@ export const GetOrderlist = async () => {
     throw error; // Rethrow error to be handled by caller
   }
 };
-
+ 
 //Get Order  detail
 export const GetOrderdetail = async (id) => {
   console.log("ides", id);
@@ -464,6 +464,42 @@ export const GetOrderdetail = async (id) => {
   }
 };
 
+
+
+
+export const getpolicedetail = async (id) => {
+  console.log("ides", id);
+  try {
+    const res = await fetch(`${url}content/${id}`, {
+      method: "Get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login")}`,
+      },
+    });
+    console.log(res, "res");
+    // Ensure response is ok before proceeding
+
+    const orderData = await res.json(); // Parse response JSON
+    console.log(orderData, "res");
+    if (!res.ok) {
+      toastAlert(orderData?.msg, ALERT_TYPES.ERROR);
+    } else {
+      toastAlert(orderData?.msg, ALERT_TYPES.SUCCESS);
+    }
+
+    return orderData; // Return parsed data
+  } catch (error) {
+    toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+    throw error; // Rethrow error to be handled by caller
+  }
+};
+
+
+
+
+
+
 // Policies Managment
 //Get Orders   list
 export const GetPolicieslist = async () => {
@@ -487,6 +523,94 @@ export const GetPolicieslist = async () => {
     }
 
     return policiesData; // Return parsed data
+  } catch (error) {
+    toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+    throw error; // Rethrow error to be handled by caller
+  }
+};
+
+//AddPolicy
+export const Addpolicy = async (data) => {
+  try {
+    const res = await fetch(`${url}content`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login")}`,
+      },
+      body: data,
+    });
+    console.log(res, "res");
+    // Ensure response is ok before proceeding
+
+    const policyData = await res.json(); // Parse response JSON
+    console.log(policyData, "res");
+    if (!res.ok) {
+      // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
+    } else {
+      console.log("policyData?.msg", policyData?.msg);
+      // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
+    }
+
+    return policyData; // Return parsed data
+  } catch (error) {
+    toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+    throw error; // Rethrow error to be handled by caller
+  }
+};
+
+//EditPolicy
+export const Editpolicy = async (data) => {
+  try {
+    const res = await fetch(`${url}content`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login")}`,
+      },
+      body: data,
+    });
+    console.log(res, "res");
+    // Ensure response is ok before proceeding
+
+    const policyData = await res.json(); // Parse response JSON
+    console.log(policyData, "res");
+    if (!res.ok) {
+      // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
+    } else {
+      console.log("policyData?.msg", policyData?.msg);
+      // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
+    }
+
+    return policyData; // Return parsed data
+  } catch (error) {
+    toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+    throw error; // Rethrow error to be handled by caller
+  }
+};
+
+//Get Policy Delete
+export const GetpolicyDelete = async (id) => {
+  try {
+    const res = await fetch(`${url}content/${id}`, {
+      method: "Delete",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login")}`,
+      },
+    });
+    console.log(res, "res");
+    // Ensure response is ok before proceeding
+
+    const policyData = await res.json(); // Parse response JSON
+    console.log(policyData, "res");
+    if (!res.ok) {
+      // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
+    } else {
+      // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
+    }
+
+    return policyData; // Return parsed data
   } catch (error) {
     toastAlert(error, ALERT_TYPES.ERROR); // Handle error
     throw error; // Rethrow error to be handled by caller

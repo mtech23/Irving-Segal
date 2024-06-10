@@ -5,7 +5,7 @@ import BackButton from "../../Components/BackButton";
 import CustomModal from "../../Components/CustomModal";
 import CustomInput from "../../Components/CustomInput";
 import { SelectBox } from "../../Components/CustomSelect";
-import { Editbook, GetBookdetail } from "../../api";
+import { Editpolicy, GetBookdetail , getpolicedetail } from "../../api";
 import CustomButton from "../../Components/CustomButton";
 export const EditPolicies = () => {
   const { id } = useParams();
@@ -14,9 +14,7 @@ export const EditPolicies = () => {
   const [categories, setCategories] = useState({});
   const [unit, setUnit] = useState({});
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    cover: "", // Initialize image as an empty string
-  });
+  const [formData, setFormData] = useState({});
 
   const Booktype = [
     {
@@ -51,9 +49,9 @@ export const EditPolicies = () => {
     console.log(formData);
   };
 
-  const bookdetail = async () => {
+  const policedetail = async () => {
     try {
-      const response = await GetBookdetail(id);
+      const response = await getpolicedetail(id);
       console.log("response", response);
 
       setFormData(response?.data);
@@ -65,9 +63,8 @@ export const EditPolicies = () => {
   };
 
   useEffect(() => {
-    bookdetail();
+    policedetail();
   }, [id]);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -83,10 +80,10 @@ export const EditPolicies = () => {
     // Make the fetch request
 
     try {
-      const response = await Editbook(formDataMethod);
+      const response = await Editpolicy(formDataMethod);
 
       if (response?.status == true) {
-        navigate("/book-management");
+        navigate("/policies-management");
       } else {
       }
     } catch (error) {
@@ -114,11 +111,11 @@ export const EditPolicies = () => {
                     <div className="row">
                       <div className="col-md-6 mb-4">
                         <CustomInput
-                          label="Edit Privacy Policy Title"
+                          label="Policy Title"
                           required
-                          id="jobID"
+                          id="name"
                           type="text"
-                          placeholder="Edit Privacy Policy Title"
+                          placeholder="Policy Title"
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="title"
@@ -127,51 +124,32 @@ export const EditPolicies = () => {
                         />
                       </div>
 
-                      {/* <div className="col-md-6 mb-4">
+                      <div className="col-md-6 mb-4">
                         <CustomInput
-                          label="Edit Date"
+                          label="Content Key"
                           required
-                          id="date"
-                          type="date"
-                          placeholder="   Enter Audiobook Duration"
+                          id="name"
+                          type="text"
+                          placeholder="Content Key"
                           labelClass="mainLabel"
                           inputClass="mainInput"
-                          name="date"
-                          value={formData?.date}
+                          name="contentkey"
+                          value={formData?.contentkey}
                           onChange={handleChange}
                         />
-                      </div> */}
-
-                      <div className="col-md-6 mb-4">
-                        <div className="inputWrapper">
-                          <div className="form-controls">
-                            <label htmlFor="">Edit Privacy Policy</label>
-                            <textarea
-                              name="content"
-                              className="form-control shadow border-0"
-                              placeholder="Edit Privacy Policy"
-                              id="content"
-                              cols="30"
-                              rows="10"
-                              value={formData?.content}
-                              onChange={handleChange}
-                            ></textarea>
-                          </div>
-                        </div>
                       </div>
 
                       <div className="col-md-6 mb-4">
                         <div className="inputWrapper">
                           <div className="form-controls">
-                            <label htmlFor="">Edit Terms & Conditions</label>
+                            <label htmlFor="">Policy Description</label>
                             <textarea
-                              name="content"
+                              name="description"
                               className="form-control shadow border-0"
-                              placeholder="Edit Terms & Conditions"
-                              id="content"
+                              id="description"
                               cols="30"
                               rows="10"
-                              value={formData?.content}
+                              value={formData?.description}
                               onChange={handleChange}
                             ></textarea>
                           </div>

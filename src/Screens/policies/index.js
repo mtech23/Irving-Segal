@@ -20,7 +20,7 @@ import CustomModal from "../../Components/CustomModal";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomInput from "../../Components/CustomInput";
 import CustomButton from "../../Components/CustomButton";
-import { Getbookslist, GetbooksDelete, GetPolicieslist } from "../../api";
+import { Getbookslist, GetpolicyDelete, GetPolicieslist } from "../../api";
 
 import { ordersManagement } from "../../Config/Data";
 
@@ -77,15 +77,15 @@ export const PoliciesManagement = () => {
     }
   };
 
-  const bookdelete = async (id) => {
+  const policydelete = async (id) => {
     document.querySelector(".loaderBox").classList.remove("d-none");
     try {
-      const response = await GetbooksDelete(id);
+      const response = await GetpolicyDelete(id);
       console.log("response", response);
 
       if (response?.status == true) {
         document.querySelector(".loaderBox").classList.add("d-none");
-        booklist();
+        policiesList();
       }
     } catch (error) {
       console.error("Error in logging in:", error);
@@ -257,7 +257,7 @@ export const PoliciesManagement = () => {
                                     type="button"
                                     className="bg-transparent border-0 ps-lg-3 pt-1"
                                     onClick={() => {
-                                      bookdelete(item?.id);
+                                      policydelete(item?.id);
                                     }}
                                   >
                                     <FontAwesomeIcon
