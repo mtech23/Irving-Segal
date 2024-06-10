@@ -434,7 +434,7 @@ export const GetOrderlist = async () => {
     throw error; // Rethrow error to be handled by caller
   }
 };
- 
+
 //Get Order  detail
 export const GetOrderdetail = async (id) => {
   console.log("ides", id);
@@ -464,9 +464,6 @@ export const GetOrderdetail = async (id) => {
   }
 };
 
-
-
-
 export const getpolicedetail = async (id) => {
   console.log("ides", id);
   try {
@@ -494,11 +491,6 @@ export const getpolicedetail = async (id) => {
     throw error; // Rethrow error to be handled by caller
   }
 };
-
-
-
-
-
 
 // Policies Managment
 //Get Orders   list
