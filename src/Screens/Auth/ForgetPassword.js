@@ -18,10 +18,54 @@ const ForgetPassword = () => {
         document.title = 'IRV Segal | Password Recovery';
     }, [])
 
-    const handleClick = (e) => {
-        e.preventDefault()
-        navigate('/forget-password2')
-    }
+    // const handleClick = (e) => {
+    //     e.preventDefault()
+    //     navigate('/forget-password2')
+    // }
+
+    const handleClick = async (event) => {
+        event.preventDefault();
+
+        const formDataMethod = new FormData();
+        formDataMethod.append('email', formData.email);
+        // formDataMethod.append('password', formData.password);
+        localStorage.setItem('email', formData.email);    
+        document.querySelector('.loaderBox').classList.remove("d-none");
+
+        const apiUrl = 'https://custom3.mystagingserver.site/Irving-Segal/public/api/forgot_password';
+
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                body: formDataMethod
+            });
+
+            if (response.ok === true) {
+  
+
+                const responseData = await response.json();
+                console.log("responseData", responseData)
+                localStorage.setItem('login', responseData.token);
+                console.log('Login Response:', responseData);
+                document.querySelector('.loaderBox').classList.add("d-none");
+                navigate('/forget-password2')
+
+            } else {
+                document.querySelector('.loaderBox').classList.add("d-none");
+                alert('Invalid Credentials')
+
+                console.error('Login failed');
+            }
+        } catch (error) {
+            document.querySelector('.loaderBox').classList.add("d-none");
+            console.error('Error:', error);
+        }
+
+
+    };
+
+
 
     return (
         <>

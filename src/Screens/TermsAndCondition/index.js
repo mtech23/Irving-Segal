@@ -108,7 +108,7 @@ export const TermsAndCondition = () => {
   const currentItems = filterData?.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    document.title = "IRV Segal | Book Management";
+    document.title = "IRV Segal | Terms & Conditions Management";
   }, []);
 
   const policies = [
@@ -164,7 +164,7 @@ export const TermsAndCondition = () => {
               <div className="dashCard">
                 <div className="row mb-3 justify-content-between">
                   <div className="col-md-6 mb-2">
-                    <h2 className="mainTitle">Policies Management</h2>
+                    <h2 className="mainTitle"> Terms & Conditions Management</h2>
                   </div>
                   <div className="col-md-6 mb-2">
                     <div className="addUser">

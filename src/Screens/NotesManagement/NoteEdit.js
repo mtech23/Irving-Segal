@@ -321,11 +321,8 @@ export const NoteEdit = () => {
             });
     };
 
-
+    console.log("formData", formData)
     return (
-
-
-
 
         <>
             <DashboardLayout>
