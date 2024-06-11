@@ -4,7 +4,7 @@ import { DashboardLayout } from "../../Components/Layout/DashboardLayout";
 import BackButton from "../../Components/BackButton";
 import CustomModal from "../../Components/CustomModal";
 import CustomButton from "../../Components/CustomButton";
-import { GetBookdetail, Getchaptersdetailbyid, DeleteChapter, GetchaptersDelete, Getpagedetail, pageDelete, Addchapter, Getchaptersbyid, addPages   } from '../../api'
+import { GetBookdetail, Getchaptersdetailbyid, DeleteChapter, GetchaptersDelete, Getpagedetail, pageDelete, Addchapter, Getchaptersbyid, addPages } from '../../api'
 import Accordion from 'react-bootstrap/Accordion';
 import { Link, useNavigate } from "react-router-dom";
 import { SelectBox } from "../../Components/CustomSelect";
@@ -88,7 +88,7 @@ export const BookDetails = () => {
 
       // toastAlert(error, ALERT_TYPES.ERROR);
     }
-  }; 
+  };
 
 
 
@@ -528,6 +528,19 @@ export const BookDetails = () => {
 
   }
 
+  const handlefile = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const fileName = file;
+      setFormData((prevData) => ({
+        ...prevData,
+        audio_file: fileName,
+      }));
+    }
+  };
+
+
 
 
 
@@ -719,6 +732,25 @@ export const BookDetails = () => {
                       </div>
 
 
+
+                      <div className="ChapterForm col-md-6 mb-4">
+                        <CustomInput
+                          label='Chapter No'
+                          required
+                          id='title'
+                          type='text'
+                          placeholder='Enter Chapter Number'
+                          labelClass='mainLabel'
+                          inputClass='mainInput'
+                          name="chapter_number"
+                          value={formData?.chapter_number}
+                          onChange={handleChange}
+                        />
+
+
+
+                      </div>
+
                       <div className="ChapterForm col-md-6 mb-4">
 
                         <CustomInput
@@ -730,7 +762,9 @@ export const BookDetails = () => {
                           labelClass='mainLabel'
                           inputClass='mainInput'
                           name='audio_file'
-                          onChange={handleChange}
+                          accept='.mp4,.mp3' // Restrict to mp4 and mp3 files
+
+                          onChange={handlefile}
                         />
                       </div>
                       <div className="col-md-6 mb-4">
@@ -837,7 +871,9 @@ export const BookDetails = () => {
             labelClass='mainLabel'
             inputClass='mainInput'
             name='audio_file'
-            onChange={handleChange}
+            accept='.mp4,.mp3' // Restrict to mp4 and mp3 files
+
+            onChange={handlefile}
           />
 
           <SelectBox
@@ -996,7 +1032,7 @@ export const BookDetails = () => {
             onChange={handlepageChange}
           /> */}
 
-        
+
           {/* <CustomInput
             label='Chapter Audio'
             required

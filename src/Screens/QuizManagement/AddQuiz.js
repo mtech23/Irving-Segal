@@ -52,9 +52,9 @@ export const AddQuiz = () => {
         setShowModal4(true)
     }
 
- 
+
     const indexOfLastItem = currentPage * itemsPerPage;
- 
+
 
     useEffect(() => {
         document.title = 'Certifires | User Management';
@@ -179,10 +179,26 @@ export const AddQuiz = () => {
                                         <div class="col-md-6 col-sm-12 ">
                                             <SelectBox selectClass="mainInput" name="book_id" labelClass='mainLabel' label="Select Book" required
                                                 //  option={books?.title} 
-                                                option={books.map(book => ({ id: book.id, name: book.title }))}
+                                                option={books?.map(book => ({ id: book.id, name: book.title }))}
                                                 onChange={handleChange}
                                             />
                                         </div>
+
+
+                                        <div className="col-6">
+                                            <CustomInput
+                                                label='Question Points'
+                                                required
+                                                id='userEmail'
+                                                name="points"
+                                                type='text'
+                                                placeholder='Enter points '
+                                                labelClass='mainLabel'
+                                                inputClass='mainInput'
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+
                                         <div className="col-12">
                                             <CustomInput
                                                 label='Question'
@@ -223,7 +239,7 @@ export const AddQuiz = () => {
                                                         name="correct_option"
                                                         type="radio"
                                                         value={String.fromCharCode(97 + index)}
-                                                        checked={formData.correct_option === String.fromCharCode(97 + index)}
+                                                        checked={formData?.correct_option === String.fromCharCode(97 + index)}
                                                         onChange={handleChange}
                                                     />
                                                 </div>

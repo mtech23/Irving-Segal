@@ -30,6 +30,7 @@ const EditProfile = () => {
 
     const handleClose = () => {
         setShowModal(false);
+
         navigate('/profile')
     }
 
@@ -128,7 +129,7 @@ const EditProfile = () => {
 
 
                 if (data?.status == true) {
-                    navigate('/notes-management');
+                    setShowModal(true)
 
                 } else {
 
@@ -159,8 +160,10 @@ const EditProfile = () => {
                                     <div className="row mb-3">
                                         <div className="col-lg-4 order-2 order-lg-1 mb-3">
                                             <div className="profileImage">
-                                                <img src={baseurl + userNewData.image} alt="User" />
-                                                <input type="file" accept="img/*" className="d-none" id="profileImage" onChange={handlefile} />
+  
+                                                <img src={userNewData?.image instanceof File ? URL.createObjectURL(userNewData.image) : baseurl + userNewData?.image} />
+
+        <input type="file" accept="img/*" className="d-none" id="profileImage" onChange={handlefile} />
                                                 <label htmlFor="profileImage" className="imageUploadButton"><FontAwesomeIcon icon={faCamera} /></label>
                                             </div>
                                         </div>
@@ -217,7 +220,7 @@ const EditProfile = () => {
                                             </div>
                                         </div>
                                         <div className="col-12">
-                                            <CustomButton type="submit" variant="primaryButton" className="me-3 mb-2" text="Save"   onClick={handleClickPopup} />
+                                            <CustomButton type="submit" variant="primaryButton" className="me-3 mb-2" text="Save" onClick={handleClickPopup} />
                                             <CustomButton type="button" variant="secondaryButton" className="me-3 mb-2" text="Cancel" onClick={() => { navigate('/profile') }} />
                                         </div>
 

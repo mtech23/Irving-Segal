@@ -126,28 +126,28 @@ export const QuizList = () => {
         const LogoutData = localStorage.getItem('login');
         document.querySelector('.loaderBox').classList.remove("d-none");
         fetch(`${process.env.REACT_APP_BASE_URL}api/questions/${catId}`,
-          {
-            method: 'DELETE',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${LogoutData}`
-            },
-          }
+            {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${LogoutData}`
+                },
+            }
         )
 
-          .then(response =>
-            response.json()
-          )
-          .then((data) => {
-            console.log(data)
-            document.querySelector('.loaderBox').classList.add("d-none");
-            Quizlisting()
-          })
-          .catch((error) => {
-            document.querySelector('.loaderBox').classList.add("d-none");
-            console.log(error)
-          })
+            .then(response =>
+                response.json()
+            )
+            .then((data) => {
+                console.log(data)
+                document.querySelector('.loaderBox').classList.add("d-none");
+                Quizlisting()
+            })
+            .catch((error) => {
+                document.querySelector('.loaderBox').classList.add("d-none");
+                console.log(error)
+            })
     }
     const hanldeRoute = () => {
         navigate('/quiz-management/add-quiz')
@@ -184,9 +184,9 @@ export const QuizList = () => {
                                                 {currentItems?.map((item, index) => (
                                                     <tr key={index}>
                                                         <td>{index + 1}</td>
-                                                      
+
                                                         <td>{item?.title}</td>
- 
+
                                                         <td>{item?.questions_count}</td>
 
                                                         {/* <td className={item.status == 1 ? 'greenColor' : "redColor"}>{item.status == 1 ? 'Active' : "Inactive"}</td> */}
@@ -196,10 +196,10 @@ export const QuizList = () => {
                                                                     <FontAwesomeIcon icon={faEllipsisV} />
                                                                 </Dropdown.Toggle>
                                                                 <Dropdown.Menu align="end" className="tableDropdownMenu">
-                                                                     <Link to={`/quiz-management/quiz-detail/${item?.id}`} className="tableAction"><FontAwesomeIcon icon={faEye} className="tableActionIcon" />View</Link>
- 
+                                                                    <Link to={`/quiz-management/quiz-detail/${item?.id}`} className="tableAction"><FontAwesomeIcon icon={faEye} className="tableActionIcon" />View</Link>
+
                                                                     {/* <button type="button" className="bg-transparent border-0 ps-lg-3 pt-1" onClick={DeleteQuiz(item?.id)}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> Delete</button> */}
-                                                              
+
                                                                 </Dropdown.Menu>
                                                             </Dropdown>
                                                         </td>

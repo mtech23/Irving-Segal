@@ -94,6 +94,8 @@ export const EditBook = () => {
     }
   };
 
+  const baseurl = process.env.REACT_APP_BASE_URL
+
   return (
     <>
       <DashboardLayout>
@@ -122,7 +124,7 @@ export const EditBook = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="author"
-                          value={formData.author}
+                          value={formData?.author}
                           onChange={handleChange}
                         />
                       </div>
@@ -136,7 +138,7 @@ export const EditBook = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="title"
-                          value={formData.title}
+                          value={formData?.title}
                           onChange={handleChange}
                         />
                       </div>
@@ -147,7 +149,7 @@ export const EditBook = () => {
                           label="Select Book Type"
                           placeholder="Select Book Type"
                           required
-                          value={formData.type}
+                          value={formData?.type}
                           option={Booktype}
                           onChange={handleChange}
                         />
@@ -166,25 +168,30 @@ export const EditBook = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="lang"
-                          value={formData.lang}
+                          value={formData?.lang}
                           onChange={handleChange}
                         />
                       </div>
                       <div className="col-md-6 mb-4">
                         <CustomInput
                           label="Book Cover    "
-                          required
+                           
                           id="resume"
                           type="file"
                           placeholder="Book Cover"
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="cover"
-                          // value={formData.cover}
+                          // value={formData?.cover}
                           onChange={filehandleChange}
                         />
+
+                        <div className="galleryItem col-md-4 mb-3 position-relative">
+                          <img src={formData?.cover instanceof File ? URL.createObjectURL(formData?.cover) : baseurl + formData?.cover} className="w-100" />
+
+                        </div>
                       </div>
-                      <div className="col-md-6 mb-4">
+                      {/* <div className="col-md-6 mb-4">
                         <CustomInput
                           label="Enter Audiobook Duration  "
                           required
@@ -194,10 +201,10 @@ export const EditBook = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="audiobook_duration"
-                          value={formData.audiobook_duration}
+                          value={formData?.audiobook_duration}
                           onChange={handleChange}
                         />
-                      </div>
+                      </div> */}
                       <div className="col-md-6 mb-4">
                         <CustomInput
                           label="Enter Pages  "
@@ -208,7 +215,7 @@ export const EditBook = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="pages"
-                          value={formData.pages}
+                          value={formData?.pages}
                           onChange={handleChange}
                         />
                       </div>
@@ -222,10 +229,27 @@ export const EditBook = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="rating"
-                          value={formData.rating}
+                          value={formData?.rating}
                           onChange={handleChange}
                         />
                       </div>
+
+
+
+                      {formData?.type == "AudioBook" ? (<div className="col-md-6 mb-4">
+                        <CustomInput
+                          label="Enter Audiobook Duration  "
+                          required
+                          id="schedule_interview"
+                          type="text"
+                          placeholder="   Enter Audiobook Duration"
+                          labelClass="mainLabel"
+                          inputClass="mainInput"
+                          name="audiobook_duration"
+                          value={formData.audiobook_duration}
+                          onChange={handleChange}
+                        />
+                      </div>) : ("")}
                       <div className="col-md-6 mb-4">
                         {/* <CustomInput
                                                     label="Description"
@@ -236,7 +260,7 @@ export const EditBook = () => {
                                                     labelClass="mainLabel"
                                                     inputClass="mainInput"
                                                     name="description"
-                                                    value={formData.description}
+                                                    value={formData?.description}
                                                     onChange={handleChange}
                                                 /> */}
                         <div className="inputWrapper">

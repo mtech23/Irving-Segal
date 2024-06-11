@@ -70,6 +70,7 @@ export const OrdersManagement = () => {
 
       document.querySelector(".loaderBox").classList.add("d-none");
       setOrderslists(response?.data);
+      setData(response?.data);
     } catch (error) {
       console.error("Error in logging in:", error);
 
