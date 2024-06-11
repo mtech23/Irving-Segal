@@ -42,6 +42,7 @@ export const PoliciesManagement = () => {
     setCurrentPage(pageNumber);
   };
 
+  console.log("policies", policies);
   const navigate = useNavigate();
   const hanldeRoute = () => {
     navigate("/policies-management/add-policies");
@@ -66,7 +67,7 @@ export const PoliciesManagement = () => {
     document.querySelector(".loaderBox").classList.remove("d-none");
     try {
       const response = await GetPolicieslist();
-      console.log("response", response);
+      console.log("policy", response);
 
       document.querySelector(".loaderBox").classList.add("d-none");
       setPolicieslists(response?.data);
@@ -157,11 +158,11 @@ export const PoliciesManagement = () => {
     },
     {
       key: "policies_title",
-      title: "Policies Title",
+      title: "Title",
     },
     {
       key: "policies_desc",
-      title: "Policies Description",
+      title: "Description",
     },
     // {
     //   key: "terms_conditions",
@@ -184,12 +185,12 @@ export const PoliciesManagement = () => {
               <div className="dashCard">
                 <div className="row mb-3 justify-content-between">
                   <div className="col-md-6 mb-2">
-                    <h2 className="mainTitle">Policies Management</h2>
+                    <h2 className="mainTitle">Privacy Policy</h2>
                   </div>
                   <div className="col-md-6 mb-2">
                     <div className="addUser">
                       <CustomButton
-                        text="Add Policies"
+                        text="Add Privacy Policy"
                         variant="primaryButton"
                         onClick={hanldeRoute}
                       />
@@ -215,7 +216,7 @@ export const PoliciesManagement = () => {
                             {/* <td className="text-capitalize">{item?.title}</td> */}
                             {/* <td>{item?.pages ? `$ ${item?.pages}` : `$0`}</td> */}
                             <td>{item?.title}</td>
-                            <td>{item?.description}</td>
+                            <td>{item?.policy}</td>
 
                             {/* <td>{item?.audiobook_duration}</td> */}
                             {/* <td className={item.status == 1 ? 'greenColor' : "redColor"}>{item.status == 1 ? 'Active' : "Inactive"}</td> */}

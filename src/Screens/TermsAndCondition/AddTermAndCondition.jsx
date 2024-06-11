@@ -3,7 +3,7 @@ import { DashboardLayout } from "../../Components/Layout/DashboardLayout";
 import BackButton from "../../Components/BackButton";
 import CustomModal from "../../Components/CustomModal";
 import CustomInput from "../../Components/CustomInput";
-import { Addbook } from "../../api";
+import { Addpolicy } from "../../api";
 import { SelectBox } from "../../Components/CustomSelect";
 import CustomButton from "../../Components/CustomButton";
 import {
@@ -16,9 +16,7 @@ export const AddTermsAndCondition = () => {
   const [unit, setUnit] = useState({});
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    cover: "", // Initialize image as an empty string
-  });
+  const [formData, setFormData] = useState({});
 
   const Booktype = [
     {
@@ -30,6 +28,15 @@ export const AddTermsAndCondition = () => {
       name: "AudioBook",
     },
   ];
+
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  //   console.log(formData);
+  // };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -53,6 +60,30 @@ export const AddTermsAndCondition = () => {
     console.log(formData);
   };
 
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   document.querySelector(".loaderBox").classList.remove("d-none");
+  //   const formDataMethod = new FormData();
+  //   for (const key in formData) {
+  //     formDataMethod.append(key, formData[key]);
+  //   }
+
+  //   document.querySelector(".loaderBox").classList.remove("d-none");
+  //   // Make the fetch request
+
+  //   try {
+  //     const response = await Addbook(formDataMethod);
+
+  //     if (response?.status == true) {
+  //       navigate("/book-management");
+  //     } else {
+  //     }
+  //   } catch (error) {
+  //     console.error("Error in adding model post:", error);
+  //   }
+  // };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -61,15 +92,15 @@ export const AddTermsAndCondition = () => {
     for (const key in formData) {
       formDataMethod.append(key, formData[key]);
     }
-
+    formDataMethod.append("contentkey", "terms");
     document.querySelector(".loaderBox").classList.remove("d-none");
     // Make the fetch request
 
     try {
-      const response = await Addbook(formDataMethod);
+      const response = await Addpolicy(formDataMethod);
 
       if (response?.status == true) {
-        navigate("/book-management");
+        navigate("/terms-condition-management");
       } else {
       }
     } catch (error) {
@@ -85,7 +116,7 @@ export const AddTermsAndCondition = () => {
             <div className="col-12 mb-2">
               <h2 className="mainTitle">
                 <BackButton />
-                Add Policies
+                Add Terms And Condition
               </h2>
             </div>
           </div>
@@ -198,30 +229,45 @@ export const AddTermsAndCondition = () => {
 
                       <div className="col-md-6 mb-4">
                         <CustomInput
-                          label="Privacy Policy Title"
+                          label="Title"
                           required
                           id="name"
                           type="text"
-                          placeholder="Enter Privacy Policy Title"
+                          placeholder="Add Title"
                           labelClass="mainLabel"
                           inputClass="mainInput"
-                          name="author"
-                          value={formData.author}
+                          name="title"
+                          value={formData.title}
                           onChange={handleChange}
                         />
                       </div>
 
+                      {/* <div className="col-md-6 mb-4">
+                        <CustomInput
+                          label="Content Key"
+                          required
+                          id="name"
+                          type="text"
+                          placeholder="Content Key"
+                          labelClass="mainLabel"
+                          inputClass="mainInput"
+                          name="contentkey"
+                          value={formData.contentkey}
+                          onChange={handleChange}
+                        />
+                      </div> */}
+
                       <div className="col-md-6 mb-4">
                         <div className="inputWrapper">
                           <div className="form-controls">
-                            <label htmlFor="">Privacy Policy</label>
+                            <label htmlFor="">Description</label>
                             <textarea
-                              name="privacy_policy"
+                              name="description"
                               className="form-control shadow border-0"
-                              id="privacy_policy"
+                              id="description"
                               cols="30"
                               rows="10"
-                              value={formData?.privacy_policy}
+                              value={formData?.description}
                               onChange={handleChange}
                             ></textarea>
                           </div>
@@ -243,7 +289,7 @@ export const AddTermsAndCondition = () => {
                         />
                       </div> */}
 
-                      <div className="col-md-6 mb-4">
+                      {/* <div className="col-md-6 mb-4">
                         <div className="inputWrapper">
                           <div className="form-controls">
                             <label htmlFor="">Terms & Conditions</label>
@@ -258,7 +304,7 @@ export const AddTermsAndCondition = () => {
                             ></textarea>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="col-md-12">
                         <CustomButton

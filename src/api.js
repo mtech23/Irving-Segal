@@ -496,6 +496,33 @@ export const getpolicedetail = async (id) => {
 //Get Orders   list
 export const GetPolicieslist = async () => {
   try {
+    const res = await fetch(`${url}privacy-policy`, {
+      method: "Get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login")}`,
+      },
+    });
+    console.log(res, "res");
+    // Ensure response is ok before proceeding
+
+    const policiesData = await res.json(); // Parse response JSON
+    console.log(policiesData, "res");
+    if (!res.ok) {
+      // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
+    } else {
+      // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
+    }
+
+    return policiesData; // Return parsed data
+  } catch (error) {
+    toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+    throw error; // Rethrow error to be handled by caller
+  }
+};
+
+export const Getterms = async () => {
+  try {
     const res = await fetch(`${url}contents`, {
       method: "Get",
       headers: {
@@ -515,6 +542,34 @@ export const GetPolicieslist = async () => {
     }
 
     return policiesData; // Return parsed data
+  } catch (error) {
+    toastAlert(error, ALERT_TYPES.ERROR); // Handle error
+    throw error; // Rethrow error to be handled by caller
+  }
+};
+
+//Get Policy Delete
+export const GettermsDelete = async (id) => {
+  try {
+    const res = await fetch(`${url}content/${id}`, {
+      method: "Delete",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login")}`,
+      },
+    });
+    console.log(res, "res");
+    // Ensure response is ok before proceeding
+
+    const policyData = await res.json(); // Parse response JSON
+    console.log(policyData, "res");
+    if (!res.ok) {
+      // toastAlert(productData?.msg, ALERT_TYPES.ERROR);
+    } else {
+      // toastAlert(productData?.msg, ALERT_TYPES.SUCCESS);
+    }
+
+    return policyData; // Return parsed data
   } catch (error) {
     toastAlert(error, ALERT_TYPES.ERROR); // Handle error
     throw error; // Rethrow error to be handled by caller

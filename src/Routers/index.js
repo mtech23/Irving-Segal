@@ -34,11 +34,10 @@ import { AddPolicies } from "../Screens/policies/AddPolicies";
 import { EditPolicies } from "../Screens/policies/EditPolicies";
 import { PoliciesDetails } from "../Screens/policies/PoliciesDetail";
 
-// import { TermsAndCondition } from "../Screens/termsAndCondition";
-import { TermsAndCondition } from "../Screens/TermsAndCondition";
-import { AddTermsAndCondition } from "../Screens/TermsAndCondition/AddTermsAndCondition";
-import { EditTermsAndCondition } from "../Screens/TermsAndCondition/EditTermsAndCondition";
-import { TermsAndConditionDetails } from "../Screens/TermsAndCondition/TermsAndConditionDetail";
+import { TermsAndConditionManagement } from "../Screens/TermsAndCondition";
+import { AddTermsAndCondition } from "../Screens/TermsAndCondition/AddTermAndCondition";
+import { EditTermsAndCondition } from "../Screens/TermsAndCondition/EditTermAndCondition";
+import { TermsAndConditionDetails } from "../Screens/TermsAndCondition/TermAndConditionDetail";
 
 // import { ChapterManagement } from "../Screens/chapterManagement/index";
 // import { AddChapter } from "../Screens/chapterManagement/Addchapter";
@@ -175,7 +174,7 @@ export default function AdminRouter() {
         {/* Terms And Condition Managment */}
         <Route
           path="/terms-condition-management"
-          element={<ProtectedRoutes Components={TermsAndCondition} />}
+          element={<ProtectedRoutes Components={TermsAndConditionManagement} />}
         />
         <Route
           path="/terms-condition-management/add-terms-condition"

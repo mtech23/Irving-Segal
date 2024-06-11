@@ -226,7 +226,7 @@ export const PoliciesDetails = () => {
             <div className="col-12 mb-2">
               <h2 className="mainTitle">
                 <BackButton />
-                Policies Details
+                Privacy Policy Details
               </h2>
             </div>
           </div>
@@ -478,12 +478,12 @@ export const PoliciesDetails = () => {
 
               <div className="row">
                 <div className="col-md-12 mb-4">
-                  <p className="secondaryText">Policy Title</p>
+                  <p className="secondaryText">Title</p>
                   <p>{Policydetail.title}</p>
                 </div>
 
                 <div className="col-md-12 mb-4">
-                  <p className="secondaryText">Policy Description</p>
+                  <p className="secondaryText">Description</p>
                   <p>{Policydetail.description}</p>
                 </div>
               </div>
