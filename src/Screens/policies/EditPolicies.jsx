@@ -5,7 +5,7 @@ import BackButton from "../../Components/BackButton";
 import CustomModal from "../../Components/CustomModal";
 import CustomInput from "../../Components/CustomInput";
 import { SelectBox } from "../../Components/CustomSelect";
-import { Editpolicy, GetBookdetail , getpolicedetail } from "../../api";
+import { Editpolicy, GetBookdetail, getpolicedetail } from "../../api";
 import CustomButton from "../../Components/CustomButton";
 export const EditPolicies = () => {
   const { id } = useParams();
@@ -73,7 +73,7 @@ export const EditPolicies = () => {
     for (const key in formData) {
       formDataMethod.append(key, formData[key]);
     }
-
+    formDataMethod.append('contentkey', "privacy");
     formDataMethod.append("id", id);
 
     document.querySelector(".loaderBox").classList.remove("d-none");
@@ -111,11 +111,11 @@ export const EditPolicies = () => {
                     <div className="row">
                       <div className="col-md-6 mb-4">
                         <CustomInput
-                          label="Policy Title"
+                          label="Title"
                           required
                           id="name"
                           type="text"
-                          placeholder="Policy Title"
+                          placeholder="Title"
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="title"
@@ -124,7 +124,7 @@ export const EditPolicies = () => {
                         />
                       </div>
 
-                      <div className="col-md-6 mb-4">
+                      {/* <div className="col-md-6 mb-4">
                         <CustomInput
                           label="Content Key"
                           required
@@ -137,12 +137,12 @@ export const EditPolicies = () => {
                           value={formData?.contentkey}
                           onChange={handleChange}
                         />
-                      </div>
+                      </div> */}
 
                       <div className="col-md-6 mb-4">
                         <div className="inputWrapper">
                           <div className="form-controls">
-                            <label htmlFor="">Policy Description</label>
+                            <label htmlFor="">Description</label>
                             <textarea
                               name="description"
                               className="form-control shadow border-0"

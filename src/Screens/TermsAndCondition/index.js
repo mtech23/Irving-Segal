@@ -20,13 +20,18 @@ import CustomModal from "../../Components/CustomModal";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomInput from "../../Components/CustomInput";
 import CustomButton from "../../Components/CustomButton";
-import { Getbookslist, GetbooksDelete } from "../../api";
+import {
+  Getbookslist,
+  GetpolicyDelete,
+  Getterms,
+  GettermsDelete,
+} from "../../api";
 
 import { ordersManagement } from "../../Config/Data";
 
 import "./style.css";
 
-export const TermsAndCondition = () => {
+export const TermsAndConditionManagement = () => {
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
@@ -37,6 +42,9 @@ export const TermsAndCondition = () => {
   const [inputValue, setInputValue] = useState("");
 
   const [books, setBooklists] = useState([]);
+  const [policies, setPolicieslists] = useState([]);
+  console.log("policies", policies);
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -61,15 +69,31 @@ export const TermsAndCondition = () => {
     }
   };
 
-  const bookdelete = async (id) => {
+  const policiesList = async () => {
     document.querySelector(".loaderBox").classList.remove("d-none");
     try {
-      const response = await GetbooksDelete(id);
+      const response = await Getterms();
+      console.log("terms", response);
+
+      document.querySelector(".loaderBox").classList.add("d-none");
+      setPolicieslists(response?.data);
+      setData(response?.data)
+    } catch (error) {
+      console.error("Error in logging in:", error);
+
+      // toastAlert(error, ALERT_TYPES.ERROR);
+    }
+  };
+
+  const policydelete = async (id) => {
+    document.querySelector(".loaderBox").classList.remove("d-none");
+    try {
+      const response = await GettermsDelete(id);
       console.log("response", response);
 
       if (response?.status == true) {
         document.querySelector(".loaderBox").classList.add("d-none");
-        booklist();
+        policiesList();
       }
     } catch (error) {
       console.error("Error in logging in:", error);
@@ -84,7 +108,11 @@ export const TermsAndCondition = () => {
   useEffect(() => {
     booklist();
   }, []);
+  useEffect(() => {
+    policiesList();
+  }, []);
   console.log("books", books);
+  console.log("Policies", policies);
 
   const inActive = () => {
     setShowModal(false);
@@ -111,7 +139,7 @@ export const TermsAndCondition = () => {
     document.title = "IRV Segal | Terms & Conditions Management";
   }, []);
 
-  const policies = [
+  const policiesData = [
     {
       id: 1,
       title: "Policies",
@@ -136,24 +164,22 @@ export const TermsAndCondition = () => {
       title: "S.No",
     },
     {
-      key: "policies",
-      title: "policies",
+      key: "policies_title",
+      title: "Title",
     },
     {
-      key: "privacy_policy",
-      title: "Privacy Policy",
+      key: "policies_desc",
+      title: "Description",
     },
-    {
-      key: "terms_conditions",
-      title: "Terms & Conditions",
-    },
+    // {
+    //   key: "terms_conditions",
+    //   title: "Terms & Conditions",
+    // },
     {
       key: "action  ",
       title: "action  ",
     },
   ];
-
-  console.log("currentItems", currentItems);
 
   return (
     <>
@@ -164,12 +190,12 @@ export const TermsAndCondition = () => {
               <div className="dashCard">
                 <div className="row mb-3 justify-content-between">
                   <div className="col-md-6 mb-2">
-                    <h2 className="mainTitle"> Terms & Conditions Management</h2>
+                    <h2 className="mainTitle">Terms And Condition</h2>
                   </div>
                   <div className="col-md-6 mb-2">
                     <div className="addUser">
                       <CustomButton
-                        text="Add Policies"
+                        text="Add Terms And Condition"
                         variant="primaryButton"
                         onClick={hanldeRoute}
                       />
@@ -192,10 +218,10 @@ export const TermsAndCondition = () => {
                           <tr key={index}>
                             <td>{index + 1}</td>
                             {/* <td>{item?.title} </td> */}
-                            <td className="text-capitalize">{item?.title}</td>
+                            {/* <td className="text-capitalize">{item?.title}</td> */}
                             {/* <td>{item?.pages ? `$ ${item?.pages}` : `$0`}</td> */}
-                            <td>{item?.privacy_policy}</td>
-                            <td>{item?.terms_conditions}</td>
+                            <td>{item?.title}</td>
+                            <td>{item?.description}</td>
 
                             {/* <td>{item?.audiobook_duration}</td> */}
                             {/* <td className={item.status == 1 ? 'greenColor' : "redColor"}>{item.status == 1 ? 'Active' : "Inactive"}</td> */}
@@ -237,7 +263,7 @@ export const TermsAndCondition = () => {
                                     type="button"
                                     className="bg-transparent border-0 ps-lg-3 pt-1"
                                     onClick={() => {
-                                      bookdelete(item?.id);
+                                      policydelete(item?.id);
                                     }}
                                   >
                                     <FontAwesomeIcon

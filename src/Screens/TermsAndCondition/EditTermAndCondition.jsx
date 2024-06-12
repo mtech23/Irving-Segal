@@ -5,7 +5,7 @@ import BackButton from "../../Components/BackButton";
 import CustomModal from "../../Components/CustomModal";
 import CustomInput from "../../Components/CustomInput";
 import { SelectBox } from "../../Components/CustomSelect";
-import { Editbook, GetBookdetail } from "../../api";
+import { Editpolicy, GetBookdetail, getpolicedetail } from "../../api";
 import CustomButton from "../../Components/CustomButton";
 export const EditTermsAndCondition = () => {
   const { id } = useParams();
@@ -14,9 +14,7 @@ export const EditTermsAndCondition = () => {
   const [categories, setCategories] = useState({});
   const [unit, setUnit] = useState({});
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    cover: "", // Initialize image as an empty string
-  });
+  const [formData, setFormData] = useState({});
 
   const Booktype = [
     {
@@ -51,9 +49,9 @@ export const EditTermsAndCondition = () => {
     console.log(formData);
   };
 
-  const bookdetail = async () => {
+  const policedetail = async () => {
     try {
-      const response = await GetBookdetail(id);
+      const response = await getpolicedetail(id);
       console.log("response", response);
 
       setFormData(response?.data);
@@ -65,9 +63,8 @@ export const EditTermsAndCondition = () => {
   };
 
   useEffect(() => {
-    bookdetail();
+    policedetail();
   }, [id]);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -76,6 +73,7 @@ export const EditTermsAndCondition = () => {
     for (const key in formData) {
       formDataMethod.append(key, formData[key]);
     }
+    formDataMethod.append("contentkey", "terms");
 
     formDataMethod.append("id", id);
 
@@ -83,10 +81,10 @@ export const EditTermsAndCondition = () => {
     // Make the fetch request
 
     try {
-      const response = await Editbook(formDataMethod);
+      const response = await Editpolicy(formDataMethod);
 
       if (response?.status == true) {
-        navigate("/book-management");
+        navigate("/terms-condition-management");
       } else {
       }
     } catch (error) {
@@ -102,7 +100,7 @@ export const EditTermsAndCondition = () => {
             <div className="col-12 mb-2">
               <h2 className="mainTitle">
                 <BackButton />
-                Edit Policies
+                Edit Terms and Condition
               </h2>
             </div>
           </div>
@@ -114,11 +112,11 @@ export const EditTermsAndCondition = () => {
                     <div className="row">
                       <div className="col-md-6 mb-4">
                         <CustomInput
-                          label="Edit Privacy Policy Title"
+                          label="Title"
                           required
-                          id="jobID"
+                          id="name"
                           type="text"
-                          placeholder="Edit Privacy Policy Title"
+                          placeholder="Title"
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="title"
@@ -129,15 +127,15 @@ export const EditTermsAndCondition = () => {
 
                       {/* <div className="col-md-6 mb-4">
                         <CustomInput
-                          label="Edit Date"
+                          label="Content Key"
                           required
-                          id="date"
-                          type="date"
-                          placeholder="   Enter Audiobook Duration"
+                          id="name"
+                          type="text"
+                          placeholder="Content Key"
                           labelClass="mainLabel"
                           inputClass="mainInput"
-                          name="date"
-                          value={formData?.date}
+                          name="contentkey"
+                          value={formData?.contentkey}
                           onChange={handleChange}
                         />
                       </div> */}
@@ -145,33 +143,14 @@ export const EditTermsAndCondition = () => {
                       <div className="col-md-6 mb-4">
                         <div className="inputWrapper">
                           <div className="form-controls">
-                            <label htmlFor="">Edit Privacy Policy</label>
+                            <label htmlFor="">Description</label>
                             <textarea
-                              name="content"
+                              name="description"
                               className="form-control shadow border-0"
-                              placeholder="Edit Privacy Policy"
-                              id="content"
+                              id="description"
                               cols="30"
                               rows="10"
-                              value={formData?.content}
-                              onChange={handleChange}
-                            ></textarea>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="col-md-6 mb-4">
-                        <div className="inputWrapper">
-                          <div className="form-controls">
-                            <label htmlFor="">Edit Terms & Conditions</label>
-                            <textarea
-                              name="content"
-                              className="form-control shadow border-0"
-                              placeholder="Edit Terms & Conditions"
-                              id="content"
-                              cols="30"
-                              rows="10"
-                              value={formData?.content}
+                              value={formData?.description}
                               onChange={handleChange}
                             ></textarea>
                           </div>

@@ -10,6 +10,7 @@ import {
   GetchaptersDelete,
   Getpagedetail,
   pageDelete,
+  getpolicedetail,
 } from "../../api";
 import Accordion from "react-bootstrap/Accordion";
 import { Link, useNavigate } from "react-router-dom";
@@ -37,6 +38,7 @@ export const TermsAndConditionDetails = () => {
 
   const base_url = process.env.REACT_APP_BASE_URL;
   const [Bookdetail, setBookdetail] = useState({});
+  const [Policydetail, setPolicydetail] = useState({});
   const [isChapter, setIsChapter] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
@@ -68,22 +70,22 @@ export const TermsAndConditionDetails = () => {
   };
   // console.log("id", id);
 
-  // const bookdetail = async () => {
-  //   try {
-  //     const response = await GetBookdetail(id);
-  //     console.log("response", response);
+  const policydetail = async () => {
+    try {
+      const response = await getpolicedetail(id);
+      console.log("response", response);
 
-  //     setBookdetail(response?.data);
-  //   } catch (error) {
-  //     console.error("Error in logging in:", error);
+      setPolicydetail(response?.data);
+    } catch (error) {
+      console.error("Error in logging in:", error);
 
-  //     // toastAlert(error, ALERT_TYPES.ERROR);
-  //   }
-  // };
+      // toastAlert(error, ALERT_TYPES.ERROR);
+    }
+  };
 
-  // useEffect(() => {
-  //   bookdetail();
-  // }, [id]);
+  useEffect(() => {
+    policydetail();
+  }, [id]);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -224,7 +226,7 @@ export const TermsAndConditionDetails = () => {
             <div className="col-12 mb-2">
               <h2 className="mainTitle">
                 <BackButton />
-                Policies Details
+                Terms And Conditions Details
               </h2>
             </div>
           </div>
@@ -476,19 +478,13 @@ export const TermsAndConditionDetails = () => {
 
               <div className="row">
                 <div className="col-md-12 mb-4">
-                  <p className="secondaryText">Privacy Policies</p>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.{" "}
-                  </p>
+                  <p className="secondaryText">Title</p>
+                  <p>{Policydetail.title}</p>
                 </div>
 
                 <div className="col-md-12 mb-4">
-                  <p className="secondaryText">Terms & Conditions</p>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.{" "}
-                  </p>
+                  <p className="secondaryText">Description</p>
+                  <p>{Policydetail.description}</p>
                 </div>
               </div>
             </div>

@@ -86,13 +86,14 @@ export const AddPolicies = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+// formData.contentkey
     document.querySelector(".loaderBox").classList.remove("d-none");
     const formDataMethod = new FormData();
     for (const key in formData) {
       formDataMethod.append(key, formData[key]);
     }
 
+    formDataMethod.append('contentkey', "privacy");
     document.querySelector(".loaderBox").classList.remove("d-none");
     // Make the fetch request
 
@@ -116,7 +117,7 @@ export const AddPolicies = () => {
             <div className="col-12 mb-2">
               <h2 className="mainTitle">
                 <BackButton />
-                Add Policies
+                Add Privacy Policy
               </h2>
             </div>
           </div>
@@ -229,11 +230,11 @@ export const AddPolicies = () => {
 
                       <div className="col-md-6 mb-4">
                         <CustomInput
-                          label="Policy Title"
+                          label="Title"
                           required
                           id="name"
                           type="text"
-                          placeholder="Policy Title"
+                          placeholder="Title"
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="title"
@@ -242,7 +243,7 @@ export const AddPolicies = () => {
                         />
                       </div>
 
-                      <div className="col-md-6 mb-4">
+                      {/* <div className="col-md-6 mb-4">
                         <CustomInput
                           label="Content Key"
                           required
@@ -255,12 +256,12 @@ export const AddPolicies = () => {
                           value={formData.contentkey}
                           onChange={handleChange}
                         />
-                      </div>
+                      </div> */}
 
                       <div className="col-md-6 mb-4">
                         <div className="inputWrapper">
                           <div className="form-controls">
-                            <label htmlFor="">Policy Description</label>
+                            <label htmlFor="">Description</label>
                             <textarea
                               name="description"
                               className="form-control shadow border-0"
