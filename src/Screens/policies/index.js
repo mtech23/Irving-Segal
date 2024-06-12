@@ -71,6 +71,7 @@ export const PoliciesManagement = () => {
 
       document.querySelector(".loaderBox").classList.add("d-none");
       setPolicieslists(response?.data);
+      setData(response?.data);
     } catch (error) {
       console.error("Error in logging in:", error);
 

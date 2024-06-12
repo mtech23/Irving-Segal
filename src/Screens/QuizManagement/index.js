@@ -114,117 +114,102 @@ export const QuizList = () => {
     },
   ];
 
-  const DeleteQuiz = (catId) => {
-    const LogoutData = localStorage.getItem("login");
-    document.querySelector(".loaderBox").classList.remove("d-none");
-    fetch(`${process.env.REACT_APP_BASE_URL}api/questions/${catId}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${LogoutData}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        document.querySelector(".loaderBox").classList.add("d-none");
-        Quizlisting();
-      })
-      .catch((error) => {
-        document.querySelector(".loaderBox").classList.add("d-none");
-        console.log(error);
-      });
-  };
-  const hanldeRoute = () => {
-    navigate("/quiz-management/add-quiz");
-  };
+    const DeleteQuiz = (catId) => {
+        const LogoutData = localStorage.getItem('login');
+        document.querySelector('.loaderBox').classList.remove("d-none");
+        fetch(`${process.env.REACT_APP_BASE_URL}api/questions/${catId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${LogoutData}`
+                },
+            }
+        )
 
-  console.log("currentItems", currentItems);
-  return (
-    <>
-      <DashboardLayout>
-        <div className="container-fluid">
-          <div className="row mb-3">
-            <div className="col-12">
-              <div className="dashCard">
-                <div className="row mb-3 justify-content-between">
-                  <div className="col-md-4 mb-2">
-                    <h2 className="mainTitle">Quiz Management</h2>
-                  </div>
-                  <div className="col-md-6 mb-2">
-                    <div className="addUser d-flex  mx-auto ">
-                      <CustomButton
-                        text="Add Quiz"
-                        variant="primaryButton"
-                        onClick={hanldeRoute}
-                      />
-                      <CustomInput
-                        type="text"
-                        placeholder="Search Here..."
-                        value={inputValue}
-                        inputClass="mainInput"
-                        onChange={handleChange}
-                        className=" w-auto "
-                      />
+            .then(response =>
+                response.json()
+            )
+            .then((data) => {
+                console.log(data)
+                document.querySelector('.loaderBox').classList.add("d-none");
+                Quizlisting()
+            })
+            .catch((error) => {
+                document.querySelector('.loaderBox').classList.add("d-none");
+                console.log(error)
+            })
+    }
+    const hanldeRoute = () => {
+        navigate('/quiz-management/add-quiz')
+    }
+
+    console.log("currentItems", currentItems)
+    return (
+        <>
+            <DashboardLayout>
+                <div className="container-fluid">
+                    <div className="row mb-3">
+                        <div className="col-12">
+                            <div className="dashCard">
+                                <div className="row mb-3 justify-content-between">
+                                    <div className="col-md-4 mb-2">
+                                        <h2 className="mainTitle">Quiz Management</h2>
+                                    </div>
+                                    <div className="col-md-6 mb-2">
+
+                                        <div className="addUser d-flex  mx-auto ">
+                                            <CustomButton text="Add Quiz" variant='primaryButton' onClick={hanldeRoute} />
+                                            <CustomInput type="text" placeholder="Search Here..." value={inputValue} inputClass="mainInput" onChange={handleChange} className=" w-auto " />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col-12">
+                                        <CustomTable
+                                            headers={maleHeaders}
+
+                                        >
+                                            <tbody>
+                                                {currentItems?.map((item, index) => (
+                                                    <tr key={index}>
+                                                        <td>{index + 1}</td>
+
+                                                        <td>{item?.title}</td>
+
+                                                        <td>{item?.questions_count}</td>
+
+                                                        {/* <td className={item.status == 1 ? 'greenColor' : "redColor"}>{item.status == 1 ? 'Active' : "Inactive"}</td> */}
+                                                        <td>
+                                                            <Dropdown className="tableDropdown">
+                                                                <Dropdown.Toggle variant="transparent" className="notButton classicToggle">
+                                                                    <FontAwesomeIcon icon={faEllipsisV} />
+                                                                </Dropdown.Toggle>
+                                                                <Dropdown.Menu align="end" className="tableDropdownMenu">
+                                                                    <Link to={`/quiz-management/quiz-detail/${item?.id}`} className="tableAction"><FontAwesomeIcon icon={faEye} className="tableActionIcon" />View</Link>
+
+                                                                    {/* <button type="button" className="bg-transparent border-0 ps-lg-3 pt-1" onClick={DeleteQuiz(item?.id)}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> Delete</button> */}
+
+                                                                </Dropdown.Menu>
+                                                            </Dropdown>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </CustomTable>
+                                        <CustomPagination
+                                            itemsPerPage={itemsPerPage}
+                                            totalItems={data?.length}
+                                            currentPage={currentPage}
+                                            onPageChange={handlePageChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col-12">
-                    <CustomTable headers={maleHeaders}>
-                      <tbody>
-                        {currentItems?.map((item, index) => (
-                          <tr key={index}>
-                            <td>{index + 1}</td>
-
-                            <td>{item?.title}</td>
-
-                            <td>{item?.questions_count}</td>
-
-                            {/* <td className={item.status == 1 ? 'greenColor' : "redColor"}>{item.status == 1 ? 'Active' : "Inactive"}</td> */}
-                            <td>
-                              <Dropdown className="tableDropdown">
-                                <Dropdown.Toggle
-                                  variant="transparent"
-                                  className="notButton classicToggle"
-                                >
-                                  <FontAwesomeIcon icon={faEllipsisV} />
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu
-                                  align="end"
-                                  className="tableDropdownMenu"
-                                >
-                                  <Link
-                                    to={`/quiz-management/quiz-detail/${item?.id}`}
-                                    className="tableAction"
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={faEye}
-                                      className="tableActionIcon"
-                                    />
-                                    View
-                                  </Link>
-
-                                  {/* <button type="button" className="bg-transparent border-0 ps-lg-3 pt-1" onClick={DeleteQuiz(item?.id)}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> Delete</button> */}
-                                </Dropdown.Menu>
-                              </Dropdown>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </CustomTable>
-                    <CustomPagination
-                      itemsPerPage={itemsPerPage}
-                      totalItems={data?.length}
-                      currentPage={currentPage}
-                      onPageChange={handlePageChange}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <CustomModal
             show={showModal}

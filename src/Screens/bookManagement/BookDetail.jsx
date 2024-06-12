@@ -4,8 +4,18 @@ import { DashboardLayout } from "../../Components/Layout/DashboardLayout";
 import BackButton from "../../Components/BackButton";
 import CustomModal from "../../Components/CustomModal";
 import CustomButton from "../../Components/CustomButton";
-import { GetBookdetail, Getchaptersdetailbyid, DeleteChapter, GetchaptersDelete, Getpagedetail, pageDelete, Addchapter, Getchaptersbyid, addPages   } from '../../api'
-import Accordion from 'react-bootstrap/Accordion';
+import {
+  GetBookdetail,
+  Getchaptersdetailbyid,
+  DeleteChapter,
+  GetchaptersDelete,
+  Getpagedetail,
+  pageDelete,
+  Addchapter,
+  Getchaptersbyid,
+  addPages,
+} from "../../api";
+import Accordion from "react-bootstrap/Accordion";
 import { Link, useNavigate } from "react-router-dom";
 import { SelectBox } from "../../Components/CustomSelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,8 +26,6 @@ import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 // Getchaptersdetailbyidbyid
 
 export const BookDetails = () => {
-
-
   const Bookstatus = [
     {
       key: "0",
@@ -26,11 +34,12 @@ export const BookDetails = () => {
     {
       key: "1",
       name: "paid",
-    },]
+    },
+  ];
   const { id } = useParams();
   const [chapterdata, setChapterData] = useState([]);
 
-  const base_url = process.env.REACT_APP_BASE_URL
+  const base_url = process.env.REACT_APP_BASE_URL;
   const [Bookdetail, setBookdetail] = useState({});
   const [chapterdetailbyid, setChapterdetailbyid] = useState({});
 
@@ -47,64 +56,40 @@ export const BookDetails = () => {
   const [showModal2, setShowModal2] = useState(false);
   const [showModal3, setShowModal3] = useState(false);
   const [showModal4, setShowModal4] = useState(false);
-  const [message, setMessage] = useState(false)
+  const [message, setMessage] = useState(false);
 
-  const [chapterpageid, setchapterpageid] = useState()
-  const [chapterpageidpage, setchapterpageidpage] = useState()
-  console.log("chapterpageidpage", chapterpageidpage)
+  const [chapterpageid, setchapterpageid] = useState();
+  const [chapterpageidpage, setchapterpageidpage] = useState();
+  console.log("chapterpageidpage", chapterpageidpage);
 
-  const [addpage, setAddpage] = useState(false)
+  const [addpage, setAddpage] = useState(false);
 
-  console.log("chapterdetailbyid", chapterdetailbyid)
-  const [pagesadd, setPagesadd] = useState({})
-  console.log("pagesadd", pagesadd)
+  console.log("chapterdetailbyid", chapterdetailbyid);
+  const [pagesadd, setPagesadd] = useState({});
+  console.log("pagesadd", pagesadd);
 
-  const [pagesdetail, setPagesdetail] = useState()
+  const [pagesdetail, setPagesdetail] = useState();
   const [formData, setFormData] = useState({});
 
   const [data, setData] = useState({});
 
-  console.log("pagesdetail", pagesdetail)
+  console.log("pagesdetail", pagesdetail);
   const inActive = () => {
     // setShowModal(false)
-    setShowModal2(true)
-  }
+    setShowModal2(true);
+  };
   const Active = () => {
-    setShowModal3(false)
-    setShowModal4(true)
-  }
-  console.log("id", id)
+    setShowModal3(false);
+    setShowModal4(true);
+  };
+  console.log("id", id);
 
   const bookdetail = async () => {
     try {
-      const response = await GetBookdetail(id)
-      console.log("response", response)
+      const response = await GetBookdetail(id);
+      console.log("response", response);
 
-
-      setBookdetail(response?.data)
-
-    } catch (error) {
-      console.error("Error in logging in:", error);
-
-      // toastAlert(error, ALERT_TYPES.ERROR);
-    }
-  }; 
-
-
-
-
-
-
-  const Getchapterssbyid = async (id) => {
-    console.log("idchap", id)
-    try {
-      const response = await Getchaptersbyid(id)
-      // setEditModal(true)
-      console.log("response", response)
-
-
-      setFormData(response?.data)
-
+      setBookdetail(response?.data);
     } catch (error) {
       console.error("Error in logging in:", error);
 
@@ -112,7 +97,20 @@ export const BookDetails = () => {
     }
   };
 
+  const Getchapterssbyid = async (id) => {
+    console.log("idchap", id);
+    try {
+      const response = await Getchaptersbyid(id);
+      // setEditModal(true)
+      console.log("response", response);
 
+      setFormData(response?.data);
+    } catch (error) {
+      console.error("Error in logging in:", error);
+
+      // toastAlert(error, ALERT_TYPES.ERROR);
+    }
+  };
 
   // const  deleteChapter = async (id) => {
   //   console.log(" chapid" ,id )
@@ -131,60 +129,42 @@ export const BookDetails = () => {
   //   }
   // };
 
-
-
-
-
-
-
-
   const deleteChapter = async (id) => {
-
-    document.querySelector('.loaderBox').classList.add("d-none");
+    document.querySelector(".loaderBox").classList.add("d-none");
 
     try {
       const response = await DeleteChapter(id);
-      document.querySelector('.loaderBox').classList.add("d-none");
-      console.log("response", response)
-
+      document.querySelector(".loaderBox").classList.add("d-none");
+      console.log("response", response);
 
       if (response?.status == true) {
-        document.querySelector('.loaderBox').classList.remove("d-none");
-        chapterData()
+        document.querySelector(".loaderBox").classList.remove("d-none");
+        chapterData();
       }
     } catch (error) {
-      document.querySelector('.loaderBox').classList.remove("d-none");
+      document.querySelector(".loaderBox").classList.remove("d-none");
       console.error("Error in logging in:", error);
 
       // toastAlert(error, ALERT_TYPES.ERROR);
     }
-
-
-
-  }
-
-
+  };
 
   useEffect(() => {
-    bookdetail()
-  }, [id])
-  const [shapterstatus, setChapterstatus] = useState()
+    bookdetail();
+  }, [id]);
+  const [shapterstatus, setChapterstatus] = useState();
   const handleChange = (event) => {
     const { name, value } = event.target;
 
     if (name == "status") {
-
-      setChapterstatus(value)
+      setChapterstatus(value);
     }
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-    console.log(formData)
+    console.log(formData);
   };
-
-
-
 
   const handlechapterfile = (event) => {
     const file = event.target.files[0];
@@ -199,17 +179,7 @@ export const BookDetails = () => {
     console.log(formData);
   };
 
-
-
-
-
-
-
-  console.log("pagesadd", pagesadd)
-
-
-
-
+  console.log("pagesadd", pagesadd);
 
   const handlepageChange = (event) => {
     const { name, value } = event.target;
@@ -218,254 +188,179 @@ export const BookDetails = () => {
       ...prevData,
       [name]: value,
     }));
-    console.log(formData)
+    console.log(formData);
   };
 
-
-
-
-
-
-
-  console.log("shapterstatus", shapterstatus)
-
+  console.log("shapterstatus", shapterstatus);
 
   const chapterData = async () => {
-
-
-    document.title = 'IRV Segal | Book Chapters Detail';
-    document.querySelector('.loaderBox').classList.remove("d-none");
+    document.title = "IRV Segal | Book Chapters Detail";
+    document.querySelector(".loaderBox").classList.remove("d-none");
 
     try {
       const response = await Getchaptersdetailbyid(id); // Make sure bookid is passed correctly
-      document.querySelector('.loaderBox').classList.add("d-none");
+      document.querySelector(".loaderBox").classList.add("d-none");
       console.log("shapter", response);
 
       setChapterData(response?.data);
       setFormData(response?.data);
     } catch (error) {
-      document.querySelector('.loaderBox').classList.add("d-none");
+      document.querySelector(".loaderBox").classList.add("d-none");
       console.log(error);
-    }
-  }
-
-
-
-
-
-
-  const pagedelete = async (id) => {
-    document.querySelector('.loaderBox').classList.remove("d-none");
-    try {
-      const response = await pageDelete(id);
-      console.log("response", response)
-
-
-      if (response?.status == true) {
-        document.querySelector('.loaderBox').classList.add("d-none");
-        chapterData()
-      }
-    } catch (error) {
-      console.error("Error in logging in:", error);
-
     }
   };
 
+  const pagedelete = async (id) => {
+    document.querySelector(".loaderBox").classList.remove("d-none");
+    try {
+      const response = await pageDelete(id);
+      console.log("response", response);
 
+      if (response?.status == true) {
+        document.querySelector(".loaderBox").classList.add("d-none");
+        chapterData();
+      }
+    } catch (error) {
+      console.error("Error in logging in:", error);
+    }
+  };
 
-
-  const [Viewpage, setViewpage] = useState(false)
+  const [Viewpage, setViewpage] = useState(false);
 
   const viewpages = async (id) => {
     try {
-      const response = await Getpagedetail(id)
-      console.log("response", response)
+      const response = await Getpagedetail(id);
+      console.log("response", response);
 
-
-      setPagesadd(response?.data)
-
+      setPagesadd(response?.data);
     } catch (error) {
       console.error("Error in logging in:", error);
 
       // toastAlert(error, ALERT_TYPES.ERROR);
     }
-  }
-
+  };
 
   const handleSubmitchapter = async (e) => {
     e.preventDefault();
-    document.querySelector('.loaderBox').classList.remove("d-none");
-
-
+    document.querySelector(".loaderBox").classList.remove("d-none");
 
     const formDataMethod = new FormData();
     for (const key in formData) {
       formDataMethod.append(key, formData[key]);
     }
-    formDataMethod.append('book_id', id);
+    formDataMethod.append("book_id", id);
 
-    document.querySelector('.loaderBox').classList.remove("d-none");
+    document.querySelector(".loaderBox").classList.remove("d-none");
     // Make the fetch request
 
     try {
       const response = await Addchapter(formDataMethod);
-      document.querySelector('.loaderBox').classList.remove("d-none");
+      document.querySelector(".loaderBox").classList.remove("d-none");
 
       if (response?.status == true) {
-
-        setShowModalChapter(true)
-        chapterData()
-        setEditModal(false)
-        setIsChapter(!isChapter)
-
-
+        setShowModalChapter(true);
+        chapterData();
+        setEditModal(false);
+        setIsChapter(!isChapter);
       } else {
-
       }
     } catch (error) {
       console.error("Error in adding model post:", error);
     }
-  }
-
+  };
 
   const handlepageadd = async (e) => {
     e.preventDefault();
-    document.querySelector('.loaderBox').classList.remove("d-none");
-
-
+    document.querySelector(".loaderBox").classList.remove("d-none");
 
     const formDataMethod = new FormData();
     for (const key in pagesadd) {
       formDataMethod.append(key, pagesadd[key]);
     }
 
-    formDataMethod.append('chapter_id', chapterpageid);
+    formDataMethod.append("chapter_id", chapterpageid);
 
-
-
-    document.querySelector('.loaderBox').classList.remove("d-none");
-
+    document.querySelector(".loaderBox").classList.remove("d-none");
 
     try {
       const response = await addPages(formDataMethod);
-      document.querySelector('.loaderBox').classList.remove("d-none");
+      document.querySelector(".loaderBox").classList.remove("d-none");
 
       if (response?.status == true) {
-        setAddpage(false)
-        chapterData()
-
-
-
+        setAddpage(false);
+        chapterData();
       } else {
-
       }
     } catch (error) {
       console.error("Error in adding model post:", error);
     }
-  }
+  };
 
-
-  const [Editpage, setEditpage] = useState(false)
+  const [Editpage, setEditpage] = useState(false);
 
   const handlepageedit = async (e) => {
     e.preventDefault();
-    document.querySelector('.loaderBox').classList.remove("d-none");
-
-
+    document.querySelector(".loaderBox").classList.remove("d-none");
 
     const formDataMethod = new FormData();
     for (const key in pagesadd) {
       formDataMethod.append(key, pagesadd[key]);
     }
 
+    formDataMethod.append("chapter_id", chapterpageid);
 
-    formDataMethod.append('chapter_id', chapterpageid);
-
-
-
-    document.querySelector('.loaderBox').classList.remove("d-none");
-
+    document.querySelector(".loaderBox").classList.remove("d-none");
 
     try {
       const response = await addPages(formDataMethod);
-      document.querySelector('.loaderBox').classList.remove("d-none");
+      document.querySelector(".loaderBox").classList.remove("d-none");
 
       if (response?.status == true) {
-        setEditpage(false)
-        chapterData()
-
-
-
+        setEditpage(false);
+        chapterData();
       } else {
-
       }
     } catch (error) {
       console.error("Error in adding model post:", error);
     }
-  }
-
-
-
-
-
-
-
-
-
-
-
+  };
 
   const handlechapterEdit = async (e) => {
     e.preventDefault();
-    document.querySelector('.loaderBox').classList.remove("d-none");
-
-
+    document.querySelector(".loaderBox").classList.remove("d-none");
 
     const formDataMethod = new FormData();
     for (const key in formData) {
       formDataMethod.append(key, formData[key]);
     }
-    formDataMethod.append('book_id', id);
+    formDataMethod.append("book_id", id);
 
-    document.querySelector('.loaderBox').classList.remove("d-none");
+    document.querySelector(".loaderBox").classList.remove("d-none");
     // Make the fetch request
 
     try {
       const response = await Addchapter(formDataMethod);
-      document.querySelector('.loaderBox').classList.remove("d-none");
+      document.querySelector(".loaderBox").classList.remove("d-none");
 
       if (response?.status == true) {
+        setEditModal(false);
 
-
-        setEditModal(false)
-
-        chapterData()
-        setEditChapter(true)
-
-
-
-
+        chapterData();
+        setEditChapter(true);
       } else {
-
       }
     } catch (error) {
       console.error("Error in adding model post:", error);
     }
-  }
-
-
-
+  };
 
   useEffect(() => {
-    chapterData()
+    chapterData();
   }, [id]);
-
-
 
   const handleEdit = async (e) => {
     // console.log("chapetrid ", chapetrid)
     // e.preventDefault();
-
     // const LogoutData = localStorage.getItem('login');
     // fetch(`https://custom.mystagingserver.site/Tim-WDLLC/public/api/author/bookchapter_update/${chapetrid}`,
     //     {
@@ -490,47 +385,38 @@ export const BookDetails = () => {
     //         document.querySelector('.loaderBox').classList.add("d-none");
     //         console.log(error);
     //     })
-
-
-
-
-
     //   event.preventDefault();
-
     //   document.querySelector('.loaderBox').classList.remove("d-none");
     //   const formDataMethod = new FormData();
     //   for (const key in formData) {
     //       formDataMethod.append(key, formData[key]);
     //   }
-
-
     //   document.querySelector('.loaderBox').classList.remove("d-none");
     //   // Make the fetch request
-
     //   try {
     //       const response = await Addbook(formDataMethod);
-
     //       if (response?.status == true) {
     //         console.log(data)
     //                 Getchaptersbyid(chapetrid)
     //                 // setEditModal(false)
-
     //       } else {
-
     //       }
     //   } catch (error) {
     //           document.querySelector('.loaderBox').classList.add("d-none");
     // }
+  };
 
+  const handlefile = (event) => {
+    const file = event.target.files[0];
 
-
-
-
-  }
-
-
-
-
+    if (file) {
+      const fileName = file;
+      setFormData((prevData) => ({
+        ...prevData,
+        audio_file: fileName,
+      }));
+    }
+  };
 
   return (
     <>
@@ -555,9 +441,8 @@ export const BookDetails = () => {
                 </div>
               </div> */}
 
-              <div className="row" >
+              <div className="row">
                 <div className="col-md-6 mb-4">
-
                   <div className="productImage">
                     <img src={base_url + Bookdetail?.cover} />
                   </div>
@@ -577,9 +462,7 @@ export const BookDetails = () => {
                 </div>
                 <div className="col-md-6 mb-4">
                   <p className="secondaryText">Book Language</p>
-                  <p>
-                    {Bookdetail?.lang}
-                  </p>
+                  <p>{Bookdetail?.lang}</p>
                 </div>
                 <div className="col-md-6 mb-4">
                   <p className="secondaryText">Book Pages</p>
@@ -590,108 +473,148 @@ export const BookDetails = () => {
                   <p>{Bookdetail?.audiobook_duration}</p>
                 </div>
                 <div className="col-md-6 mb-4">
-                  <p className="secondaryText">Book  Rating</p>
-                  <p>{Bookdetail?.rating == null ? "No Rating" : Bookdetail?.rating}</p>
+                  <p className="secondaryText">Book Rating</p>
+                  <p>
+                    {Bookdetail?.rating == null
+                      ? "No Rating"
+                      : Bookdetail?.rating}
+                  </p>
                 </div>
                 <div className="col-md-6 mb-4">
                   <p className="secondaryText">Description</p>
                   <p>{Bookdetail?.description}</p>
                 </div>
-
               </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
               <div className="row">
                 <div className="col-md-12">
                   <div className="d-flex justify-content-between">
-                    <h2 className="mainTitle mb-4">
-                      Book Chapters
-                    </h2>
+                    <h2 className="mainTitle mb-4">Book Chapters</h2>
                     <div className="addChapter">
-                      <CustomButton text="Add Chapter" variant="primaryButton" onClick={(() => {
-                        setIsChapter(!isChapter)
-                      })}></CustomButton>
+                      <CustomButton
+                        text="Add Chapter"
+                        variant="primaryButton"
+                        onClick={() => {
+                          setIsChapter(!isChapter);
+                        }}
+                      ></CustomButton>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-12">
                   <Accordion defaultActiveKey="0">
-                    {chapterdata && chapterdata?.map((item, index) => (
-                      <Accordion.Item eventKey={index}>
-                        <Accordion.Header>{`Chapter ${index + 1}`}</Accordion.Header>
-                        <Accordion.Body>
-                          <div className="chapeditz d-flex">
-                            <h4 className="text-capitalize ">{item?.title}</h4  >
+                    {chapterdata &&
+                      chapterdata?.map((item, index) => (
+                        <Accordion.Item eventKey={index}>
+                          <Accordion.Header>{`Chapter ${
+                            index + 1
+                          }`}</Accordion.Header>
+                          <Accordion.Body>
+                            <div className="chapeditz d-flex">
+                              <h4 className="text-capitalize ">
+                                {item?.title}
+                              </h4>
 
-                            <p className=" gap-2">
-                              <span>
-                                <Link onClick={() => {
-                                  setEditModal(true)
-                                  Getchapterssbyid(item.chapter_id)
-                                }} className="chaptableAction"><FontAwesomeIcon icon={faEdit} className="chaptableActionIcon" />Edit</Link>
-
-                              </span>
-                              <span className="deletechap  me-2">
-                                <button type="button" className="bg-transparent border-0 ps-lg-3 pt-1" onClick={() => { deleteChapter(item?.chapter_id) }}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> Delete</button>
-
-                              </span>
-                              <div className="addChapter  mt-2 ">
-                                <CustomButton text="Add Page" variant="primaryButton" onClick={() => {
-                                  setchapterpageid(item?.chapter_id);
-                                  setAddpage(true);
-                                }}></CustomButton>
-                              </div>
-                            </p>
-
-
-
-                          </div>
-                          <h3 className="text-capitalize">{item?.price}</h3>
-
-                          {item.pages?.map((page, index) => (
-                            //  <p> {`Page ${index + 1}`}</p>                            
-                            <div className="   d-flex justify-content-between ">       {`Page ${index + 1}`}
-                              <p className=" gap-3    d-flex">
-
-                                <Link onClick={() => {
-                                  setEditpage(true)
-
-                                  setchapterpageid(item?.chapter_id);
-                                  viewpages(page?.id)
-                                  // editDetailData(item.id)
-                                }} className="chaptableAction">    <FontAwesomeIcon icon={faEdit} className="chaptableActionIcon" /> Edit</Link>
-                                <Link onClick={() => {
-                                  setViewpage(true)
-                                  setchapterpageid(item?.chapter_id);
-                                  viewpages(page?.id)
-                                }} className="chaptableAction"><FontAwesomeIcon icon={faEye} className="tableActionIcon" />View</Link>
-                                <button type="button" className="bg-transparent border-0 ps-lg-3 pt-1" onClick={() => { pagedelete(page?.id) }}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> Delete</button>
+                              <p className=" gap-2">
+                                <span>
+                                  <Link
+                                    onClick={() => {
+                                      setEditModal(true);
+                                      Getchapterssbyid(item.chapter_id);
+                                    }}
+                                    className="chaptableAction"
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={faEdit}
+                                      className="chaptableActionIcon"
+                                    />
+                                    Edit
+                                  </Link>
+                                </span>
+                                <span className="deletechap  me-2">
+                                  <button
+                                    type="button"
+                                    className="bg-transparent border-0 ps-lg-3 pt-1"
+                                    onClick={() => {
+                                      deleteChapter(item?.chapter_id);
+                                    }}
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={faTrash}
+                                    ></FontAwesomeIcon>{" "}
+                                    Delete
+                                  </button>
+                                </span>
+                                <div className="addChapter  mt-2 ">
+                                  <CustomButton
+                                    text="Add Page"
+                                    variant="primaryButton"
+                                    onClick={() => {
+                                      setchapterpageid(item?.chapter_id);
+                                      setAddpage(true);
+                                    }}
+                                  ></CustomButton>
+                                </div>
                               </p>
                             </div>
-                          ))}
-                          {/* <p> {item?.pages}</p> */}
-                        </Accordion.Body>
-                      </Accordion.Item>
-                    ))}
+                            <h3 className="text-capitalize">{item?.price}</h3>
+
+                            {item.pages?.map((page, index) => (
+                              //  <p> {`Page ${index + 1}`}</p>
+                              <div className="   d-flex justify-content-between ">
+                                {" "}
+                                {`Page ${index + 1}`}
+                                <p className=" gap-3    d-flex">
+                                  <Link
+                                    onClick={() => {
+                                      setEditpage(true);
+
+                                      setchapterpageid(item?.chapter_id);
+                                      viewpages(page?.id);
+                                      // editDetailData(item.id)
+                                    }}
+                                    className="chaptableAction"
+                                  >
+                                    {" "}
+                                    <FontAwesomeIcon
+                                      icon={faEdit}
+                                      className="chaptableActionIcon"
+                                    />{" "}
+                                    Edit
+                                  </Link>
+                                  <Link
+                                    onClick={() => {
+                                      setViewpage(true);
+                                      setchapterpageid(item?.chapter_id);
+                                      viewpages(page?.id);
+                                    }}
+                                    className="chaptableAction"
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={faEye}
+                                      className="tableActionIcon"
+                                    />
+                                    View
+                                  </Link>
+                                  <button
+                                    type="button"
+                                    className="bg-transparent border-0 ps-lg-3 pt-1"
+                                    onClick={() => {
+                                      pagedelete(page?.id);
+                                    }}
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={faTrash}
+                                    ></FontAwesomeIcon>{" "}
+                                    Delete
+                                  </button>
+                                </p>
+                              </div>
+                            ))}
+                            {/* <p> {item?.pages}</p> */}
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      ))}
                   </Accordion>
                 </div>
                 {isChapter && (
@@ -702,35 +625,46 @@ export const BookDetails = () => {
                       </div>
                       <div className="ChapterForm col-md-6 mb-4">
                         <CustomInput
-                          label='Chapter Title'
+                          label="Chapter Title"
                           required
-                          id='title'
-                          type='text'
-                          placeholder='Enter Chapter Title'
-                          labelClass='mainLabel'
-                          inputClass='mainInput'
+                          id="title"
+                          type="text"
+                          placeholder="Enter Chapter Title"
+                          labelClass="mainLabel"
+                          inputClass="mainInput"
                           name="title"
                           value={formData?.title}
                           onChange={handleChange}
                         />
-
-
-
                       </div>
 
+                      <div className="ChapterForm col-md-6 mb-4">
+                        <CustomInput
+                          label="Chapter No"
+                          required
+                          id="title"
+                          type="text"
+                          placeholder="Enter Chapter Number"
+                          labelClass="mainLabel"
+                          inputClass="mainInput"
+                          name="chapter_number"
+                          value={formData?.chapter_number}
+                          onChange={handleChange}
+                        />
+                      </div>
 
                       <div className="ChapterForm col-md-6 mb-4">
-
                         <CustomInput
-                          label='Chapter Audio'
+                          label="Chapter Audio"
                           required
-                          id='audio_file'
-                          type='file'
-                          placeholder='Upload Chapter Audio'
-                          labelClass='mainLabel'
-                          inputClass='mainInput'
-                          name='audio_file'
-                          onChange={handleChange}
+                          id="audio_file"
+                          type="file"
+                          placeholder="Upload Chapter Audio"
+                          labelClass="mainLabel"
+                          inputClass="mainInput"
+                          name="audio_file"
+                          accept=".mp4,.mp3" // Restrict to mp4 and mp3 files
+                          onChange={handlepageChange}
                         />
                       </div>
                       <div className="col-md-6 mb-4">
@@ -744,20 +678,18 @@ export const BookDetails = () => {
                           option={Bookstatus}
                           onChange={handleChange}
                         />
-
                       </div>
 
-
                       <div className="ChapterForm col-md-6 mb-4">
-                        {shapterstatus === 'paid' && (
+                        {shapterstatus === "paid" && (
                           <CustomInput
-                            label='Chapter price'
+                            label="Chapter price"
                             required
-                            id='title'
-                            type='text'
-                            placeholder='Enter Chapter price'
-                            labelClass='mainLabel'
-                            inputClass='mainInput'
+                            id="title"
+                            type="text"
+                            placeholder="Enter Chapter price"
+                            labelClass="mainLabel"
+                            inputClass="mainInput"
                             name="price"
                             value={formData?.price}
                             onChange={handleChange}
@@ -765,20 +697,19 @@ export const BookDetails = () => {
                         )}
                       </div>
 
-
                       <div className="addNewChapter">
-                        <CustomButton text="Add  " variant="primaryButton" onClick={handleSubmitchapter}></CustomButton>
+                        <CustomButton
+                          text="Add  "
+                          variant="primaryButton"
+                          onClick={handleSubmitchapter}
+                        ></CustomButton>
                       </div>
                     </div>
                   </div>
                 )}
-
               </div>
             </div>
           </div>
-
-
-
         </div>
 
         <CustomModal
@@ -815,28 +746,35 @@ export const BookDetails = () => {
           heading="Marked as Active"
         />
 
-        <CustomModal show={editModal} close={() => { setEditModal(false) }} heading="Edit Chapter" >
+        <CustomModal
+          show={editModal}
+          close={() => {
+            setEditModal(false);
+          }}
+          heading="Edit Chapter"
+        >
           <CustomInput
-            label='Chapter Title'
+            label="Chapter Title"
             required
-            id='title'
-            type='text'
-            placeholder='Enter Chapter Title'
-            labelClass='mainLabel'
-            inputClass='mainInput'
+            id="title"
+            type="text"
+            placeholder="Enter Chapter Title"
+            labelClass="mainLabel"
+            inputClass="mainInput"
             name="title"
             value={formData?.title}
             onChange={handleChange}
           />
           <CustomInput
-            label='Chapter Audio'
+            label="Chapter Audio"
             required
-            id='audio_file'
-            type='file'
-            placeholder='Upload Chapter Audio'
-            labelClass='mainLabel'
-            inputClass='mainInput'
-            name='audio_file'
+            id="audio_file"
+            type="file"
+            placeholder="Upload Chapter Audio"
+            labelClass="mainLabel"
+            inputClass="mainInput"
+            name="audio_file"
+            accept=".mp4,.mp3" // Restrict to mp4 and mp3 files
             onChange={handleChange}
           />
 
@@ -851,66 +789,60 @@ export const BookDetails = () => {
             onChange={handleChange}
           />
 
-          {formData?.status === 'paid' && (
+          {formData?.status === "paid" && (
             <CustomInput
-              label='Chapter price'
+              label="Chapter price"
               required
-              id='title'
-              type='text'
-              placeholder='Enter Chapter price'
-              labelClass='mainLabel'
-              inputClass='mainInput'
+              id="title"
+              type="text"
+              placeholder="Enter Chapter price"
+              labelClass="mainLabel"
+              inputClass="mainInput"
               name="price"
               value={formData?.price}
               onChange={handleChange}
             />
           )}
 
-          <CustomButton variant='primaryButton' text='Edit' type='button' onClick={handlechapterEdit} />
-
+          <CustomButton
+            variant="primaryButton"
+            text="Edit"
+            type="button"
+            onClick={handlechapterEdit}
+          />
         </CustomModal>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <CustomModal show={addpage} close={() => { setAddpage(false) }} heading="Add Page" >
+        <CustomModal
+          show={addpage}
+          close={() => {
+            setAddpage(false);
+          }}
+          heading="Add Page"
+        >
           <CustomInput
-            label='  Page Number'
+            label="  Page Number"
             required
-            id='title'
-            type='text'
-            placeholder='Enter Page Number'
-            labelClass='mainLabel'
-            inputClass='mainInput'
+            id="title"
+            type="text"
+            placeholder="Enter Page Number"
+            labelClass="mainLabel"
+            inputClass="mainInput"
             name="page_number"
             value={addpage?.page_number}
             onChange={handlepageChange}
           />
           <CustomInput
-            label='Chapter Audio'
+            label="Page Audio"
             required
-            id='audio_file'
-            type='file'
-            placeholder='Upload Chapter Audio'
-            labelClass='mainLabel'
-            inputClass='mainInput'
-            name='audio_file'
+            id="audio_file"
+            type="file"
+            placeholder="Upload Chapter Audio"
+            labelClass="mainLabel"
+            inputClass="mainInput"
+            name="audio_file"
+            accept=".mp4,.mp3"
             onChange={handlepageChange}
           />
-
-
 
           <div className="inputWrapper">
             <div className="form-controls">
@@ -927,38 +859,45 @@ export const BookDetails = () => {
             </div>
           </div>
 
-
-          <CustomButton variant='primaryButton' text='Add' type='button' onClick={handlepageadd} />
-
+          <CustomButton
+            variant="primaryButton"
+            text="Add"
+            type="button"
+            onClick={handlepageadd}
+          />
         </CustomModal>
 
-
-        <CustomModal show={Editpage} close={() => { setEditpage(false) }} heading="Edit Page" >
+        <CustomModal
+          show={Editpage}
+          close={() => {
+            setEditpage(false);
+          }}
+          heading="Edit Page"
+        >
           <CustomInput
-            label='  Page Number'
+            label="  Page Number"
             required
-            id='title'
-            type='text'
-            placeholder='Enter Page Number'
-            labelClass='mainLabel'
-            inputClass='mainInput'
+            id="title"
+            type="text"
+            placeholder="Enter Page Number"
+            labelClass="mainLabel"
+            inputClass="mainInput"
             name="page_number"
             value={pagesadd?.page_number}
             onChange={handlepageChange}
           />
           <CustomInput
-            label='Chapter Audio'
+            label="Page Audio"
             required
-            id='audio_file'
-            type='file'
-            placeholder='Upload Chapter Audio'
-            labelClass='mainLabel'
-            inputClass='mainInput'
-            name='audio_file'
+            id="audio_file"
+            type="file"
+            placeholder="Upload Chapter Audio"
+            labelClass="mainLabel"
+            inputClass="mainInput"
+            name="audio_file"
+            accept=".mp4,.mp3"
             onChange={handlechapterfile}
           />
-
-
 
           <div className="inputWrapper">
             <div className="form-controls">
@@ -975,14 +914,21 @@ export const BookDetails = () => {
             </div>
           </div>
 
-
-          <CustomButton variant='primaryButton' text='Edit' type='button' onClick={handlepageedit} />
-
+          <CustomButton
+            variant="primaryButton"
+            text="Edit"
+            type="button"
+            onClick={handlepageedit}
+          />
         </CustomModal>
 
-
-
-        <CustomModal show={Viewpage} close={() => { setViewpage(false) }} heading="Page Detail" >
+        <CustomModal
+          show={Viewpage}
+          close={() => {
+            setViewpage(false);
+          }}
+          heading="Page Detail"
+        >
           {/* <CustomInput
             label='  Page Number'
             required
@@ -996,7 +942,6 @@ export const BookDetails = () => {
             onChange={handlepageChange}
           /> */}
 
-        
           {/* <CustomInput
             label='Chapter Audio'
             required
@@ -1017,7 +962,6 @@ export const BookDetails = () => {
             <p>{pagesadd?.content}</p>
           </div>
 
-
           {/* <div className="inputWrapper">
             <div className="form-controls">
               <label htmlFor="">Content</label>
@@ -1033,24 +977,26 @@ export const BookDetails = () => {
             </div>
           </div> */}
 
-
           {/* <CustomButton variant='primaryButton' text='Edit' type='button' /> */}
-
         </CustomModal>
 
-
-
-
-
-
-
-
-
-
-        <CustomModal show={showModalchapter} close={() => { setShowModalChapter(false) }} success heading='Chapter Added Successfully.' />
-        <CustomModal show={showeditchapter} close={() => { setEditChapter(false) }} success heading='Chapter Edit Successfully.' />
+        <CustomModal
+          show={showModalchapter}
+          close={() => {
+            setShowModalChapter(false);
+          }}
+          success
+          heading="Chapter Added Successfully."
+        />
+        <CustomModal
+          show={showeditchapter}
+          close={() => {
+            setEditChapter(false);
+          }}
+          success
+          heading="Chapter Edit Successfully."
+        />
       </DashboardLayout>
     </>
   );
 };
-

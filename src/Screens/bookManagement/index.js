@@ -52,6 +52,7 @@ export const BookManagement = () => {
 
       document.querySelector(".loaderBox").classList.add("d-none");
       setBooklists(response?.data);
+      setData(response?.data);
     } catch (error) {
       console.error("Error in logging in:", error);
 

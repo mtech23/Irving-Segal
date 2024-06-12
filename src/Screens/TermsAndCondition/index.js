@@ -77,6 +77,7 @@ export const TermsAndConditionManagement = () => {
 
       document.querySelector(".loaderBox").classList.add("d-none");
       setPolicieslists(response?.data);
+      setData(response?.data);
     } catch (error) {
       console.error("Error in logging in:", error);
 
@@ -220,7 +221,7 @@ export const TermsAndConditionManagement = () => {
                             {/* <td className="text-capitalize">{item?.title}</td> */}
                             {/* <td>{item?.pages ? `$ ${item?.pages}` : `$0`}</td> */}
                             <td>{item?.title}</td>
-                            <td>{item?.description}</td>
+                            <td>{item?.terms}</td>
 
                             {/* <td>{item?.audiobook_duration}</td> */}
                             {/* <td className={item.status == 1 ? 'greenColor' : "redColor"}>{item.status == 1 ? 'Active' : "Inactive"}</td> */}

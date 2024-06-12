@@ -29,6 +29,7 @@ const CustomInput = (props) => {
            disabled={props.disabled} 
           id={props?.id} 
           name={props?.name} 
+          accept={props?.accept}
           className={props?.inputClass} 
           onChange={props?.onChange} 
           value={props.value} />

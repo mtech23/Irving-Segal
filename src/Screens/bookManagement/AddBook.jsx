@@ -18,6 +18,7 @@ export const AddBook = () => {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     cover: "", // Initialize image as an empty string
+    type: ""
   });
 
   const Booktype = [
@@ -40,7 +41,27 @@ export const AddBook = () => {
     console.log(formData);
   };
 
-  const filehandleChange = (event) => {
+  // const filehandleChange = (event) => {
+  //   const file = event.target.files[0];
+
+  //   if (file) {
+  //     const fileName = file;
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       cover: fileName,
+  //     }));
+  //   }
+  //   console.log(formData);
+  // };
+
+
+
+
+  const base_url = process.env.REACT_APP_BASE_URL
+
+
+
+  const handlefile = (event) => {
     const file = event.target.files[0];
 
     if (file) {
@@ -50,8 +71,10 @@ export const AddBook = () => {
         cover: fileName,
       }));
     }
-    console.log(formData);
   };
+
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -168,23 +191,11 @@ export const AddBook = () => {
                           inputClass="mainInput"
                           name="cover"
                           // value={formData.cover}
-                          onChange={filehandleChange}
+                          onChange={handlefile}
                         />
+                        {/* <img src={formData?.cover instanceof File ? URL.createObjectURL(formData?.cover) : base_url  + formData?.cover} className="w-100" /> */}
                       </div>
-                      <div className="col-md-6 mb-4">
-                        <CustomInput
-                          label="Enter Audiobook Duration  "
-                          required
-                          id="schedule_interview"
-                          type="text"
-                          placeholder="   Enter Audiobook Duration"
-                          labelClass="mainLabel"
-                          inputClass="mainInput"
-                          name="audiobook_duration"
-                          value={formData.audiobook_duration}
-                          onChange={handleChange}
-                        />
-                      </div>
+
                       <div className="col-md-6 mb-4">
                         <CustomInput
                           label="Enter Pages  "
@@ -199,6 +210,20 @@ export const AddBook = () => {
                           onChange={handleChange}
                         />
                       </div>
+                      {formData?.type == "AudioBook" ?  (<div className="col-md-6 mb-4">
+                        <CustomInput
+                          label="Enter Audiobook Duration  "
+                          required
+                          id="schedule_interview"
+                          type="text"
+                          placeholder="   Enter Audiobook Duration"
+                          labelClass="mainLabel"
+                          inputClass="mainInput"
+                          name="audiobook_duration"
+                          value={formData.audiobook_duration}
+                          onChange={handleChange}
+                        />
+                      </div>) : ("") }
                       <div className="col-md-6 mb-4">
                         {/* <CustomInput
                                                     label="Description"

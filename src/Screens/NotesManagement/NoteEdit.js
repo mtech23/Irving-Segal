@@ -268,33 +268,34 @@ export const NoteEdit = () => {
 
         // setData(data.data); // Assuming setData is a state updater function
 
-        if (data?.status == true) {
-          navigate("/notes-management");
-        } else {
-        }
-      })
-      .catch((error) => {
-        document.querySelector(".loaderBox").classList.add("d-none");
-        console.error("Error:", error);
-      });
-  };
+                if (data?.status == true) {
+                    navigate('/notes-management');
 
-  return (
-    <>
-      <DashboardLayout>
-        <div className="container-fluid">
-          <div className="row mb-3">
-            <div className="col-12">
-              <form onSubmit={handleSubmit}>
-                <div className="dashCard">
-                  <div className="row mb-3 justify-content-between">
-                    <div className="col-md-6 mb-2">
-                      <h2 className="mainTitle">
-                        {" "}
-                        <BackButton /> Update Note
-                      </h2>
-                    </div>
-                    {/* <div className="col-md-6 mb-2">
+                } else {
+
+                }
+            })
+            .catch((error) => {
+                document.querySelector('.loaderBox').classList.add("d-none");
+                console.error("Error:", error);
+            });
+    };
+
+    console.log("formData", formData)
+    return (
+
+        <>
+            <DashboardLayout>
+                <div className="container-fluid">
+                    <div className="row mb-3">
+                        <div className="col-12">
+                            <form onSubmit={handleSubmit}>
+                                <div className="dashCard">
+                                    <div className="row mb-3 justify-content-between">
+                                        <div className="col-md-6 mb-2">
+                                            <h2 className="mainTitle">   <BackButton /> Update Note</h2>
+                                        </div>
+                                        {/* <div className="col-md-6 mb-2">
                                 <div className="addUser">
                                     <CustomInput type="text" placeholder="Search Here..." value={inputValue} inputClass="mainInput" onChange={handleChange} />
                                 </div>

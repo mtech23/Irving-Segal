@@ -34,19 +34,21 @@ export const AddQuiz = () => {
     console.log(formData);
   };
 
-  const hanldeRoute = () => {
-    navigate("/add-product");
-  };
-  const inActive = () => {
-    setShowModal(false);
-    setShowModal2(true);
-  };
-  const ActiveMale = () => {
-    setShowModal3(false);
-    setShowModal4(true);
-  };
+    const hanldeRoute = () => {
+        navigate('/add-product')
+    }
+    const inActive = () => {
+        setShowModal(false)
+        setShowModal2(true)
+    }
+    const ActiveMale = () => {
+        setShowModal3(false)
+        setShowModal4(true)
+    }
 
-  const indexOfLastItem = currentPage * itemsPerPage;
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+
 
   useEffect(() => {
     // document.title = "Certifires | Add Quiz";
@@ -151,38 +153,51 @@ export const AddQuiz = () => {
                                     <CustomInput type="text" placeholder="Search Here..." value={inputValue} inputClass="mainInput" onChange={handleChange} />
                                 </div>
                             </div> */}
-                  </div>
-                  <div class="row align-items-center"></div>
-                  <div className="row mb-3">
-                    <div class="col-md-6 col-sm-12 ">
-                      <SelectBox
-                        selectClass="mainInput"
-                        name="book_id"
-                        labelClass="mainLabel"
-                        label="Select Book"
-                        required
-                        //  option={books?.title}
-                        option={books.map((book) => ({
-                          id: book.id,
-                          name: book.title,
-                        }))}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className="col-12">
-                      <CustomInput
-                        label="Question"
-                        required
-                        id="userEmail"
-                        name="question"
-                        type="text"
-                        placeholder="Enter Question"
-                        labelClass="mainLabel"
-                        inputClass="mainInput"
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
+                                    </div>
+                                    <div class="row align-items-center">
+
+
+                                    </div>
+                                    <div className="row mb-3">
+                                        <div class="col-md-6 col-sm-12 ">
+                                            <SelectBox selectClass="mainInput" name="book_id" labelClass='mainLabel' label="Select Book" required
+                                                //  option={books?.title} 
+                                                option={books?.map(book => ({ id: book.id, name: book.title }))}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+
+
+                                        <div className="col-6">
+                                            <CustomInput
+                                                label='Question Points'
+                                                required
+                                                id='userEmail'
+                                                name="points"
+                                                type='text'
+                                                placeholder='Enter points '
+                                                labelClass='mainLabel'
+                                                inputClass='mainInput'
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+
+                                        <div className="col-12">
+                                            <CustomInput
+                                                label='Question'
+                                                required
+                                                id='userEmail'
+                                                name="question"
+                                                type='text'
+                                                placeholder='Enter Question'
+                                                labelClass='mainLabel'
+                                                inputClass='mainInput'
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+
+
+                                    </div>
 
                   <label className="mainLabel">Options</label>
                   <div className="row mb-3 mt-3">
@@ -208,29 +223,22 @@ export const AddQuiz = () => {
                           />
                           {/* <input name="correct_option"
                                                         type="radio" onChange={handleChange} /> */}
-                          <input
-                            name="correct_option"
-                            type="radio"
-                            value={String.fromCharCode(97 + index)}
-                            checked={
-                              formData.correct_option ===
-                              String.fromCharCode(97 + index)
-                            }
-                            onChange={handleChange}
-                          />
+                                                    <input
+                                                        name="correct_option"
+                                                        type="radio"
+                                                        value={String.fromCharCode(97 + index)}
+                                                        checked={formData?.correct_option === String.fromCharCode(97 + index)}
+                                                        onChange={handleChange}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <CustomButton variant='primaryButton' text='Create Now' type='submit' />
+                                </div>
+                            </form>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                  <CustomButton
-                    variant="primaryButton"
-                    text="Create Now"
-                    type="submit"
-                  />
-                </div>
-              </form>
-            </div>
-          </div>
+                    </div>
 
           <CustomModal
             show={showModal}

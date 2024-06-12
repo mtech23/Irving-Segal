@@ -70,6 +70,7 @@ export const OrdersManagement = () => {
 
       document.querySelector(".loaderBox").classList.add("d-none");
       setOrderslists(response?.data);
+      setData(response?.data);
     } catch (error) {
       console.error("Error in logging in:", error);
 
@@ -267,7 +268,7 @@ export const OrdersManagement = () => {
                                     />
                                     View
                                   </Link>
-                                  <Link
+                                  {/* <Link
                                     to={`/orders-management/edit-order/${item?.id}`}
                                     className="tableAction"
                                   >
@@ -289,7 +290,7 @@ export const OrdersManagement = () => {
                                       icon={faTrash}
                                     ></FontAwesomeIcon>{" "}
                                     Delete
-                                  </button>
+                                  </button> */}
                                 </Dropdown.Menu>
                               </Dropdown>
                             </td>

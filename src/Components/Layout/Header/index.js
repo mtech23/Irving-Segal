@@ -67,7 +67,7 @@ export const Header = (props) => {
     navigate('/');
   }
 
-
+  const baseurl = process.env.REACT_APP_BASE_URL
 
   const handleLogout = async () => {
     try {
@@ -88,7 +88,42 @@ export const Header = (props) => {
   };
 
 
+
+  const [userNewData, setUserNewData] = useState({})
+  const userprofile = () => {
+
+    console.log("baseurl", baseurl)
+    const LogoutData = localStorage.getItem('login');
+
+    document.querySelector('.loaderBox').classList.remove("d-none");
+    fetch(`${process.env.REACT_APP_BASE_URL}api/aboutAuthor`,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${LogoutData}`
+        },
+      }
+    )
+
+      .then(response =>
+        response.json()
+      )
+      .then((data) => {
+        console.log(data.data)
+        document.querySelector('.loaderBox').classList.add("d-none");
+        setUserNewData(data.data);
+      })
+      .catch((error) => {
+        document.querySelector('.loaderBox').classList.add("d-none");
+        console.log(error)
+      })
+
+  }
+
   useEffect(() => {
+    userprofile()
     setNotificationState(notifications)
   }, [])
 
@@ -108,39 +143,7 @@ export const Header = (props) => {
             className="customCollapse order-3"
           >
             <Nav className="ms-auto">
-              <Dropdown className="notiDropdown me-2">
-                <Dropdown.Toggle variant="transparent" className="notButton">
-                  <FontAwesomeIcon className="bellIcon" icon={faBell} />
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="notiMenu" align="end">
-                  <div className="notiHead p-3 pb-0">
-                    <h4 className="mainTitle">Notifications</h4>
-                  </div>
-                  <div className="notificationsBody">
-                    {notificationState.slice(0, 5).map((notification) => (
-                      <>
-                        <Link className="singleNoti" key={notification.id}>
-                          <div className="singleNotiIcon">
-                            <FontAwesomeIcon
-                              className="notiIcon"
-                              icon={faBell}
-                            />
-                          </div>
-                          <div className="singleNotiContent">
-                            <p className="notiText">{notification.text}</p>
-                            <p className="notiDateTime">
-                              {notification.date} | {notification.time}
-                            </p>
-                          </div>
-                        </Link>
-                      </>
-                    ))}
-                  </div>
-                  <div className="notiFooter">
-                    <Link to={"/notifications"}>View All</Link>
-                  </div>
-                </Dropdown.Menu>
-              </Dropdown>
+           
               <Dropdown className="userDropdown">
                 <Dropdown.Toggle
                   variant="transparent"
@@ -148,7 +151,7 @@ export const Header = (props) => {
                 >
                   <div className="userImage">
                     <img
-                      src={userImage}
+                      src={baseurl + userNewData.image } 
                       alt=""
                       className="img-fluid"
                     />
@@ -190,11 +193,11 @@ export const Header = (props) => {
                   <Link
                     to="/profile"
                     className="userMenuItem"
-                    onClick={handleClickPopup}
+
                   >
                     <FontAwesomeIcon
                       className="me-1 yellow-text"
-                      icon={faSignOut}
+                      icon={faUser}
                     />{" "}
                     profile
                   </Link>
