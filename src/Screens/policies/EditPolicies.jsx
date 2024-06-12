@@ -73,7 +73,7 @@ export const EditPolicies = () => {
     for (const key in formData) {
       formDataMethod.append(key, formData[key]);
     }
-    formDataMethod.append('contentkey', "privacy");
+    formDataMethod.append("contentkey", "privacy");
     formDataMethod.append("id", id);
 
     document.querySelector(".loaderBox").classList.remove("d-none");
@@ -90,6 +90,10 @@ export const EditPolicies = () => {
       console.error("Error in adding model post:", error);
     }
   };
+
+  useEffect(() => {
+    document.title = "IRV Segal | Edit Policy";
+  }, []);
 
   return (
     <>

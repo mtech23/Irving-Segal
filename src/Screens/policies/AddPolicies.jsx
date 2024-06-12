@@ -86,14 +86,14 @@ export const AddPolicies = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-// formData.contentkey
+    // formData.contentkey
     document.querySelector(".loaderBox").classList.remove("d-none");
     const formDataMethod = new FormData();
     for (const key in formData) {
       formDataMethod.append(key, formData[key]);
     }
 
-    formDataMethod.append('contentkey', "privacy");
+    formDataMethod.append("contentkey", "privacy");
     document.querySelector(".loaderBox").classList.remove("d-none");
     // Make the fetch request
 
@@ -108,6 +108,9 @@ export const AddPolicies = () => {
       console.error("Error in adding model post:", error);
     }
   };
+  useEffect(() => {
+    document.title = "IRV Segal | Add Policy";
+  }, []);
 
   return (
     <>

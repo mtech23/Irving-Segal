@@ -95,6 +95,10 @@ export const PoliciesDetails = () => {
     console.log(formData);
   };
 
+  useEffect(() => {
+    document.title = "IRV Segal | Policy Detail";
+  }, []);
+
   // const chapterData = async () => {
   //   document.title = "IRV Segal | Book Chapters Detail";
   //   document.querySelector(".loaderBox").classList.remove("d-none");

@@ -94,6 +94,10 @@ export const EditOrders = () => {
     }
   };
 
+  useEffect(() => {
+    document.title = "IRV Segal | Edit Order";
+  }, []);
+
   return (
     <>
       <DashboardLayout>

@@ -94,6 +94,10 @@ export const EditBook = () => {
     }
   };
 
+  useEffect(() => {
+    document.title = "IRV Segal | Edit Book";
+  }, []);
+
   return (
     <>
       <DashboardLayout>

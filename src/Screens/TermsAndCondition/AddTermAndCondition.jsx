@@ -108,6 +108,10 @@ export const AddTermsAndCondition = () => {
     }
   };
 
+  useEffect(() => {
+    document.title = "IRV Segal | Add Terms & Condition";
+  }, []);
+
   return (
     <>
       <DashboardLayout>

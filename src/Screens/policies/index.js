@@ -129,7 +129,7 @@ export const PoliciesManagement = () => {
   const currentItems = filterData?.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    document.title = "IRV Segal | Book Management";
+    document.title = "IRV Segal | Policy Management";
   }, []);
 
   const policiesData = [

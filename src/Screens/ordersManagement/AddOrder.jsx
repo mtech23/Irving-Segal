@@ -77,6 +77,10 @@ export const AddBook = () => {
     }
   };
 
+  useEffect(() => {
+    document.title = "IRV Segal | Add Order";
+  }, []);
+
   return (
     <>
       <DashboardLayout>

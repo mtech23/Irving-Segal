@@ -92,6 +92,10 @@ export const EditTermsAndCondition = () => {
     }
   };
 
+  useEffect(() => {
+    document.title = "IRV Segal | Edit Terms & Condition";
+  }, []);
+
   return (
     <>
       <DashboardLayout>

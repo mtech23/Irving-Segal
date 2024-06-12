@@ -109,6 +109,10 @@ export const OrdersDetails = () => {
     console.log(formData);
   };
 
+  useEffect(() => {
+    document.title = "IRV Segal | Order Detail";
+  }, []);
+
   // const chapterData = async () => {
   //   document.title = "IRV Segal | Book Chapters Detail";
   //   document.querySelector(".loaderBox").classList.remove("d-none");

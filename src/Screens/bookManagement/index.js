@@ -183,7 +183,8 @@ export const BookManagement = () => {
                             <td>{index + 1}</td>
                             <td>{item?.author} </td>
                             <td className="text-capitalize">{item?.title}</td>
-                            <td>{item?.pages ? `$ ${item?.pages}` : `$0`}</td>
+                            {/* <td>{item?.pages ? `$ ${item?.pages}` : `$0`}</td> */}
+                            <td>{item?.pages ? `${item?.pages}` : `0`}</td>
                             <td>{item?.lang}</td>
                             <td>{item?.type}</td>
 

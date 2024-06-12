@@ -523,7 +523,7 @@ export const GetPolicieslist = async () => {
 
 export const Getterms = async () => {
   try {
-    const res = await fetch(`${url}contents`, {
+    const res = await fetch(`${url}terms-condition`, {
       method: "Get",
       headers: {
         "Content-Type": "application/json",

@@ -135,7 +135,7 @@ export const TermsAndConditionManagement = () => {
   const currentItems = filterData?.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    document.title = "IRV Segal | Book Management";
+    document.title = "IRV Segal | Term & Condition Management";
   }, []);
 
   const policiesData = [
