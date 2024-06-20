@@ -83,7 +83,7 @@ export const BookManagement = () => {
   useEffect(() => {
     booklist();
   }, []);
-  console.log("books", books);
+ 
 
   const inActive = () => {
     setShowModal(false);
@@ -145,7 +145,7 @@ export const BookManagement = () => {
     },
   ];
 
-  console.log("currentItems", currentItems);
+ 
 
   return (
     <>

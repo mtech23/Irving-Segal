@@ -8,17 +8,45 @@
     justify-content: space-between;
     text-decoration: none;
 }
+
+.chaptitiletop {
+    margin-top: -52px!important;
+
+}
 .chaptableAction {
     color: #000;
     text-decoration: none;
     margin-right: 10px;
 }
+
+.audiocontroll{
+    margin-top: -14px;
+    margin-left: 29px;
+}
+.chaptitle {
+    margin-top: 0px;
+    margin-left: 7px;
+    font-size: larger;
+}
+
+.chaptertitle {
+    font-weight: 550;
+    color: #333;
+}
+
+
 .avatarIcon {
     width: 60px;
     height: 60px;
 }
 
- 
+
+.pagecss {
+    font-size: smaller;
+    margin-top: -14px;
+    color: #7f1c1b;
+}
+
 .productImage img {
     width: 100%;
     object-fit: cover;
@@ -30,7 +58,9 @@
 }
 
 @media screen and (max-width: 1200px) and (min-width: 768px) {
-    .stats, .stats:not(:last-child) {
+
+    .stats,
+    .stats:not(:last-child) {
         border-color: #fff0;
     }
 
@@ -40,11 +70,10 @@
 }
 
 @media screen and (max-width: 767px) {
-    .stats, .stats:not(:last-child), .stats:nth-child(odd) {
+
+    .stats,
+    .stats:not(:last-child),
+    .stats:nth-child(odd) {
         border-color: #fff0;
     }
 }
-
-
-
-

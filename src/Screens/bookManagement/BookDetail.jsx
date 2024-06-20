@@ -43,6 +43,8 @@ export const BookDetails = () => {
   const [Bookdetail, setBookdetail] = useState({});
   const [chapterdetailbyid, setChapterdetailbyid] = useState({});
 
+
+
   const [isChapter, setIsChapter] = useState(false);
 
   const [showModalchapter, setShowModalChapter] = useState(false);
@@ -68,12 +70,17 @@ export const BookDetails = () => {
   const [pagesadd, setPagesadd] = useState({});
   console.log("pagesadd", pagesadd);
 
+
+  const [pagealreadyexist, setpagealreadyexist] = useState("")
+  const [chapetralreadyexsit, setchapetralreadyexsit] = useState()
   const [pagesdetail, setPagesdetail] = useState();
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    price: 0
+  });
 
   const [data, setData] = useState({});
 
-  console.log("pagesdetail", pagesdetail);
+
   const inActive = () => {
     // setShowModal(false)
     setShowModal2(true);
@@ -82,7 +89,7 @@ export const BookDetails = () => {
     setShowModal3(false);
     setShowModal4(true);
   };
-  console.log("id", id);
+
 
   const bookdetail = async () => {
     try {
@@ -166,18 +173,60 @@ export const BookDetails = () => {
     console.log(formData);
   };
 
+  // const handlechapterfile = (event) => {
+  //   const [name, value] = event.target.files[0];
+  //   // console.log(file.name)
+
+  //   // const fileName = file;
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+
+  //   console.log(formData);
+  // };
+
+
+
+
+
+
+  // const handlechapterfile = (event) => {
+  //   const file = event.target.files[0];
+
+  //   if (file) {
+  //     const fileName = file;
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       audio_file: fileName,
+  //     }));
+  //   }
+  // };
+
+
+  // const handlechapterfile = (event) => {
+  //   const { name, value } = event.target;
+
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  //   console.log(formData);
+  // };
+
+
   const handlechapterfile = (event) => {
     const file = event.target.files[0];
-    // console.log(file.name)
+
     if (file) {
       const fileName = file;
-      setPagesadd((prevData) => ({
+      setFormData((prevData) => ({
         ...prevData,
-        image: fileName,
+        audio_file: fileName,
       }));
     }
-    console.log(formData);
   };
+
 
   console.log("pagesadd", pagesadd);
 
@@ -191,7 +240,7 @@ export const BookDetails = () => {
     console.log(formData);
   };
 
-  console.log("shapterstatus", shapterstatus);
+
 
   const chapterData = async () => {
     document.title = "IRV Segal | Book Chapters Detail";
@@ -204,6 +253,7 @@ export const BookDetails = () => {
 
       setChapterData(response?.data);
       setFormData(response?.data);
+
     } catch (error) {
       document.querySelector(".loaderBox").classList.add("d-none");
       console.log(error);
@@ -262,7 +312,11 @@ export const BookDetails = () => {
         chapterData();
         setEditModal(false);
         setIsChapter(!isChapter);
-      } else {
+        setpagealreadyexist("")
+      } else if (response?.status == false) {
+        setpagealreadyexist(response?.message)
+      }
+      else {
       }
     } catch (error) {
       console.error("Error in adding model post:", error);
@@ -289,10 +343,19 @@ export const BookDetails = () => {
       if (response?.status == true) {
         setAddpage(false);
         chapterData();
-      } else {
+        setpagealreadyexist(" ")
+        setPagesadd(" ")
+      }
+      else if (response?.status == false) {
+        setpagealreadyexist(response?.message)
+      }
+      else {
+        setpagealreadyexist(" ")
+
       }
     } catch (error) {
       console.error("Error in adding model post:", error);
+      setpagealreadyexist(" ")
     }
   };
 
@@ -318,7 +381,11 @@ export const BookDetails = () => {
       if (response?.status == true) {
         setEditpage(false);
         chapterData();
-      } else {
+        setpagealreadyexist(" ")
+      } else if ((response?.status == false)) {
+        setpagealreadyexist(response?.message)
+      }
+      else {
       }
     } catch (error) {
       console.error("Error in adding model post:", error);
@@ -347,7 +414,12 @@ export const BookDetails = () => {
 
         chapterData();
         setEditChapter(true);
-      } else {
+        setpagealreadyexist(" ")
+      } else if (response?.status == false) {
+        setpagealreadyexist(response?.message)
+        document.querySelector(".loaderBox").classList.remove("d-none");
+      }
+      else {
       }
     } catch (error) {
       console.error("Error in adding model post:", error);
@@ -358,6 +430,9 @@ export const BookDetails = () => {
     chapterData();
   }, [id]);
 
+
+
+  console.log("pagealreadyexist", pagealreadyexist)
   const handleEdit = async (e) => {
     // console.log("chapetrid ", chapetrid)
     // e.preventDefault();
@@ -506,14 +581,19 @@ export const BookDetails = () => {
                     {chapterdata &&
                       chapterdata?.map((item, index) => (
                         <Accordion.Item eventKey={index}>
-                          <Accordion.Header>{`Chapter ${
-                            index + 1
-                          }`}</Accordion.Header>
+                          <Accordion.Header>{`Chapter ${index + 1
+                            }`}</Accordion.Header>
                           <Accordion.Body>
+
+
                             <div className="chapeditz d-flex">
-                              <h4 className="text-capitalize ">
-                                {item?.title}
-                              </h4>
+                              <span className=" d-flex">
+                                <h4 className="chaptertitle text-capitalize ">
+                                  Chapter No :
+                                </h4>
+                                <p className="chaptitle">  {item?.chapter_number}</p>
+                              </span>
+
 
                               <p className=" gap-2">
                                 <span>
@@ -534,7 +614,7 @@ export const BookDetails = () => {
                                 <span className="deletechap  me-2">
                                   <button
                                     type="button"
-                                    className="bg-transparent border-0 ps-lg-3 pt-1"
+                                    className="bg-transparent border-0   "
                                     onClick={() => {
                                       deleteChapter(item?.chapter_id);
                                     }}
@@ -557,7 +637,34 @@ export const BookDetails = () => {
                                 </div>
                               </p>
                             </div>
-                            <h3 className="text-capitalize">{item?.price}</h3>
+                            <span className="chaptitiletop d-flex">
+                              <h4 className="chaptertitle text-capitalize ">
+                                Title :
+                              </h4>
+                              <p className="chaptitle">  {item?.title}</p>
+                            </span>
+                            {/* <h3 className="text-capitalize">{item?.price}</h3> */}
+                            <span className=" d-flex">
+                              <h4 className="chaptertitle text-capitalize ">
+                                Price :
+                              </h4>
+                              <p className="chaptitle">
+                                {item?.price == null ? 0 : item?.price}</p>
+                            </span>
+
+
+                            {item?.audio_file == null ? " " : (<span className=" d-flex">
+                              <h4 className="chaptertitle text-capitalize ">
+                                Audio File :
+                              </h4>
+                              {/* <p className="chaptitle">{item?.audio_file}</p> */}
+                              {item?.audio_file && (
+                                <audio controls className="audiocontroll">
+                                  <source src={base_url + item.audio_file} type="audio/mpeg" />
+                                  Your browser does not support the audio element.
+                                </audio>
+                              )}
+                            </span>)}
 
                             {item.pages?.map((page, index) => (
                               //  <p> {`Page ${index + 1}`}</p>
@@ -598,7 +705,7 @@ export const BookDetails = () => {
                                   </Link>
                                   <button
                                     type="button"
-                                    className="bg-transparent border-0 ps-lg-3 pt-1"
+                                    className="bg-transparent border-0  "
                                     onClick={() => {
                                       pagedelete(page?.id);
                                     }}
@@ -652,8 +759,10 @@ export const BookDetails = () => {
                           onChange={handleChange}
                         />
                       </div>
+                      <p className="pagecss">{pagealreadyexist}</p>
 
-                      <div className="ChapterForm col-md-6 mb-4">
+
+                      {Bookdetail?.type == "eBook" ? " " : (<div className="ChapterForm col-md-6 mb-4">
                         <CustomInput
                           label="Chapter Audio"
                           required
@@ -663,10 +772,10 @@ export const BookDetails = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="audio_file"
-                          accept=".mp4,.mp3" // Restrict to mp4 and mp3 files
-                          onChange={handlepageChange}
+                          accept=".mp4,.mp3"
+                          onChange={handlechapterfile}
                         />
-                      </div>
+                      </div>)}
                       <div className="col-md-6 mb-4">
                         <SelectBox
                           selectClass="mainInput"
@@ -753,6 +862,20 @@ export const BookDetails = () => {
           }}
           heading="Edit Chapter"
         >
+
+          <CustomInput
+            label="Chapter No"
+            required
+            id="title"
+            type="text"
+            placeholder="Enter Chapter Title"
+            labelClass="mainLabel"
+            inputClass="mainInput"
+            name="chapter_number"
+            value={formData?.chapter_number}
+            onChange={handleChange}
+          />
+          <p className="pagecss">{pagealreadyexist}</p>
           <CustomInput
             label="Chapter Title"
             required
@@ -765,18 +888,25 @@ export const BookDetails = () => {
             value={formData?.title}
             onChange={handleChange}
           />
-          <CustomInput
-            label="Chapter Audio"
-            required
-            id="audio_file"
-            type="file"
-            placeholder="Upload Chapter Audio"
-            labelClass="mainLabel"
-            inputClass="mainInput"
-            name="audio_file"
-            accept=".mp4,.mp3" // Restrict to mp4 and mp3 files
-            onChange={handleChange}
-          />
+
+
+
+
+
+          {Bookdetail?.type == "eBook" ? " " : (<div className="ChapterForm col-md-6 mb-4">
+            <CustomInput
+              label="Chapter Audio"
+              required
+              id="audio_file"
+              type="file"
+              placeholder="Upload Chapter Audio"
+              labelClass="mainLabel"
+              inputClass="mainInput"
+              name="audio_file"
+              accept=".mp4,.mp3"
+              onChange={handlechapterfile}
+            />
+          </div>)}
 
           <SelectBox
             selectClass="mainInput"
@@ -831,7 +961,9 @@ export const BookDetails = () => {
             value={addpage?.page_number}
             onChange={handlepageChange}
           />
-          <CustomInput
+          <p className="pagecss">
+            {pagealreadyexist}</p>
+          {/* <CustomInput
             label="Page Audio"
             required
             id="audio_file"
@@ -842,7 +974,7 @@ export const BookDetails = () => {
             name="audio_file"
             accept=".mp4,.mp3"
             onChange={handlepageChange}
-          />
+          /> */}
 
           <div className="inputWrapper">
             <div className="form-controls">
@@ -886,7 +1018,9 @@ export const BookDetails = () => {
             value={pagesadd?.page_number}
             onChange={handlepageChange}
           />
-          <CustomInput
+          <p className="pagecss">
+            {pagealreadyexist}</p>
+          {/* <CustomInput
             label="Page Audio"
             required
             id="audio_file"
@@ -897,7 +1031,7 @@ export const BookDetails = () => {
             name="audio_file"
             accept=".mp4,.mp3"
             onChange={handlechapterfile}
-          />
+          /> */}
 
           <div className="inputWrapper">
             <div className="form-controls">
