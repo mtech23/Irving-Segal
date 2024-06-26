@@ -146,8 +146,7 @@ console.log("chapters" , chapters)
 
   ];
 
-
-  console.log("currentItems" , currentItems)
+ 
 
   return (
     <>

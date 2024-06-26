@@ -150,7 +150,7 @@ export const AddBook = () => {
                           onChange={handleChange}
                         />
                       </div>
-                      <div className="col-md-6 mb-4">
+                      {/* <div className="col-md-6 mb-4">
                         <SelectBox
                           selectClass="mainInput"
                           name="type"
@@ -161,7 +161,7 @@ export const AddBook = () => {
                           option={Booktype}
                           onChange={handleChange}
                         />
-                      </div>
+                      </div> */}
                       <div className="col-md-6 mb-4">
                         <CustomInput
                           label="Enter Book Language

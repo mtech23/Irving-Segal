@@ -148,7 +148,8 @@ export default function AdminRouter() {
         />
         <Route
           path="/orders-management/edit-order/:id"
-          element={<EditOrders />}
+          element={<ProtectedRoutes Components={EditOrders} />}
+       
         />
         {/* Orders Managment */}
 
@@ -163,11 +164,13 @@ export default function AdminRouter() {
         />
         <Route
           path="/policies-management/policies-details/:id"
-          element={<PoliciesDetails />}
+          element={<ProtectedRoutes Components={PoliciesDetails} />}
+     
         />
         <Route
           path="/policies-management/edit-policies/:id"
-          element={<EditPolicies />}
+          element={<ProtectedRoutes Components={EditPolicies} />}
+       
         />
         {/* Policies Managment */}
 
@@ -182,11 +185,13 @@ export default function AdminRouter() {
         />
         <Route
           path="/terms-condition-management/terms-condition-details/:id"
-          element={<TermsAndConditionDetails />}
+          element={<ProtectedRoutes Components={TermsAndConditionDetails} />}
+ 
         />
         <Route
           path="/terms-condition-management/edit-terms-condition/:id"
-          element={<EditTermsAndCondition />}
+          element={<ProtectedRoutes Components={EditTermsAndCondition} />}
+          
         />
         {/* Terms And Condition Managment */}
 

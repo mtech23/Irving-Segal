@@ -86,7 +86,7 @@ export const AddPolicies = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // formData.contentkey
+    // formData?.contentkey
     document.querySelector(".loaderBox").classList.remove("d-none");
     const formDataMethod = new FormData();
     for (const key in formData) {
@@ -140,7 +140,7 @@ export const AddPolicies = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="author"
-                          value={formData.author}
+                          value={formData?.author}
                           onChange={handleChange}
                         />
                       </div> */}
@@ -154,7 +154,7 @@ export const AddPolicies = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="title"
-                          value={formData.title}
+                          value={formData?.title}
                           onChange={handleChange}
                         />
                       </div>
@@ -165,7 +165,7 @@ export const AddPolicies = () => {
                           label="Select Book Type"
                           placeholder="Select Book Type"
                           required
-                          value={formData.type}
+                          value={formData?.type}
                           option={Booktype}
                           onChange={handleChange}
                         />
@@ -184,7 +184,7 @@ export const AddPolicies = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="lang"
-                          value={formData.lang}
+                          value={formData?.lang}
                           onChange={handleChange}
                         />
                       </div>
@@ -198,7 +198,7 @@ export const AddPolicies = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="cover"
-                          // value={formData.cover}
+                          // value={formData?.cover}
                           onChange={filehandleChange}
                         />
                       </div>
@@ -212,7 +212,7 @@ export const AddPolicies = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="audiobook_duration"
-                          value={formData.audiobook_duration}
+                          value={formData?.audiobook_duration}
                           onChange={handleChange}
                         />
                       </div>
@@ -226,7 +226,7 @@ export const AddPolicies = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="pages"
-                          value={formData.pages}
+                          value={formData?.pages}
                           onChange={handleChange}
                         />
                       </div> */}
@@ -241,7 +241,7 @@ export const AddPolicies = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="title"
-                          value={formData.title}
+                          value={formData?.title}
                           onChange={handleChange}
                         />
                       </div>
@@ -256,7 +256,7 @@ export const AddPolicies = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="contentkey"
-                          value={formData.contentkey}
+                          value={formData?.contentkey}
                           onChange={handleChange}
                         />
                       </div> */}
@@ -288,7 +288,7 @@ export const AddPolicies = () => {
                           labelClass="mainLabel"
                           inputClass="mainInput"
                           name="author"
-                          value={formData.author}
+                          value={formData?.author}
                           onChange={handleChange}
                         />
                       </div> */}

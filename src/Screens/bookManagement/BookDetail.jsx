@@ -38,10 +38,10 @@ export const BookDetails = () => {
   ];
   const { id } = useParams();
   const [chapterdata, setChapterData] = useState([]);
-
   const base_url = process.env.REACT_APP_BASE_URL;
   const [Bookdetail, setBookdetail] = useState({});
   const [chapterdetailbyid, setChapterdetailbyid] = useState({});
+  console.log('chapterdata',chapterdata ,Bookdetail);
 
 
 
@@ -312,11 +312,12 @@ export const BookDetails = () => {
         chapterData();
         setEditModal(false);
         setIsChapter(!isChapter);
-        setpagealreadyexist("")
+        setpagealreadyexist(" ")
       } else if (response?.status == false) {
         setpagealreadyexist(response?.message)
       }
       else {
+        setpagealreadyexist(" ")
       }
     } catch (error) {
       console.error("Error in adding model post:", error);
@@ -343,10 +344,11 @@ export const BookDetails = () => {
       if (response?.status == true) {
         setAddpage(false);
         chapterData();
-        setpagealreadyexist(" ")
+        setpagealreadyexist( )
         setPagesadd(" ")
       }
       else if (response?.status == false) {
+              // document.querySelector(".loaderBox").classList.remove("d-none");
         setpagealreadyexist(response?.message)
       }
       else {
@@ -382,6 +384,8 @@ export const BookDetails = () => {
         setEditpage(false);
         chapterData();
         setpagealreadyexist(" ")
+        setPagesadd("")
+ 
       } else if ((response?.status == false)) {
         setpagealreadyexist(response?.message)
       }
@@ -670,7 +674,7 @@ export const BookDetails = () => {
                               //  <p> {`Page ${index + 1}`}</p>
                               <div className="   d-flex justify-content-between ">
                                 {" "}
-                                {`Page ${index + 1}`}
+                                {`Page ${page?.page_number}`}
                                 <p className=" gap-3    d-flex">
                                   <Link
                                     onClick={() => {
@@ -985,7 +989,7 @@ export const BookDetails = () => {
                 id="description"
                 cols="30"
                 rows="10"
-                value={pagesadd?.content}
+                value={addpage?.content}
                 onChange={handlepageChange}
               ></textarea>
             </div>

@@ -18,12 +18,12 @@ export const AddChapter = () => {
 
     const Booktype = [
         {
-          key: "0",
-          name: "eBook",
+            key: "0",
+            name: "eBook",
         },
         {
-          key: "0",
-          name: "AudioBook",
+            key: "0",
+            name: "AudioBook",
         },]
 
     const handleChange = (event) => {
@@ -49,7 +49,7 @@ export const AddChapter = () => {
     };
 
 
- 
+
 
 
 
@@ -81,7 +81,7 @@ export const AddChapter = () => {
         }
     };
 
- 
+
 
     return (
         <>
@@ -130,8 +130,8 @@ export const AddChapter = () => {
                                                 />
                                             </div>
                                             <div className="col-md-6 mb-4">
-                                               
-                                                   <SelectBox
+
+                                                <SelectBox
                                                     selectClass="mainInput"
                                                     name="type"
                                                     label="Select Book Type"
