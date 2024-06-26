@@ -41,7 +41,7 @@ export const BookDetails = () => {
   const base_url = process.env.REACT_APP_BASE_URL;
   const [Bookdetail, setBookdetail] = useState({});
   const [chapterdetailbyid, setChapterdetailbyid] = useState({});
-  console.log('chapterdata',chapterdata ,Bookdetail);
+  console.log('chapterdata', chapterdata, Bookdetail);
 
 
 
@@ -62,18 +62,16 @@ export const BookDetails = () => {
 
   const [chapterpageid, setchapterpageid] = useState();
   const [chapterpageidpage, setchapterpageidpage] = useState();
-  console.log("chapterpageidpage", chapterpageidpage);
+ 
 
   const [addpage, setAddpage] = useState(false);
-
-  console.log("chapterdetailbyid", chapterdetailbyid);
+ 
   const [pagesadd, setPagesadd] = useState({});
-  console.log("pagesadd", pagesadd);
+   
 
 
   const [pagealreadyexist, setpagealreadyexist] = useState("")
-  const [chapetralreadyexsit, setchapetralreadyexsit] = useState()
-  const [pagesdetail, setPagesdetail] = useState();
+ 
   const [formData, setFormData] = useState({
     price: 0
   });
@@ -94,14 +92,13 @@ export const BookDetails = () => {
   const bookdetail = async () => {
     try {
       const response = await GetBookdetail(id);
-      console.log("response", response);
+     
 
       setBookdetail(response?.data);
     } catch (error) {
       console.error("Error in logging in:", error);
 
-      // toastAlert(error, ALERT_TYPES.ERROR);
-    }
+     }
   };
 
   const Getchapterssbyid = async (id) => {
@@ -115,26 +112,9 @@ export const BookDetails = () => {
     } catch (error) {
       console.error("Error in logging in:", error);
 
-      // toastAlert(error, ALERT_TYPES.ERROR);
-    }
+     }
   };
-
-  // const  deleteChapter = async (id) => {
-  //   console.log(" chapid" ,id )
-  //   document.querySelector('.loaderBox').classList.add("d-none");
-  //   try {
-  //     const response = await DeleteChapter(id)
-  //     console.log("response", response)
-
-  //     document.querySelector('.loaderBox').classList.remove("d-none");
-  //     setBookdetail(response?.data)
-
-  //   } catch (error) {
-  //     console.error("Error in logging in:", error);
-
-  //     // toastAlert(error, ALERT_TYPES.ERROR);
-  //   }
-  // };
+ 
 
   const deleteChapter = async (id) => {
     document.querySelector(".loaderBox").classList.add("d-none");
@@ -172,48 +152,11 @@ export const BookDetails = () => {
     }));
     console.log(formData);
   };
-
-  // const handlechapterfile = (event) => {
-  //   const [name, value] = event.target.files[0];
-  //   // console.log(file.name)
-
-  //   // const fileName = file;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-
-  //   console.log(formData);
-  // };
+ 
 
 
 
-
-
-
-  // const handlechapterfile = (event) => {
-  //   const file = event.target.files[0];
-
-  //   if (file) {
-  //     const fileName = file;
-  //     setFormData((prevData) => ({
-  //       ...prevData,
-  //       audio_file: fileName,
-  //     }));
-  //   }
-  // };
-
-
-  // const handlechapterfile = (event) => {
-  //   const { name, value } = event.target;
-
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  //   console.log(formData);
-  // };
-
+ 
 
   const handlechapterfile = (event) => {
     const file = event.target.files[0];
@@ -314,6 +257,8 @@ export const BookDetails = () => {
         setIsChapter(!isChapter);
         setpagealreadyexist(" ")
       } else if (response?.status == false) {
+
+        document.querySelector(".loaderBox").classList.add("d-none");
         setpagealreadyexist(response?.message)
       }
       else {
@@ -342,13 +287,14 @@ export const BookDetails = () => {
       document.querySelector(".loaderBox").classList.remove("d-none");
 
       if (response?.status == true) {
+        document.querySelector(".loaderBox").classList.add("d-none");        
         setAddpage(false);
         chapterData();
-        setpagealreadyexist( )
+        setpagealreadyexist()
         setPagesadd(" ")
       }
       else if (response?.status == false) {
-              // document.querySelector(".loaderBox").classList.remove("d-none");
+        document.querySelector(".loaderBox").classList.add("d-none");
         setpagealreadyexist(response?.message)
       }
       else {
@@ -381,12 +327,14 @@ export const BookDetails = () => {
       document.querySelector(".loaderBox").classList.remove("d-none");
 
       if (response?.status == true) {
+        document.querySelector(".loaderBox").classList.add("d-none");
         setEditpage(false);
         chapterData();
         setpagealreadyexist(" ")
         setPagesadd("")
- 
+
       } else if ((response?.status == false)) {
+        document.querySelector(".loaderBox").classList.add("d-none");
         setpagealreadyexist(response?.message)
       }
       else {
@@ -414,12 +362,14 @@ export const BookDetails = () => {
       document.querySelector(".loaderBox").classList.remove("d-none");
 
       if (response?.status == true) {
+        document.querySelector(".loaderBox").classList.add("d-none");
         setEditModal(false);
 
         chapterData();
         setEditChapter(true);
         setpagealreadyexist(" ")
       } else if (response?.status == false) {
+        document.querySelector(".loaderBox").classList.add("d-none");
         setpagealreadyexist(response?.message)
         document.querySelector(".loaderBox").classList.remove("d-none");
       }
@@ -434,68 +384,7 @@ export const BookDetails = () => {
     chapterData();
   }, [id]);
 
-
-
-  console.log("pagealreadyexist", pagealreadyexist)
-  const handleEdit = async (e) => {
-    // console.log("chapetrid ", chapetrid)
-    // e.preventDefault();
-    // const LogoutData = localStorage.getItem('login');
-    // fetch(`https://custom.mystagingserver.site/Tim-WDLLC/public/api/author/bookchapter_update/${chapetrid}`,
-    //     {
-    //         method: 'POST',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json',
-    //             'Authorization': `Bearer ${LogoutData}`
-    //         },
-    //         body: JSON.stringify(leadData)
-    //     },
-    // )
-    //     .then((response) => {
-    //         return response.json()
-    //     })
-    //     .then((data) => {
-    //         console.log(data)
-    //         Getchaptersbyid(chapetrid)
-    //         setEditModal(false)
-    //     })
-    //     .catch((error) => {
-    //         document.querySelector('.loaderBox').classList.add("d-none");
-    //         console.log(error);
-    //     })
-    //   event.preventDefault();
-    //   document.querySelector('.loaderBox').classList.remove("d-none");
-    //   const formDataMethod = new FormData();
-    //   for (const key in formData) {
-    //       formDataMethod.append(key, formData[key]);
-    //   }
-    //   document.querySelector('.loaderBox').classList.remove("d-none");
-    //   // Make the fetch request
-    //   try {
-    //       const response = await Addbook(formDataMethod);
-    //       if (response?.status == true) {
-    //         console.log(data)
-    //                 Getchaptersbyid(chapetrid)
-    //                 // setEditModal(false)
-    //       } else {
-    //       }
-    //   } catch (error) {
-    //           document.querySelector('.loaderBox').classList.add("d-none");
-    // }
-  };
-
-  const handlefile = (event) => {
-    const file = event.target.files[0];
-
-    if (file) {
-      const fileName = file;
-      setFormData((prevData) => ({
-        ...prevData,
-        audio_file: fileName,
-      }));
-    }
-  };
+  
 
   return (
     <>
@@ -511,15 +400,7 @@ export const BookDetails = () => {
           </div>
           <div className="row mb-3">
             <div className="col-12">
-              {/* <div className="row mb-3 justify-content-end">
-                <div className="col-lg-4 text-end order-1 order-lg-2 mb-3">
-                  <button onClick={() => {
-                    data?.status ? setShowModal(true) : setShowModal3(true)
-                  }} className="notButton primaryColor fw-bold text-decoration-underline">Mark as {data?.status ? 'Inactive' : 'Active'}</button>
-                  <span className={`statusBadge ${data?.status == 1 ? 'statusBadgeActive' : 'statusBadgeInactive'}`}>{data?.status == 1 ? 'Active' : 'Inactive'}</span>
-                </div>
-              </div> */}
-
+         
               <div className="row">
                 <div className="col-md-6 mb-4">
                   <div className="productImage">
@@ -549,7 +430,8 @@ export const BookDetails = () => {
                 </div>
                 <div className="col-md-6 mb-4">
                   <p className="secondaryText">Audiobook Duration</p>
-                  <p>{Bookdetail?.audiobook_duration}</p>
+                  <p>{!Bookdetail?.audiobook_duration || Bookdetail?.audiobook_duration === 'null' ? "Not available" : Bookdetail?.audiobook_duration}</p>
+
                 </div>
                 <div className="col-md-6 mb-4">
                   <p className="secondaryText">Book Rating</p>
@@ -598,13 +480,12 @@ export const BookDetails = () => {
                                 <p className="chaptitle">  {item?.chapter_number}</p>
                               </span>
 
-
                               <p className=" gap-2">
                                 <span>
                                   <Link
                                     onClick={() => {
                                       setEditModal(true);
-                                      Getchapterssbyid(item.chapter_id);
+                                      Getchapterssbyid(item?.chapter_id);
                                     }}
                                     className="chaptableAction"
                                   >
@@ -641,20 +522,41 @@ export const BookDetails = () => {
                                 </div>
                               </p>
                             </div>
+
+
                             <span className="chaptitiletop d-flex">
                               <h4 className="chaptertitle text-capitalize ">
                                 Title :
                               </h4>
                               <p className="chaptitle">  {item?.title}</p>
                             </span>
-                            {/* <h3 className="text-capitalize">{item?.price}</h3> */}
+
+
                             <span className=" d-flex">
+                              <h4 className="chaptertitle text-capitalize ">
+                                Chapter Status :
+                              </h4>
+                              <p className="chaptitle">  {item?.status}</p>
+                            </span>
+                            {/* <h3 className="text-capitalize">{item?.price}</h3> */}
+                            {item?.status == 'free' ? '' : (<div>   <span className=" d-flex">
                               <h4 className="chaptertitle text-capitalize ">
                                 Price :
                               </h4>
-                              <p className="chaptitle">
-                                {item?.price == null ? 0 : item?.price}</p>
+
+                              <p className="chaptitle">{!item?.price || item?.price === 'null' ? "Not available" : item?.price}</p>
                             </span>
+                              <span className=" d-flex">
+                                <h4 className="chaptertitle text-capitalize ">
+                                  Chapter Purchased Point :
+                                </h4>
+                                <p className="chaptitle">{!item?.purchase_points || item?.purchase_points === 'null' ? "Not available" : item?.purchase_points}</p>
+                              </span></div>
+                            )
+                            }
+
+
+
 
 
                             {item?.audio_file == null ? " " : (<span className=" d-flex">
@@ -664,13 +566,13 @@ export const BookDetails = () => {
                               {/* <p className="chaptitle">{item?.audio_file}</p> */}
                               {item?.audio_file && (
                                 <audio controls className="audiocontroll">
-                                  <source src={base_url + item.audio_file} type="audio/mpeg" />
+                                  <source src={base_url + item?.audio_file} type="audio/mpeg" />
                                   Your browser does not support the audio element.
                                 </audio>
                               )}
                             </span>)}
 
-                            {item.pages?.map((page, index) => (
+                            {item?.pages?.map((page, index) => (
                               //  <p> {`Page ${index + 1}`}</p>
                               <div className="   d-flex justify-content-between ">
                                 {" "}
@@ -682,7 +584,7 @@ export const BookDetails = () => {
 
                                       setchapterpageid(item?.chapter_id);
                                       viewpages(page?.id);
-                                      // editDetailData(item.id)
+                                      // editDetailData(item?.id)
                                     }}
                                     className="chaptableAction"
                                   >
@@ -805,6 +707,25 @@ export const BookDetails = () => {
                             inputClass="mainInput"
                             name="price"
                             value={formData?.price}
+                            onChange={handleChange}
+                          />
+                        )}
+                      </div>
+
+
+
+                      <div className="ChapterForm col-md-6 mb-4">
+                        {shapterstatus === "paid" && (
+                          <CustomInput
+                            label="Chapter Purchase Points"
+                            required
+                            id="title"
+                            type="text"
+                            placeholder="Enter Chapter purchase points"
+                            labelClass="mainLabel"
+                            inputClass="mainInput"
+                            name="purchase_points"
+                            value={formData?.purchase_points}
                             onChange={handleChange}
                           />
                         )}

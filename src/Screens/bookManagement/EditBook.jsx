@@ -243,24 +243,38 @@ export const EditBook = () => {
                         />
                       </div> */}
 
-                      {formData?.type == "AudioBook" ? (
-                        <div className="col-md-6 mb-4">
-                          <CustomInput
-                            label="Enter Audiobook Duration  "
-                            required
-                            id="schedule_interview"
-                            type="text"
-                            placeholder="   Enter Audiobook Duration"
-                            labelClass="mainLabel"
-                            inputClass="mainInput"
-                            name="audiobook_duration"
-                            value={formData.audiobook_duration}
-                            onChange={handleChange}
-                          />
-                        </div>
-                      ) : (
-                        ""
-                      )}
+                      <div className="col-md-6 mb-4">
+                        <CustomInput
+                          label="Enter Audiobook Duration  "
+                          required
+                          id="schedule_interview"
+                          type="text"
+                          placeholder="   Enter Audiobook Duration"
+                          labelClass="mainLabel"
+                          inputClass="mainInput"
+                          name="audiobook_duration"
+                          value={formData.audiobook_duration}
+                          onChange={handleChange}
+                        />
+                      </div>
+
+
+
+
+                      <div className="col-md-6 mb-4">
+                        <CustomInput
+                          label="Enter link"
+                          required
+                          id="schedule_interview"
+                          type="url"
+                          placeholder="Enter link"
+                          labelClass="mainLabel"
+                          inputClass="mainInput"
+                          name="amazon_link"
+                          value={formData.amazon_link}
+                          onChange={handleChange}
+                        />
+                      </div>
                       <div className="col-md-6 mb-4">
                         {/* <CustomInput
                                                     label="Description"
